@@ -1,6 +1,6 @@
 %% initialization.
 C_list = [-3:0.5:4];
-range = 0.5; overlap = 0.3; datasize = 750; train_ratio = 2/3;
+range = 0.5; overlap = 0.0; datasize = 750; train_ratio = 2/3;
 features_list = [2,5,10,20,40,100];
 trials = 50;
 train_size = datasize*2*train_ratio;
@@ -35,7 +35,7 @@ end;
 sigma = sqrt(sum(sum(K)))/size(K,1);
 K = exp(-K/2/sigma^2);
 %% reproduce the result, when load previous data.
-rng(0);
+%rng(0);
 %% train the accurate SVM model.
 acc_results = [];
 for idx = [1:size(C_list,2)]
@@ -51,6 +51,7 @@ for idx = [1:size(C_list,2)]
 end;
 %% random fourier features method.
 app_results = [];
+spa_results = [];
 %% outer loop sweeps different number of features
 for NoFeatures = features_list
     %% middle loop runs repeated trials, each trial use the same group of random features
@@ -70,6 +71,16 @@ for NoFeatures = features_list
             wtil = norm(model.Beta);
             Output = [accuracytil,wtil,C_power,NoFeatures,kdx];
             app_results = [app_results;Output];
+        end;
+        %% random features using L1 regularization
+        for C_power = C_list
+            Ctil = 10^C_power;
+            model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size,'Regularization','lasso');
+            [~,Scores] = predict(model,XtilTest);
+            accuracytil = mean(Scores(:,2).*y_test>0);
+            wtil = norm(model.Beta);
+            Output = [accuracytil,wtil,C_power,NoFeatures,kdx];
+            spa_results = [spa_results;Output];
         end;
     end;
     disp(NoFeatures)
