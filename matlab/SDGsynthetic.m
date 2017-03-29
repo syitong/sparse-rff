@@ -68,8 +68,8 @@ for NoFeatures = features_list
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size);
             [~,Scores] = predict(model,XtilTest);
             accuracytil = mean(Scores(:,2).*y_test>0);
-            wtil = norm(model.Beta);
-            Output = [accuracytil,wtil,C_power,NoFeatures,kdx];
+            sparsity = sum([model.Beta!=0]);
+            Output = [accuracytil,sparsity,C_power,NoFeatures,kdx];
             app_results = [app_results;Output];
         end;
         %% random features using L1 regularization
@@ -77,9 +77,9 @@ for NoFeatures = features_list
             Ctil = 10^C_power;
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size,'Regularization','lasso');
             [~,Scores] = predict(model,XtilTest);
-            accuracytil = mean(Scores(:,2).*y_test>0);
-            wtil = norm(model.Beta);
-            Output = [accuracytil,wtil,C_power,NoFeatures,kdx];
+            accuracytil1 = mean(Scores(:,2).*y_test>0);
+            sparsity = sum([model.Beta!=0]);
+            Output = [accuracytil1,sparsity,C_power,NoFeatures,kdx];
             spa_results = [spa_results;Output];
         end;
     end;
