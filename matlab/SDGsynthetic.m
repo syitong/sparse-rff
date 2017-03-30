@@ -1,8 +1,8 @@
 %% initialization.
 C_list = [-3:0.5:4];
 range = 0.5; overlap = 0.0; datasize = 750; train_ratio = 2/3;
-features_list = [2,5,10,20,40,100];
-trials = 50;
+features_list = [20];
+trials = 10;
 train_size = datasize*2*train_ratio;
 rng(0);
 %% generate the data.
@@ -68,7 +68,7 @@ for NoFeatures = features_list
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size);
             [~,Scores] = predict(model,XtilTest);
             accuracytil = mean(Scores(:,2).*y_test>0);
-            sparsity = sum([model.Beta!=0]);
+            sparsity = sum([model.Beta~=0]);
             Output = [accuracytil,sparsity,C_power,NoFeatures,kdx];
             app_results = [app_results;Output];
         end;
@@ -78,7 +78,7 @@ for NoFeatures = features_list
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size,'Regularization','lasso');
             [~,Scores] = predict(model,XtilTest);
             accuracytil1 = mean(Scores(:,2).*y_test>0);
-            sparsity = sum([model.Beta!=0]);
+            sparsity = sum([model.Beta~=0]);
             Output = [accuracytil1,sparsity,C_power,NoFeatures,kdx];
             spa_results = [spa_results;Output];
         end;
@@ -96,17 +96,17 @@ for idx = [0:size(features_list,2)-1]
     end;
 end;
 %% plot
-fig = figure(2);
-set(fig,'PaperPositionMode','auto','Units','inches','Position',[0 0 6 4]);
-plot(C_list,acc_results(:,1),'-ro','MarkerSize',8,'LineWidth',1);hold on;
-errorbar(C_list,mean_results(3,:),err_results(3,:),'--bs','MarkerSize',8,'LineWidth',1);
-errorbar(C_list,mean_results(6,:),err_results(6,:),'--gx','MarkerSize',8,'LineWidth',1);
-xlabel('$\log(C)$','interpreter','latex','FontSize',10);ylabel('Classification Accuracy','FontSize',10);
-legend({'accurate model','10 features','100 features'},'FontSize',10,'Location','southeast');
-xlim([min(C_list) max(C_list)]);
-print('results','-depsc');
-save('dataset.mat','dataset');
-save('acc_results.mat','acc_results');
-save('app_results.mat','app_results');
-save('mean_results.mat','mean_results');
-save('err_results.mat','err_results');
+% fig = figure(2);
+% set(fig,'PaperPositionMode','auto','Units','inches','Position',[0 0 6 4]);
+% plot(C_list,acc_results(:,1),'-ro','MarkerSize',8,'LineWidth',1);hold on;
+% errorbar(C_list,mean_results(3,:),err_results(3,:),'--bs','MarkerSize',8,'LineWidth',1);
+% errorbar(C_list,mean_results(6,:),err_results(6,:),'--gx','MarkerSize',8,'LineWidth',1);
+% xlabel('$\log(C)$','interpreter','latex','FontSize',10);ylabel('Classification Accuracy','FontSize',10);
+% legend({'accurate model','10 features','100 features'},'FontSize',10,'Location','southeast');
+% xlim([min(C_list) max(C_list)]);
+% print('results','-depsc');
+% save('dataset.mat','dataset');
+% save('acc_results.mat','acc_results');
+% save('app_results.mat','app_results');
+% save('mean_results.mat','mean_results');
+% save('err_results.mat','err_results');
