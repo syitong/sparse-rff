@@ -2,16 +2,13 @@
 C_list = [-3:0.5:4];
 range = 0.5; overlap = 0.0; datasize = 750; train_ratio = 2/3;
 features_list = [20];
-trials = 10;
+trials = 50;
 train_size = datasize*2*train_ratio;
 rng(0);
-
 %% generate the data.
 dataset = GenerateData(datasize,range,overlap);
-
 %% load the existed data.
 %load('Data1.mat');
-
 %% plot samples
 fig = figure(1);
 set(fig,'PaperPositionMode','auto','Units','inches','Position',[0 0 4 4]);
@@ -24,24 +21,21 @@ ezpolar('1');
 xlim([-1.5 1.5]);ylim([-1.5 1.5]);
 daspect([1 1 1]);
 print('samples','-depsc');
-
 %% split into training and testing data sets.
 x_train = dataset(1:2*datasize*train_ratio,1:2);
 y_train = dataset(1:2*datasize*train_ratio,3);
 x_test = dataset(2*datasize*train_ratio+1:2*datasize,1:2);
 y_test = dataset(2*datasize*train_ratio+1:2*datasize,3);
-
 %% calculate the accurate kernel matrix.
 for idx = 1:size(x_train,1)
     for jdx = 1:size(x_train,1)
         K(idx,jdx) = norm(x_train(idx,:)-x_train(jdx,:))^2;
     end;
 end;
-
-%% estimate the sigma parameter
 sigma = sqrt(sum(sum(K)))/size(K,1);
 K = exp(-K/2/sigma^2);
-
+%% reproduce the result, when load previous data.
+%rng(0);
 %% train the accurate SVM model.
 acc_results = [];
 for idx = [1:size(C_list,2)]
@@ -55,8 +49,7 @@ for idx = [1:size(C_list,2)]
     acc_results(idx,:) = [accuracy,what,C_power];
     disp(C_power);
 end;
-
-%% random fourier features method and sparse random features method.
+%% random fourier features method.
 app_results = [];
 spa_results = [];
 %% outer loop sweeps different number of features
@@ -72,16 +65,16 @@ for NoFeatures = features_list
         %% inner loops sweeps different C's
         for C_power = C_list
             Ctil = 10^C_power;
-            %% hinge loss with L2 regularization
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size);
             [~,Scores] = predict(model,XtilTest);
             accuracytil = mean(Scores(:,2).*y_test>0);
-            %% count non-zero coefs
             sparsity = sum([model.Beta~=0]);
             Output = [accuracytil,sparsity,C_power,NoFeatures,kdx];
             app_results = [app_results;Output];
-
-            %% hinge loss using L1 regularization
+        end;
+        %% random features using L1 regularization
+        for C_power = C_list
+            Ctil = 10^C_power;
             model = fitclinear(XtilTrain,y_train,'Lambda',1/Ctil/train_size,'Regularization','lasso');
             [~,Scores] = predict(model,XtilTest);
             accuracytil1 = mean(Scores(:,2).*y_test>0);
@@ -92,29 +85,24 @@ for NoFeatures = features_list
     end;
     disp(NoFeatures)
 end;
-
 %% generate the dataset for plot
 for idx = [0:size(features_list,2)-1]
     for jdx = [1:size(C_list,2)]
         for kdx = [0:trials-1]
-            x(kdx+1) = app_results(idx*size(C_list,2)*trials+kdx*size(C_list,2)+jdx,1);
-            w(kdx+1) = spa_results(idx*size(C_list,2)*trials+kdx*size(C_list,2)+jdx,1);
+            x(kdx+1) = app_results(idx*150+kdx*15+jdx,1);
         end;
         mean_results(idx+1,jdx) = mean(x);
         err_results(idx+1,jdx) = std(x);
-        mean_sparse_results(idx+1,jdx) = mean(w);
-        err_sparse_results(idx+1,jdx) = std(w);
     end;
 end;
-
 %% plot
 fig = figure(2);
 set(fig,'PaperPositionMode','auto','Units','inches','Position',[0 0 6 4]);
 plot(C_list,acc_results(:,1),'-ro','MarkerSize',8,'LineWidth',1);hold on;
-errorbar(C_list,mean_results(1,:),err_results(1,:),'--bs','MarkerSize',8,'LineWidth',1);
-errorbar(C_list,mean_sparse_results(1,:),err_sparse_results(1,:),'--gx','MarkerSize',8,'LineWidth',1);
+errorbar(C_list,mean_results(3,:),err_results(3,:),'--bs','MarkerSize',8,'LineWidth',1);
+errorbar(C_list,mean_results(6,:),err_results(6,:),'--gx','MarkerSize',8,'LineWidth',1);
 xlabel('$\log(C)$','interpreter','latex','FontSize',10);ylabel('Classification Accuracy','FontSize',10);
-legend({'accurate model','rrf','sparse rff'},'FontSize',10,'Location','southeast');
+legend({'accurate model','10 features','100 features'},'FontSize',10,'Location','southeast');
 xlim([min(C_list) max(C_list)]);
 print('results','-depsc');
 save('dataset.mat','dataset');
@@ -122,5 +110,3 @@ save('acc_results.mat','acc_results');
 save('app_results.mat','app_results');
 save('mean_results.mat','mean_results');
 save('err_results.mat','err_results');
-save('mean_sparse_results.mat','mean_sparse_results');
-save('err_sparse_results.mat','err_sparse_results');
