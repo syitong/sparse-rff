@@ -45,3 +45,11 @@ def unit_circle(datarange,overlap,samplesize):
             X.append([radius*np.cos(theta),radius*np.sin(theta)])
     X = np.array(X); Y = np.array(Y)
     return X,Y
+
+def gamma_est(X,portion = 0.3):
+    s = 0
+    n = int(X.shape[0]*portion)
+    for idx in range(n):
+        for jdx in range(n):
+            s = s+np.linalg.norm(X[idx,:]-X[jdx,:])**2
+    return n**2/s
