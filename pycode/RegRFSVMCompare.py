@@ -1,3 +1,5 @@
+### This code is for comparing the performance of L2, L1 regularized
+### RFSVM and KSVM.
 import csv
 import numpy as np
 import matplotlib.pyplot as plt

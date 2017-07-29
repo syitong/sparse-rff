@@ -1,6 +1,8 @@
 import numpy as np
 
 class myRBFSampler:
+    ### the random nodes have the form
+    ### cos(sqrt(gamma)*w dot x), sin(sqrt(gamma)*w dot x)
     def __init__(self,n_old_features,gamma=1,n_components=20):
         self.sampler = np.random.randn(n_components,n_old_features)*np.sqrt(gamma)
         self.gamma = gamma
