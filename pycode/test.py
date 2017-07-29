@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import datagen, dataplot
+import rff
 
-#[X,Y] = datagen.unit_circle(0.3,0.3,50)
-#dataplot.plot_circle(X,Y)
-
-[X,Y] = datagen.unit_interval(0.3,0.7,50)
-dataplot.plot_interval(X,Y)
+Sampler = rff.myRBFSampler(n_old_features=3,n_components=5)
+X = np.array([[1,2,3]])
+mask = [0,1,0,0,1]
+X_til = Sampler.fit_transform(X,mask)
+print X_til
