@@ -16,18 +16,16 @@ class myRBFSampler:
         vector but with only 1s at very sparse positions.
         """
         n = X.shape[0]
-        X_til = np.empty((n,1))
-        X_cos = np.empty((n,1))
-        X_sin = np.empty((n,1))
-        for idx in range(len(mask)):
+        X_cos = np.empty((n,self.n_components))
+        X_sin = np.empty((n,self.n_components))
+        for idx in range(self.n_components):
             if mask[idx] == 0:
-                v = np.zeros((n,1))
-                X_cos = np.concatenate((X_cos,v),1)
-                X_sin = np.concatenate((X_sin,v),1)
+                X_cos[:,idx] = 0
+                X_sin[:,idx] = 0
             else:
-                X_cos = np.concatenate((X_cos,np.cos(X.dot(self.sampler[:,idx])).reshape(n,1)),1)
-                X_sin = np.concatenate((X_sin,np.sin(X.dot(self.sampler[:,idx])).reshape(n,1)),1)
-        X_til = np.concatenate((X_cos,X_sin),1)
+                X_cos[:,idx] = np.cos(X.dot(self.sampler[:,idx]))
+                X_sin[:,idx] = np.sin(X.dot(self.sampler[:,idx]))
+        X_til = np.concatenate([X_cos,X_sin],1)
         return X_til / np.sqrt(self.n_components)
 
 class HyperRFSVM:
@@ -39,27 +37,35 @@ class HyperRFSVM:
         self.eta = eta
         self.sampler = sampler
         self.p = p
-        self.w = np.zeros(sampler.n_components)
+        self.w = np.zeros(2*sampler.n_components)
 
     def train(self,cycle,X,Y):
         """
         We run the cyclic subgradient descent. cycle is the number of
         repeats of the cycles of the dataset.
         """
+        d = X.shape[1]
+        n = len(Y)
         for idx in range(cycle):
-            n = len(Y)
             for jdx in range(n):
-                self.partial_train(X[jdx,:],Y[jdx],jdx+idx*n)
+                self.partial_train(X[jdx,:].reshape(1,d),Y[jdx],jdx+idx*n+1)
         return 1
 
     def partial_train(self,Xrow,y,T):
         mask = np.random.binomial(1,self.p,self.sampler.n_components)
         Xrow_til = self.sampler.fit_transform(Xrow,mask)
-        if np.dot(Xrow_til,self.w)*y < 1:
-            self.w = self.w + y*Xrow*self.eta / T
+        if np.dot(Xrow_til,self.w.T)*y < 1:
+            self.w = self.w + y*Xrow_til*self.eta / T
         return 1
 
     def test(self,X):
-        mask = np.ones(shape(X)[1])
+        n = X.shape[0]
+        mask = np.ones(self.w.shape[1]/2)
         X_til = self.sampler.fit_transform(X,mask)
-        return np.sign(X_til.dot(self.w.T))
+        output = np.empty(n)
+        for idx in range(n):
+            if X_til[idx,:].dot(self.w.T) > 0:
+                output[idx] = 1
+            else:
+                output[idx] = -1
+        return output
