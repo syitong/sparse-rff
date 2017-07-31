@@ -12,19 +12,32 @@ import rff
 
 ### set up parameters
 datarange = 0.5
-overlap = 0.3
-samplesize = 1500
+overlap = 0
+samplesize = 10000
 trials = 1
 
 ### generate train and test dataset
 X,Y = datagen.unit_circle(datarange,overlap,samplesize)
-X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.1,random_state=0)
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.3,random_state=0)
 gamma = datagen.gamma_est(X_train,portion=0.1)
+reg = 0.01
 sampler = rff.myRBFSampler(X.shape[1],gamma,20)
-HyperModel = rff.HyperRFSVM(sampler,1,0.3)
+HyperModel = rff.HyperRFSVM(sampler,1,0.1,reg)
+kscore = list()
+ksparsity = list()
+#for idx in range(trials):
+#    clf = svm.SVC(C=reg,gamma=gamma)
+#    clf.fit(X_train,Y_train)
+#    kscore.append(clf.score(X_test,Y_test))
+#    print kscore
 
 for idx in range(trials):
-    HyperModel.train(5,X_train,Y_train)
+    train_score = HyperModel.train(1,X_train,Y_train)
+#    cum_score = np.cumsum(train_score)
+#    average_score = [cum_score[i]/(i+1) for i in range(len(cum_score))]
+#    print HyperModel.w
+#    plt.plot(average_score)
+#    plt.show()
 
 l = len(Y_test)
 output = HyperModel.test(X_test)
@@ -32,5 +45,4 @@ score = 0
 for idx in range(l):
     if output[idx] == Y_test[idx]:
         score = score + 1
-print score, l
 print float(score) / l 
