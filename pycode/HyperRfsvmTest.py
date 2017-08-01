@@ -45,4 +45,4 @@ score = 0
 for idx in range(l):
     if output[idx] == Y_test[idx]:
         score = score + 1
-print float(score) / l 
+print(float(score) / l)

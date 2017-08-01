@@ -53,15 +53,15 @@ class HyperRFSVM:
         return score
 
     def partial_train(self,Xrow,y,T):
-        if np.random.rand < self.p:
+        if np.random.rand() < self.p:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
             for idx in range(n_components):
-                w_norm[idx] = self.w[idx]**2+self.w[idx+n_components]**2
+                w_norm[idx] = self.w[0,idx]**2+self.w[0,idx+n_components]**2
             update_idx = np.argmin(w_norm)
             self.sampler.update(update_idx)
-            self.w[update_idx] = 0
-            self.w[update_idx+n_components] = 0
+            self.w[0,update_idx] = 0
+            self.w[0,update_idx+n_components] = 0
         Xrow_til = self.sampler.fit_transform(Xrow)
         score = max(1 - np.dot(Xrow_til,self.w.T)*y,0)
         if score > 0:

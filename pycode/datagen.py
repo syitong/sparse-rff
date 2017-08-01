@@ -2,7 +2,7 @@ import numpy as np
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
-        print "The endpoints must be between 0 and 1!"
+        print("The endpoints must be between 0 and 1!")
         return False
     X = list()
     Y = list()
@@ -24,7 +24,7 @@ def unit_interval(leftend,rightend,samplesize):
 
 def unit_circle(datarange,overlap,samplesize):
     if min(datarange,overlap)<0 or max(datarange,overlap)>1:
-        print "The datarange and overlap values must be between 0 and 1!"
+        print("The datarange and overlap values must be between 0 and 1!")
         return False
     X = list()
     Y = list()
