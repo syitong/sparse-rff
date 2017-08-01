@@ -19,7 +19,6 @@ def unit_interval(leftend,rightend,samplesize):
                 Y.append(1)
             else:
                 Y.append(-1)
-    X = np.array(X); Y = np.array(Y)
     return X,Y
 
 def unit_circle(datarange,overlap,samplesize):
@@ -37,19 +36,18 @@ def unit_circle(datarange,overlap,samplesize):
             Y.append(-1)
             theta = np.random.random()*2*np.pi
             radius = np.random.uniform(rad1lower,rad1upper)
-            X.append([radius*np.cos(theta),radius*np.sin(theta)])
+            X.append(np.array([radius*np.cos(theta),radius*np.sin(theta)]))
         else:
             Y.append(1)
             theta = np.random.random()*2*np.pi
             radius = np.random.uniform(rad2lower,rad2upper)
-            X.append([radius*np.cos(theta),radius*np.sin(theta)])
-    X = np.array(X); Y = np.array(Y)
+            X.append(np.array([radius*np.cos(theta),radius*np.sin(theta)]))
     return X,Y
 
 def gamma_est(X,portion = 0.3):
     s = 0
-    n = int(X.shape[0]*portion)
+    n = int(len(X)*portion)
     for idx in range(n):
         for jdx in range(n):
-            s = s+np.linalg.norm(X[idx,:]-X[jdx,:])**2
+            s = s+np.linalg.norm(X[idx]-X[jdx])**2
     return n**2/s
