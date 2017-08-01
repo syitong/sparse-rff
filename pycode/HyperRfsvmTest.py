@@ -13,7 +13,7 @@ import rff
 ### set up parameters
 datarange = 0.5
 overlap = 0
-samplesize = 100000
+samplesize = 10000
 trials = 1
 
 ### generate train and test dataset
@@ -26,9 +26,10 @@ X_train,X_test,Y_train,Y_test = train_test_split(X,
                                                  random_state=0)
 gamma = datagen.gamma_est(X_train,portion = 
                           min(len(X_train),100)/len(X_train))
-reg = 0.01
+reg = 0
 p = 0.5
-sampler = rff.myRBFSampler(len(X[0]),gamma,10)
+sampler = rff.myReLUSampler(len(X[0]),gamma,10)
+#sampler = rff.myRBFSampler(len(X[0]),gamma,20)
 HyperModel = rff.HyperRFSVM(sampler,p,reg)
 kscore = list()
 ksparsity = list()
@@ -39,7 +40,7 @@ ksparsity = list()
 #    print kscore
 
 for idx in range(trials):
-    train_score = HyperModel.train(1,X_train,Y_train)
+    train_score = HyperModel.train(6,X_train,Y_train)
 #    cum_score = np.cumsum(train_score)
 #    average_score = [cum_score[i]/(i+1) for i in range(len(cum_score))]
 #    print HyperModel.w

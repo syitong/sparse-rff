@@ -6,6 +6,7 @@ class myRBFSampler:
     cos(sqrt(gamma)*w dot x), sin(sqrt(gamma)*w dot x)
     """
     def __init__(self,n_old_features,gamma=1,n_components=20):
+        self.name = 'rbf'
         self.sampler = np.random.randn(n_old_features,n_components)*np.sqrt(gamma)
         self.gamma = gamma
         self.n_components = n_components
@@ -26,6 +27,30 @@ class myRBFSampler:
                 X_til[idx] = np.sin(X.dot(self.sampler[:,idx-self.n_components]))
         return X_til / np.sqrt(self.n_components)
 
+class myReLUSampler:
+    """
+    The random nodes have the form
+    max(sqrt(gamma)*w dot x, 0)
+    """
+    def __init__(self,n_old_features,gamma=1,n_components=20):
+        self.name = 'ReLU'
+        self.sampler = np.random.randn(n_old_features,n_components)*np.sqrt(gamma)
+        self.gamma = gamma
+        self.n_components = n_components
+
+    def update(self, idx):
+        self.sampler[:,idx] = np.random.randn(self.sampler.shape[0])*np.sqrt(self.gamma)
+        return 1
+
+    def fit_transform(self, X):
+        """
+        It transform one data vector a time
+        """
+        X_til = np.empty(self.n_components)
+        for idx in range(self.n_components):
+                X_til[idx] = max(X.dot(self.sampler[:,idx]),0)
+        return X_til / np.sqrt(self.n_components)
+
 class HyperRFSVM:
     """
     This class implements the RFSVM with random drop out for each round
@@ -33,8 +58,12 @@ class HyperRFSVM:
     """
     def __init__(self,sampler,p=0,reg=0):
         self.sampler = sampler
+        self.type = self.sampler.name
         self.p = p
-        self.w = np.zeros(2*sampler.n_components)
+        if self.type == 'rbf':
+            self.w = np.zeros(2*sampler.n_components)
+        else:
+            self.w = np.zeros(sampler.n_components)
         self.reg = reg
 
     def train(self,cycle,X,Y):
@@ -56,12 +85,19 @@ class HyperRFSVM:
         if np.random.rand() < self.p:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
-            for idx in range(n_components):
-                w_norm[idx] = self.w[idx]**2+self.w[idx+n_components]**2
-            update_idx = np.argmin(w_norm)
-            self.sampler.update(update_idx)
-            self.w[update_idx] = 0
-            self.w[update_idx+n_components] = 0
+            if self.type == 'rbf':
+                for idx in range(n_components):
+                    w_norm[idx] = self.w[idx]**2+self.w[idx+n_components]**2
+                update_idx = np.argmin(w_norm)
+                self.sampler.update(update_idx)
+                self.w[update_idx] = 0
+                self.w[update_idx+n_components] = 0
+            else:
+                for idx in range(n_components):
+                    w_norm[idx] = np.abs(self.w[idx])
+                update_idx = np.argmin(w_norm)
+                self.sampler.update(update_idx)
+                self.w[update_idx] = 0
         Xrow_til = self.sampler.fit_transform(Xrow)
         score = max(1 - np.dot(Xrow_til,self.w.T)*y,0)
         if score > 0:
