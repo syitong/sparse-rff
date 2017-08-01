@@ -13,16 +13,23 @@ import rff
 ### set up parameters
 datarange = 0.5
 overlap = 0
-samplesize = 10000
+samplesize = 100000
 trials = 1
 
 ### generate train and test dataset
-X,Y = datagen.unit_circle(datarange,overlap,samplesize)
-X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.3,random_state=0)
-gamma = datagen.gamma_est(X_train,portion=0.1)
+X,Y = datagen.unit_circle(datarange,
+                          overlap,
+                          samplesize)
+X_train,X_test,Y_train,Y_test = train_test_split(X,
+                                                 Y,
+                                                 test_size = 0.3,
+                                                 random_state=0)
+gamma = datagen.gamma_est(X_train,portion = 
+                          min(len(X_train),100)/len(X_train))
 reg = 0.01
-sampler = rff.myRBFSampler(X.shape[1],gamma,20)
-HyperModel = rff.HyperRFSVM(sampler,1,0.1,reg)
+p = 0.5
+sampler = rff.myRBFSampler(len(X[0]),gamma,10)
+HyperModel = rff.HyperRFSVM(sampler,p,reg)
 kscore = list()
 ksparsity = list()
 #for idx in range(trials):

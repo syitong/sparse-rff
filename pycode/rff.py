@@ -15,13 +15,15 @@ class myRBFSampler:
         return 1
 
     def fit_transform(self, X):
-        n = X.shape[0]
-        X_til = np.empty((n,self.n_components*2))
+        """
+        It transform one data vector a time
+        """
+        X_til = np.empty(self.n_components*2)
         for idx in range(self.n_components*2):
             if idx < self.n_components:
-                X_til[:,idx] = np.cos(X.dot(self.sampler[:,idx]))
+                X_til[idx] = np.cos(X.dot(self.sampler[:,idx]))
             else:
-                X_til[:,idx] = np.sin(X.dot(self.sampler[:,idx-self.n_components]))
+                X_til[idx] = np.sin(X.dot(self.sampler[:,idx-self.n_components]))
         return X_til / np.sqrt(self.n_components)
 
 class HyperRFSVM:
@@ -29,8 +31,7 @@ class HyperRFSVM:
     This class implements the RFSVM with random drop out for each round
     of subgrad descent.
     """
-    def __init__(self,sampler,eta=1,p=0,reg=1):
-        self.eta = eta
+    def __init__(self,sampler,p=0,reg=0):
         self.sampler = sampler
         self.p = p
         self.w = np.zeros(2*sampler.n_components)
@@ -41,7 +42,6 @@ class HyperRFSVM:
         We run the cyclic subgradient descent. cycle is the number of
         repeats of the cycles of the dataset.
         """
-        d = X.shape[1]
         n = len(Y)
         T = 0
         score = list()
@@ -49,7 +49,7 @@ class HyperRFSVM:
             jlist = np.random.permutation(n)
             for jdx in range(n):
                 T = jdx+idx*n+1
-                score.append(self.partial_train(X[jlist[jdx],:].reshape(1,d),Y[jlist[jdx]],T))
+                score.append(self.partial_train(X[jlist[jdx]],Y[jlist[jdx]],T))
         return score
 
     def partial_train(self,Xrow,y,T):
@@ -57,28 +57,32 @@ class HyperRFSVM:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
             for idx in range(n_components):
-                w_norm[idx] = self.w[0,idx]**2+self.w[0,idx+n_components]**2
+                w_norm[idx] = self.w[idx]**2+self.w[idx+n_components]**2
             update_idx = np.argmin(w_norm)
             self.sampler.update(update_idx)
-            self.w[0,update_idx] = 0
-            self.w[0,update_idx+n_components] = 0
+            self.w[update_idx] = 0
+            self.w[update_idx+n_components] = 0
         Xrow_til = self.sampler.fit_transform(Xrow)
         score = max(1 - np.dot(Xrow_til,self.w.T)*y,0)
         if score > 0:
-            # self.w = (1-self.eta/T)*self.w + y*Xrow_til*self.eta/T/self.reg
-            self.w = self.w + y*Xrow_til*self.eta/np.sqrt(T)
+            if self.reg == 0:
+                self.w = self.w + y*Xrow_til/np.sqrt(T)
+            else:
+                self.w = (1-1/T)*self.w + y*Xrow_til/T/self.reg
         else:
-            # self.w = (1-self.eta/T)*self.w
-            self.w = self.w
+            if self.reg == 0:
+                self.w = self.w
+            else:
+                self.w = (1-1/T)*self.w
         return score
 
     def test(self,X):
-        n = X.shape[0]
-        X_til = self.sampler.fit_transform(X)
-        output = np.empty(n)
+        n = len(X)
+        output = list()
         for idx in range(n):
-            if X_til[idx,:].dot(self.w.T) > 0:
-                output[idx] = 1
+            X_til = self.sampler.fit_transform(X[idx])
+            if X_til.dot(self.w.T) > 0:
+                output.append(1)
             else:
-                output[idx] = -1
+                output.append(-1)
         return output
