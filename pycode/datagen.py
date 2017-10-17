@@ -19,6 +19,8 @@ def unit_interval(leftend,rightend,samplesize):
                 Y.append(1)
             else:
                 Y.append(-1)
+    X = np.array(X)
+    Y = np.array(Y)
     return X,Y
 
 def unit_circle(datarange,overlap,samplesize):
@@ -42,12 +44,43 @@ def unit_circle(datarange,overlap,samplesize):
             theta = np.random.random()*2*np.pi
             radius = np.random.uniform(rad2lower,rad2upper)
             X.append(np.array([radius*np.cos(theta),radius*np.sin(theta)]))
+    X = np.array(X)
+    Y = np.array(Y)
+    return X,Y
+
+def unit_circle_ideal(gap,label_prob,samplesize):
+    X = list()
+    Y = list()
+    rad1upper = 1 - gap/2
+    rad2lower = 1 + gap/2
+    for idx in range(samplesize):
+        p = np.random.random()
+        if p < 0.5:
+            theta = np.random.random()*2*np.pi
+            radius = np.random.uniform(0,rad1upper)
+            X.append(np.array([radius*np.cos(theta),radius*np.sin(theta)]))
+            if p < 0.5*label_prob:
+                Y.append(-1)
+            else:
+                Y.append(1)
+        if p > 0.5:
+            theta = np.random.random()*2*np.pi
+            radius = np.random.uniform(rad1upper,2)
+            X.append(np.array([radius*np.cos(theta),radius*np.sin(theta)]))
+            if p < 0.5 + 0.5*label_prob:
+                Y.append(1)
+            else:
+                Y.append(-1)
+    X = np.array(X)
+    Y = np.array(Y)
     return X,Y
 
 def gamma_est(X,portion = 0.3):
     s = 0
-    n = int(len(X)*portion)
+    n = int(X.shape[0]*portion)
+    if n > 200:
+        n = 200
     for idx in range(n):
         for jdx in range(n):
-            s = s+np.linalg.norm(X[idx]-X[jdx])**2
+            s = s+np.linalg.norm(X[idx,:]-X[jdx,:])**2
     return n**2/s

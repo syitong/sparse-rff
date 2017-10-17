@@ -1,0 +1,210 @@
+nyx7012
+load data done
+shuffle data done
+ksvm loglambda = 1.000000 done
+ksvm loglambda = 0.000000 done
+ksvm loglambda = -1.000000 done
+ksvm loglambda = -2.000000 done
+ksvm loglambda = -3.000000 done
+ksvm loglambda = -4.000000 done
+ksvm loglambda = -5.000000 done
+ksvm loglambda = -6.000000 done
+ksvm loglambda = -7.000000 done
+trial 0 unif feature gen done
+trial 0, loglambda = 1.0, unif, train done
+trial 0, loglambda = 1.0, unif, test done
+trial 0, loglambda = 0.0, unif, train done
+trial 0, loglambda = 0.0, unif, test done
+trial 0, loglambda = -1.0, unif, train done
+trial 0, loglambda = -1.0, unif, test done
+trial 0, loglambda = -2.0, unif, train done
+trial 0, loglambda = -2.0, unif, test done
+trial 0, loglambda = -3.0, unif, train done
+trial 0, loglambda = -3.0, unif, test done
+trial 0, loglambda = -4.0, unif, train done
+trial 0, loglambda = -4.0, unif, test done
+trial 0, loglambda = -5.0, unif, train done
+trial 0, loglambda = -5.0, unif, test done
+trial 0, loglambda = -6.0, unif, train done
+trial 0, loglambda = -6.0, unif, test done
+trial 0, loglambda = -7.0, unif, train done
+trial 0, loglambda = -7.0, unif, test done
+trial 0 opt feature gen done
+trial 0, loglambda = 1.0, opt, train done
+trial 0, loglambda = 1.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = 0.0, opt, train done
+trial 0, loglambda = 0.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -1.0, opt, train done
+trial 0, loglambda = -1.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -2.0, opt, train done
+trial 0, loglambda = -2.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -3.0, opt, train done
+trial 0, loglambda = -3.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -4.0, opt, train done
+trial 0, loglambda = -4.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -5.0, opt, train done
+trial 0, loglambda = -5.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -6.0, opt, train done
+trial 0, loglambda = -6.0, opt, test done
+trial 0 opt feature gen done
+trial 0, loglambda = -7.0, opt, train done
+trial 0, loglambda = -7.0, opt, test done
+trial 1 unif feature gen done
+trial 1, loglambda = 1.0, unif, train done
+trial 1, loglambda = 1.0, unif, test done
+trial 1, loglambda = 0.0, unif, train done
+trial 1, loglambda = 0.0, unif, test done
+trial 1, loglambda = -1.0, unif, train done
+trial 1, loglambda = -1.0, unif, test done
+trial 1, loglambda = -2.0, unif, train done
+trial 1, loglambda = -2.0, unif, test done
+trial 1, loglambda = -3.0, unif, train done
+trial 1, loglambda = -3.0, unif, test done
+trial 1, loglambda = -4.0, unif, train done
+trial 1, loglambda = -4.0, unif, test done
+trial 1, loglambda = -5.0, unif, train done
+trial 1, loglambda = -5.0, unif, test done
+trial 1, loglambda = -6.0, unif, train done
+trial 1, loglambda = -6.0, unif, test done
+trial 1, loglambda = -7.0, unif, train done
+trial 1, loglambda = -7.0, unif, test done
+trial 1 opt feature gen done
+trial 1, loglambda = 1.0, opt, train done
+trial 1, loglambda = 1.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = 0.0, opt, train done
+trial 1, loglambda = 0.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -1.0, opt, train done
+trial 1, loglambda = -1.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -2.0, opt, train done
+trial 1, loglambda = -2.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -3.0, opt, train done
+trial 1, loglambda = -3.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -4.0, opt, train done
+trial 1, loglambda = -4.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -5.0, opt, train done
+trial 1, loglambda = -5.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -6.0, opt, train done
+trial 1, loglambda = -6.0, opt, test done
+trial 1 opt feature gen done
+trial 1, loglambda = -7.0, opt, train done
+trial 1, loglambda = -7.0, opt, test done
+trial 2 unif feature gen done
+trial 2, loglambda = 1.0, unif, train done
+trial 2, loglambda = 1.0, unif, test done
+trial 2, loglambda = 0.0, unif, train done
+trial 2, loglambda = 0.0, unif, test done
+trial 2, loglambda = -1.0, unif, train done
+trial 2, loglambda = -1.0, unif, test done
+trial 2, loglambda = -2.0, unif, train done
+trial 2, loglambda = -2.0, unif, test done
+trial 2, loglambda = -3.0, unif, train done
+trial 2, loglambda = -3.0, unif, test done
+trial 2, loglambda = -4.0, unif, train done
+trial 2, loglambda = -4.0, unif, test done
+trial 2, loglambda = -5.0, unif, train done
+trial 2, loglambda = -5.0, unif, test done
+trial 2, loglambda = -6.0, unif, train done
+trial 2, loglambda = -6.0, unif, test done
+trial 2, loglambda = -7.0, unif, train done
+trial 2, loglambda = -7.0, unif, test done
+trial 2 opt feature gen done
+trial 2, loglambda = 1.0, opt, train done
+trial 2, loglambda = 1.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = 0.0, opt, train done
+trial 2, loglambda = 0.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -1.0, opt, train done
+trial 2, loglambda = -1.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -2.0, opt, train done
+trial 2, loglambda = -2.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -3.0, opt, train done
+trial 2, loglambda = -3.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -4.0, opt, train done
+trial 2, loglambda = -4.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -5.0, opt, train done
+trial 2, loglambda = -5.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -6.0, opt, train done
+trial 2, loglambda = -6.0, opt, test done
+trial 2 opt feature gen done
+trial 2, loglambda = -7.0, opt, train done
+trial 2, loglambda = -7.0, opt, test done
+trial 3 unif feature gen done
+trial 3, loglambda = 1.0, unif, train done
+trial 3, loglambda = 1.0, unif, test done
+trial 3, loglambda = 0.0, unif, train done
+trial 3, loglambda = 0.0, unif, test done
+trial 3, loglambda = -1.0, unif, train done
+trial 3, loglambda = -1.0, unif, test done
+trial 3, loglambda = -2.0, unif, train done
+trial 3, loglambda = -2.0, unif, test done
+trial 3, loglambda = -3.0, unif, train done
+trial 3, loglambda = -3.0, unif, test done
+trial 3, loglambda = -4.0, unif, train done
+trial 3, loglambda = -4.0, unif, test done
+trial 3, loglambda = -5.0, unif, train done
+trial 3, loglambda = -5.0, unif, test done
+trial 3, loglambda = -6.0, unif, train done
+trial 3, loglambda = -6.0, unif, test done
+trial 3, loglambda = -7.0, unif, train done
+trial 3, loglambda = -7.0, unif, test done
+trial 3 opt feature gen done
+trial 3, loglambda = 1.0, opt, train done
+trial 3, loglambda = 1.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = 0.0, opt, train done
+trial 3, loglambda = 0.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -1.0, opt, train done
+trial 3, loglambda = -1.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -2.0, opt, train done
+trial 3, loglambda = -2.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -3.0, opt, train done
+trial 3, loglambda = -3.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -4.0, opt, train done
+trial 3, loglambda = -4.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -5.0, opt, train done
+trial 3, loglambda = -5.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -6.0, opt, train done
+trial 3, loglambda = -6.0, opt, test done
+trial 3 opt feature gen done
+trial 3, loglambda = -7.0, opt, train done
+trial 3, loglambda = -7.0, opt, test done
+trial 4 unif feature gen done
+trial 4, loglambda = 1.0, unif, train done
+trial 4, loglambda = 1.0, unif, test done
+trial 4, loglambda = 0.0, unif, train done
+trial 4, loglambda = 0.0, unif, test done
+trial 4, loglambda = -1.0, unif, train done
+trial 4, loglambda = -1.0, unif, test done
+trial 4, loglambda = -2.0, unif, train done
+trial 4, loglambda = -2.0, unif, test done
+trial 4, loglambda = -3.0, unif, train done
+trial 4, loglambda = -3.0, unif, test done
+trial 4, loglambda = -4.0, unif, train done
+trial 4, loglambda = -4.0, unif, test done
+trial 4, loglambda = -5.0, unif, train done=>> PBS: job killed: walltime 7231 exceeded limit 7200

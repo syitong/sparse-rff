@@ -1,0 +1,10 @@
+nyx7012
+LearningRate.py:81: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  shufflelist = np.random.choice(len(X_train_p),size=samplesize,replace=False)
+load data done
+shuffle data done
+unif feature gen done
+Traceback (most recent call last):
+  File "LearningRate.py", line 107, in <module>
+    task = 'loglambda = {1:.1f}, unif, train'.format(loglambda[jdx])
+IndexError: tuple index out of range

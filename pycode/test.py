@@ -3,6 +3,5 @@ import matplotlib.pyplot as plt
 import datagen, dataplot
 import rff
 
-a = np.array([[1,2,3], [0,2,0]])
-b = a[0,:]
-print a, b
+X,Y = datagen.unit_circle_ideal(0.1,0.8,50)
+dataplot.plot_circle(X,Y)
