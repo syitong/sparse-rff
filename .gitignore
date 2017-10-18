@@ -1,3 +1,4 @@
 *.pyc
 *.swp
-*~
+pycode/data/
+pycode/__pycache__/

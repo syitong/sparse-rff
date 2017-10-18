@@ -1,5 +1,0 @@
-nyx7012
-  File "LearningRate.py", line 61
-    for kdx in range(len(logSMPlist))
-                                    ^
-SyntaxError: invalid syntax
