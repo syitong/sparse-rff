@@ -7,7 +7,6 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 # my module
-import datagen, dataplot
 import rff
 
 ### set up parameters
@@ -17,15 +16,15 @@ samplesize = 10000
 trials = 1
 
 ### generate train and test dataset
-X,Y = datagen.unit_circle(datarange,
-                          overlap,
-                          samplesize)
+X,Y = rff.unit_circle(datarange,
+                      overlap,
+                      samplesize)
 X_train,X_test,Y_train,Y_test = train_test_split(X,
                                                  Y,
                                                  test_size = 0.3,
                                                  random_state=0)
-gamma = datagen.gamma_est(X_train,portion = 
-                          min(len(X_train),100)/len(X_train))
+gamma = rff.gamma_est(X_train,portion =
+                      min(len(X_train),100)/len(X_train))
 reg = 0
 p = 0.5
 sampler = rff.myReLUSampler(len(X[0]),gamma,10)

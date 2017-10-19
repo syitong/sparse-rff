@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import rff
 import csv
-import dataplot
+import rff
 
 def trials_agg(trials, folder, prefix, suffix):
     content = list()
@@ -81,7 +81,7 @@ def main():
     X = np.loadtxt('data/ideal_Xtest.txt')
     Y = np.loadtxt('data/ideal_Ytest.txt')
     ratio = 50 / len(X)
-    dataplot.plot_circle(X,Y,ratio)
-    
+    rff.plot_circle(X,Y,ratio)
+
 if __name__ == '__main__':
     main()

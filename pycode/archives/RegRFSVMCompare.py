@@ -9,7 +9,6 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 # my module
-import datagen, dataplot
 import rff
 
 ### set up data parameters
@@ -25,11 +24,11 @@ feature_pool_size = 100
 n_components = 10
 
 ### generate train and test dataset
-X,Y = datagen.unit_circle_ideal(gap,label_prob,samplesize)
+X,Y = rff.unit_circle_ideal(gap,label_prob,samplesize)
 X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size = 0.33,random_state=0)
 
 ### estimate gamma in the rbf kernel. gamma here is actually 1/variance
-gamma = datagen.gamma_est(X_train)
+gamma = rff.gamma_est(X_train)
 
 ### rbf kernel support vector machine
 kscore = list()
