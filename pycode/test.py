@@ -1,7 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import datagen, dataplot
 import rff
 
-X,Y = datagen.unit_circle_ideal(0.1,0.8,50)
-dataplot.plot_circle(X,Y)
+with open('data/train-labels.idx1-ubyte','rb') as file:
+    data = file.read()
+    print(data[0:20])
+    for row in range(20):
+        print(data[row])
