@@ -7,9 +7,11 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 import rff
+import log
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import confusion_matrix
+import itertools
 import time
 
 def read_MNIST_data(filepath):
@@ -41,6 +43,8 @@ def read_MNIST_data(filepath):
             for jdx in range(l):
                 index = offset + idx * l + jdx
                 X[idx,jdx] = data[index]
+        if l == 1:
+            X = X[:,0]
         return X
 
 def plot_confusion_matrix(cm, classes,
@@ -79,66 +83,56 @@ def plot_confusion_matrix(cm, classes,
 
 def main():
     # set up timer and progress tracker
-    progress = {'task':['start'],'time':[time.process_time()]}
-    print(progress['task'][-1],' ',progress['time'][-1])
+    mylog = log.log('log/MNIST.log','MNIST classification start')
 
     # read in MNIST data set
     Xtrain = read_MNIST_data('data/train-images.idx3-ubyte')
     Ytrain = read_MNIST_data('data/train-labels.idx1-ubyte')
     Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte')
     Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte')
-    progress['task'].append('data read in complete')
-    progress['time'].append(time.progress_time())
-    print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+    mylog.time_event('data read in complete')
 
     # set up parameters
     LogLambda = np.arange(-8.0,1.0,1)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-2,2,0.5)
-    LogGamma = np.log10(gamma) * 10**LogGamma
+    LogGamma = np.arange(-2.0,2,0.5)
+    LogGamma = np.log10(gamma) + LogGamma
     X_pool_fraction = 0.3
-    feature_pool_size = n_components * 100
     n_components = 10
+    feature_pool_size = n_components * 100
 
     # use the same pool for all config of parameters
     opt_feature = rff.optRBFSampler(Xtrain.shape[1],
         feature_pool_size,n_components=n_components)
-    progress['task'].append('feature pool generated')
-    progress['time'].append(time.progress_time())
-    print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+    mylog.time_event('feature pool generated')
 
     # hyper-parameter selection
     best_score = 0
     best_Gamma = 1
     best_Lambda = 1
     crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
-    for idx in len(LogGamma):
+    for idx in range(len(LogGamma)):
         Gamma = 10**LogGamma[idx]
         opt_feature.gamma = Gamma
-        for jdx in len(LogLambda):
+        for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
             opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
-            progress['task'].append('features generated for'
-                + 'Gamma={0:.1e} and Lambda={1:d}'.format(Gamma,Lambda))
-            progress['time'].append(time.progress_time())
-            print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                             +'features generated')
             Xtraintil = opt_feature.fit_transform(Xtrain)
-            progress['task'].append('data transformed')
-            progress['time'].append(time.progress_time())
-            print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+            mylog.time_event('data transformed')
             # n_jobs is used for parallel computing 1 vs all;
             # -1 means all available cores
             clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
-                tol=10**(-3),max_iter=10,n_jobs=-1,warm_start=True)
+                tol=10**(-3),n_jobs=-1,warm_start=True)
             score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
-            progress['task'].append('crossval done')
-            progress['time'].append(time.progress_time())
-            print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+            mylog.time_event('crossval done')
             crossval_result['Gamma'].append(Gamma)
             crossval_result['Lambda'].append(Lambda)
-            crossval_result['score'].append(score)
-            if score > best_score:
-                best_score = score
+            avg_score = np.sum(score) / 5
+            crossval_result['score'].append(avg_score)
+            if avg_score > best_score:
+                best_score = avg_score
                 best_Gamma = Gamma
                 best_Lambda = Lambda
                 best_Sampler = opt_feature
@@ -147,31 +141,33 @@ def main():
 
     # performance test
     clf.fit(Xtraintil,Ytrain)
-    progress['task'].append('best model trained')
-    progress['time'].append(time.progress_time())
-    print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+    mylog.time_event('best model trained')
     Xtesttil = best_Sampler.fit_transform(Xtest)
     Ypred = clf.predict(Xtesttil)
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
-    progress['task'].append('test done')
-    progress['time'].append(time.progress_time())
-    print(progress['task'][-1],':',progress['time'][-1] - progress['time'][-2])
+    mylog.time_event('test done')
 
     # write results and log files
     classes = range(10)
-    print('Classification Accuracy = ',score)
+    results = ('Best Gamma = {:.1e}\n'.format(best_Gamma)
+               + 'Best Lambda = {:.1e}\n'.format(best_Lambda)
+               + 'Classification Accuracy = {}\n'.format(score))
+    print(results)
+    results = results + 'Gamma    Lambda    score\n'
+    for idx in range(len(crossval_result['Gamma'])):
+        results = (results
+                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(crossval_result['Gamma'][idx],
+                                                         crossval_result['Lambda'][idx],
+                                                         crossval_result['score'][idx]))
+    mylog.record(results)
+    mylog.save()
+
+    # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
     plt.savefig('image/MNIST-cm.eps')
     plt.close(fig)
-    with open('log/MNIST-log','w') as logfile:
-        for idx in range(1,len(progress['task'])):
-            logfile.write(progress['task'][idx]
-                          + ': {:.2e}\n'.format(progress['time'][idx]
-                                          - progress['time'][idx - 1]))
-        logfile.write('Classification Accuracy = {:4e}'.format(score))
-
 
 
 if __name__ == '__main__':
