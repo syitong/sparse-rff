@@ -93,8 +93,8 @@ class optRBFSampler:
         self.sampler = self.pool[:,self.feature_list]
 
     def update(self, idx):
-        n = np.random.choice(self.pool.shape[1],p=self.Weight)
-        self.sampler[:,idx] = self.pool[:,n]*np.sqrt(self.gamma)
+        n = np.random.choice(self.pool.shape[1],p=self.Prob)
+        self.sampler[:,idx] = self.pool[:,n]
         return 1
 
     def fit_transform(self, X):
