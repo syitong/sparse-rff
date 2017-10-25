@@ -8,6 +8,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import rff
 import log
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import SGDClassifier
 from sklearn import svm
@@ -91,15 +92,18 @@ def RFSVM_MNIST():
     Ytrain = read_MNIST_data('data/train-labels.idx1-ubyte')
     Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte')
     Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte')
+    scaler = StandardScaler().fit(Xtrain)
+    Xtrain = scaler.transform(Xtrain)
+    Xtest = scaler.transform(Xtest)
     mylog.time_event('data read in complete')
 
     # set up parameters
-    LogLambda = np.arange(-8.0,1.0,1)
+    LogLambda = np.arange(-8.0,1.0,2)
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-2.0,2,0.5)
     LogGamma = np.log10(gamma) + LogGamma
     X_pool_fraction = 0.3
-    n_components = 10
+    n_components = 100
     feature_pool_size = n_components * 100
 
     # use the same pool for all config of parameters
@@ -117,7 +121,7 @@ def RFSVM_MNIST():
         opt_feature.gamma = Gamma
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
-            opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
+            # opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
             Xtraintil = opt_feature.fit_transform(Xtrain)
@@ -182,9 +186,9 @@ def KSVM_MNIST():
     mylog.time_event('data read in complete')
 
     # set up parameters
-    LogLambda = np.arange(-8.0,1.0,1)
+    LogLambda = np.arange(-8.0,1.0,5)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-2.0,2,0.5)
+    LogGamma = np.arange(-2.0,2,3)
     LogGamma = np.log10(gamma) + LogGamma
     cv = 5 # cross validation folds
 
@@ -198,7 +202,7 @@ def KSVM_MNIST():
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
             C = 1 / Lambda / ((cv - 1) * len(Xtrain) / cv)
-            clf = svm.svc(C=C,gamma=Gamma)
+            clf = svm.SVC(C=C,gamma=Gamma)
             score = cross_val_score(clf,Xtrain,Ytrain,cv=cv,n_jobs=-1)
             mylog.time_event('crossval done')
             crossval_result['Gamma'].append(Gamma)
