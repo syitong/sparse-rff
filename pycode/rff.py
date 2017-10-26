@@ -145,7 +145,7 @@ class HyperRFSVM:
             self.w = np.zeros(sampler.n_components)
         self.reg = reg
 
-    def train(self,cycle,X,Y):
+    def fit(self,cycle,X,Y):
         """
         We run the cyclic subgradient descent. cycle is the number of
         repeats of the cycles of the dataset.
@@ -157,10 +157,10 @@ class HyperRFSVM:
             jlist = np.random.permutation(n)
             for jdx in range(n):
                 T = jdx+idx*n+1
-                score.append(self.partial_train(X[jlist[jdx]],Y[jlist[jdx]],T))
+                score.append(self.partial_fit(X[jlist[jdx]],Y[jlist[jdx]],T))
         return score
 
-    def partial_train(self,Xrow,y,T):
+    def partial_fit(self,Xrow,y,T):
         if np.random.rand() < self.p:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
