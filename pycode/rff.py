@@ -229,8 +229,18 @@ class HyperRFSVM:
         return score
 
     def predict(self,X):
+        output = []
         if len(self.classes_) > 2:
-            pass
+            for idx in range(len(X)):
+                score = 0
+                label = self.classes_[0]
+                for jdx,val in enumerate(self.classes_):
+                    s = X_til.dot(self.w[jdx].T)
+                    if score < s:
+                        score = s
+                        label = val
+                output.append(label)
+
         elif len(self.classes_) == 2:
             X_til = self.sampler.fit_transform(X)
             if X_til.dot(self.w.T) > 0:

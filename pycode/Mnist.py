@@ -286,12 +286,12 @@ def HyperRFSVM_MNIST():
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,2)
+    LogLambda = np.arange(-12.0,-2,10)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.1)
+    LogGamma = np.arange(-0.2,0.8,0.8)
     LogGamma = np.log10(gamma) + LogGamma
     # X_pool_fraction = 0.3
-    n_components = 1000
+    n_components = 500
     # feature_pool_size = n_components * 2
 
     # hyper-parameter selection
@@ -308,11 +308,9 @@ def HyperRFSVM_MNIST():
                                        gamma=Gamma)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
-            Xtraintil = opt_feature.fit_transform(Xtrain)
-            mylog.time_event('data transformed')
             # n_jobs is used for parallel computing 1 vs all;
             # -1 means all available cores
-            clf = rff.HyperRFSVM(sampler=feature,p=0.4,reg=Lambda)
+            clf = rff.HyperRFSVM(sampler=feature,p=0.4,reg=Lambda,n_jobs=-1)
             score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
             mylog.time_event('crossval done')
             crossval_result['Gamma'].append(Gamma)
