@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from joblib import Parallel, delayed
 
 class myRBFSampler:
     """
@@ -135,32 +136,67 @@ class HyperRFSVM:
     This class implements the RFSVM with random drop out for each round
     of subgrad descent.
     """
-    def __init__(self,sampler,p=0,reg=0):
+    def __init__(self,sampler,p=0,reg=0,max_iter=5,tol=10**(-3),n_jobs=n_jobs):
         self.sampler = sampler
         self.type = self.sampler.name
+        self.classes_ = [1,-1]
         self.p = p
+        self.max_iter = max_iter
+        self.tol = tol
+        self.reg = reg
+        self.n_jobs = n_jobs
         if self.type == 'rbf':
             self.w = np.zeros(2*sampler.n_components)
         else:
             self.w = np.zeros(sampler.n_components)
-        self.reg = reg
 
-    def fit(self,cycle,X,Y):
-        """
-        We run the cyclic subgradient descent. cycle is the number of
-        repeats of the cycles of the dataset.
-        """
+    def _fit_binary(self,X,Y):
         n = len(Y)
         T = 0
         score = list()
+        cycle = self.max_iter
         for idx in range(cycle):
             jlist = np.random.permutation(n)
             for jdx in range(n):
                 T = jdx+idx*n+1
                 score.append(self.partial_fit(X[jlist[jdx]],Y[jlist[jdx]],T))
+                if score[-1] - score[-2] < self.tol:
+                    break
+            if score[-1] - score[-2] < self.tol:
+                break
         return score
 
+    def fit(self,X,Y):
+        """
+        We run the cyclic subgradient descent. cycle is the number of
+        repeats of the cycles of the dataset.
+        """
+        self.classes_ = list(set(Y))
+        if len(self.classes_) > 2:
+            Ycopy = np.empty((len(Y),self.classes_))
+            for idx,val in enumerate(self.classes_):
+                for jdx,label in enumerate(Y):
+                    if label == val:
+                        Ycopy[idx,jdx] = 1
+                    else:
+                        Ycopy[idx,jdx] = -1
+
+            self.w = Parallel(n_jobs=self.n_jobs,backend="threading")(
+                delayed(_fit_binary)(self,X,Y[idx])
+                for idx in range(len(self.classes_)))
+
+        elif len(self.classes_) == 2:
+            for idx in range(len(Y)):
+                if Y[idx] == self.classes_[0]:
+                    Y[idx] = 1
+                elif Y[idx] == self.classes_[1]:
+                    Y[idx] = -1
+            return self._fit_binary(X,Y)
+
     def partial_fit(self,Xrow,y,T):
+        if y != 1 or y != -1:
+            print('The label for partial_fit must be 1 or -1!')
+            return 0
         if np.random.rand() < self.p:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
@@ -189,18 +225,19 @@ class HyperRFSVM:
                 self.w = self.w
             else:
                 self.w = (1-1/T)*self.w
+        score = max(1 - np.dot(Xrow_til,self.w.T)*y,0)
         return score
 
-    def test(self,X):
-        n = len(X)
-        output = list()
-        for idx in range(n):
-            X_til = self.sampler.fit_transform(X[idx])
+    def predict(self,X):
+        if len(self.classes_) > 2:
+            pass
+        elif len(self.classes_) == 2:
+            X_til = self.sampler.fit_transform(X)
             if X_til.dot(self.w.T) > 0:
-                output.append(1)
+                output.append(self.classes_[0])
             else:
-                output.append(-1)
-        return output
+                output.append(self.classes_[1])
+        return np.array(output)
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:

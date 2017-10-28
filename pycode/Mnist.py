@@ -264,7 +264,7 @@ def KSVM_MNIST():
     plt.savefig('image/KSVM_MNIST-cm.eps')
     plt.close(fig)
 
-def HyperRFSVM_MNISt():
+def HyperRFSVM_MNIST():
     # set up timer and progress tracker
     mylog = log.log('log/HyperRFSVM_MNIST.log','MNIST classification starts')
 
