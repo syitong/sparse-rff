@@ -16,7 +16,7 @@ from sklearn.metrics import confusion_matrix
 import itertools
 import time
 
-def read_MNIST_data(filepath):
+def read_MNIST_data(filepath,obs=1000):
     """
     This method is sufficiently general to read in any
     data set of the same structure with MNIST
@@ -40,6 +40,8 @@ def read_MNIST_data(filepath):
         l = length
         for idx in range(1,len(dim)):
             l = l * dim[idx]
+        if obs > 0 and obs < dim[0]:
+            dim[0] = obs
         X = np.empty((dim[0],l))
         for idx in range(dim[0]):
             for jdx in range(l):
@@ -303,15 +305,14 @@ def HyperRFSVM_MNIST():
         Gamma = 10**LogGamma[idx]
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
-            feature = rff.myRBFSampler(n_old_features=len(Xtrain[0]),
-                                       n_components=n_components,
-                                       gamma=Gamma)
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'features generated')
             # n_jobs is used for parallel computing 1 vs all;
             # -1 means all available cores
-            clf = rff.HyperRFSVM(sampler=feature,p=0.4,reg=Lambda,n_jobs=-1)
-            score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
+            clf = rff.HyperRFSVM(n_old_features=len(Xtrain[0]),
+                n_components=n_components,
+                gamma=Gamma,p=0.4,reg=Lambda,n_jobs=1)
+            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                             +'features generated')
+            score = cross_val_score(clf,Xtrain,Ytrain,cv=5,n_jobs=-1,scoring='accuracy')
             mylog.time_event('crossval done')
             crossval_result['Gamma'].append(Gamma)
             crossval_result['Lambda'].append(Lambda)
@@ -322,15 +323,12 @@ def HyperRFSVM_MNIST():
                 best_score = avg_score
                 best_Gamma = Gamma
                 best_Lambda = Lambda
-                best_Sampler = opt_feature
                 best_clf = clf
-                best_Xtil = Xtraintil
 
     # performance test
-    best_clf.fit(Xtraintil,Ytrain)
+    best_clf.fit(Xtrain,Ytrain)
     mylog.time_event('best model trained')
-    Xtesttil = best_Sampler.fit_transform(Xtest)
-    Ypred = best_clf.predict(Xtesttil)
+    Ypred = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
     mylog.time_event('test done')
@@ -356,9 +354,8 @@ def HyperRFSVM_MNIST():
     plt.savefig('image/RFSVM_MNIST-cm.eps')
     plt.close(fig)
 
-
 def main():
-    RFSVM_MNIST()
+    HyperRFSVM_MNIST()
 
 if __name__ == '__main__':
     main()
