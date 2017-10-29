@@ -266,31 +266,31 @@ def KSVM_MNIST():
     plt.savefig('image/KSVM_MNIST-cm.eps')
     plt.close(fig)
 
-def HyperRFSVM_MNIST():
+def HRFSVM_MNIST():
     # set up timer and progress tracker
-    mylog = log.log('log/HyperRFSVM_MNIST.log','MNIST classification starts')
+    mylog = log.log('log/HRFSVM_MNIST.log','MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte')
-    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte')
-    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte')
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
+    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
-    m = 1000
-    Xtrain = Xtr[0:m]
-    Ytrain = Ytr[0:m]
-    Xtest = Xts[0:m]
-    Ytest = Yts[0:m]
+    # m = 1000
+    Xtrain = Xtr
+    Ytrain = Ytr
+    Xtest = Xts
+    Ytest = Yts
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,10)
+    LogLambda = np.arange(-12.0,-2,1)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.8)
+    LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
     # X_pool_fraction = 0.3
     n_components = 500
@@ -307,9 +307,8 @@ def HyperRFSVM_MNIST():
             Lambda = 10**LogLambda[jdx]
             # n_jobs is used for parallel computing 1 vs all;
             # -1 means all available cores
-            clf = rff.HyperRFSVM(n_old_features=len(Xtrain[0]),
-                n_components=n_components,
-                gamma=Gamma,p=0.4,reg=Lambda,n_jobs=1)
+            clf = rff.HRFSVM(n_components=n_components,
+                gamma=Gamma,p=0.4,alpha=Lambda,n_jobs=-1)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
             score = cross_val_score(clf,Xtrain,Ytrain,cv=5,n_jobs=-1,scoring='accuracy')
@@ -351,11 +350,11 @@ def HyperRFSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/RFSVM_MNIST-cm.eps')
+    plt.savefig('image/HRFSVM_MNIST-cm.eps')
     plt.close(fig)
 
 def main():
-    HyperRFSVM_MNIST()
+    HRFSVM_MNIST()
 
 if __name__ == '__main__':
     main()

@@ -18,10 +18,9 @@ class myRBFSampler:
         return 1
 
     def fit_transform(self, X):
-        m = len(X)
-        X_til = np.empty((m,self.n_components*2))
-        X_til[:,:self.n_components] = np.cos(X.dot(self.sampler))
-        X_til[:,self.n_components:] = np.sin(X.dot(self.sampler))
+        X_tilc = np.cos(X.dot(self.sampler))
+        X_tils = np.sin(X.dot(self.sampler))
+        X_til = np.concatenate((X_tilc,X_tils),axis=-1)
         return X_til / np.sqrt(self.n_components)
 
     def weight_estimate(self, X, X_pool_fraction, Lambda):
@@ -166,7 +165,7 @@ class HRFSVM_binary:
                     Y[idx] = -1
         n = len(Y)
         T = 0
-        score = list()
+        score = [1000]
         for idx in range(self.max_iter):
             jlist = np.random.permutation(n)
             for jdx in range(n):
@@ -178,11 +177,11 @@ class HRFSVM_binary:
                 break
         return score
 
-    def partial_fit(self,Xrow,y,T,index=-1):
+    def partial_fit(self,Xrow,y,T):
         if np.random.rand() < self.p:
             n_components = self.sampler.n_components
             w_norm = np.empty(n_components)
-            if self.feature_type == 'rbf':
+            if self.sampler.name == 'rbf':
                 for idx in range(n_components):
                     w_norm[idx] = self.w[idx]**2+self.w[idx+n_components]**2
                 update_idx = np.argmin(w_norm)
@@ -213,10 +212,10 @@ class HRFSVM_binary:
     def predict(self,X):
         output = []
         X_til = self.sampler.fit_transform(X)
-            if X_til.dot(self.w.T) > 0:
-                output.append(self.classes_[0])
-            else:
-                output.append(self.classes_[1])
+        if X_til.dot(self.w.T) > 0:
+            output.append(self.classes_[0])
+        else:
+            output.append(self.classes_[1])
         return np.array(output)
 
 class HRFSVM:
@@ -255,7 +254,7 @@ class HRFSVM:
             self.estimator = Parallel(n_jobs=self.n_jobs,backend="threading")(
                 delayed(self._fit_binary)(X,Ycopy[idx])
                 for idx in range(len(self.classes_)))
-                return 1
+            return 1
 
         elif len(self.classes_) == 2:
             for idx in range(len(Y)):
@@ -268,6 +267,7 @@ class HRFSVM:
 
     def predict(self,X):
         if len(self.classes_) > 2:
+            output = []
             for idx in range(len(X)):
                 score = 0
                 label = self.classes_[0]
