@@ -85,9 +85,9 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
-def RFSVM_MNIST():
+def ORFSVM_MNIST():
     # set up timer and progress tracker
-    mylog = log.log('log/RFSVM_MNIST.log','MNIST classification starts')
+    mylog = log.log('log/ORFSVM_MNIST.log','MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
@@ -113,7 +113,7 @@ def RFSVM_MNIST():
     LogGamma = np.log10(gamma) + LogGamma
     X_pool_fraction = 0.3
     n_components = 1000
-    feature_pool_size = n_components * 2
+    feature_pool_size = n_components * 10
 
     # use the same pool for all config of parameters
     opt_feature = rff.optRBFSampler(Xtrain.shape[1],
@@ -130,7 +130,7 @@ def RFSVM_MNIST():
         opt_feature.gamma = Gamma
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
-            # opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
+            opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
             Xtraintil = opt_feature.fit_transform(Xtrain)
@@ -181,7 +181,99 @@ def RFSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/RFSVM_MNIST-cm.eps')
+    plt.savefig('image/ORFSVM_MNIST-cm.eps')
+    plt.close(fig)
+
+def URFSVM_MNIST():
+    # set up timer and progress tracker
+    mylog = log.log('log/URFSVM_MNIST.log','MNIST classification starts')
+
+    # read in MNIST data set
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte')
+    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte')
+    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte')
+    mylog.time_event('data read in complete')
+
+    # extract a smaller data set
+    m = 1000
+    Xtrain = Xtr[0:m]
+    Ytrain = Ytr[0:m]
+    Xtest = Xts[0:m]
+    Ytest = Yts[0:m]
+    scaler = StandardScaler().fit(Xtrain)
+    Xtrain = scaler.transform(Xtrain)
+    Xtest = scaler.transform(Xtest)
+
+    # set up parameters
+    LogLambda = np.arange(-12.0,-2,2)
+    gamma = rff.gamma_est(Xtrain)
+    LogGamma = np.arange(-0.2,0.8,0.1)
+    LogGamma = np.log10(gamma) + LogGamma
+    n_components = 5000
+
+    # hyper-parameter selection
+    best_score = 0
+    best_Gamma = 1
+    best_Lambda = 1
+    crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
+    for idx in range(len(LogGamma)):
+        Gamma = 10**LogGamma[idx]
+            gamma=Gamma,n_components=n_components)
+        for jdx in range(len(LogLambda)):
+            Lambda = 10**LogLambda[jdx]
+            unif_feature = rff.myRBFSampler(Xtrain.shape[1],
+            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                             +'features generated')
+            Xtraintil = opt_feature.fit_transform(Xtrain)
+            mylog.time_event('data transformed')
+            # n_jobs is used for parallel computing 1 vs all;
+            # -1 means all available cores
+            clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
+                tol=10**(-3),n_jobs=-1,warm_start=True)
+            score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
+            mylog.time_event('crossval done')
+            crossval_result['Gamma'].append(Gamma)
+            crossval_result['Lambda'].append(Lambda)
+            avg_score = np.sum(score) / 5
+            print('score = {:.4f}'.format(avg_score))
+            crossval_result['score'].append(avg_score)
+            if avg_score > best_score:
+                best_score = avg_score
+                best_Gamma = Gamma
+                best_Lambda = Lambda
+                best_Sampler = opt_feature
+                best_clf = clf
+                best_Xtil = Xtraintil
+
+    # performance test
+    best_clf.fit(Xtraintil,Ytrain)
+    mylog.time_event('best model trained')
+    Xtesttil = best_Sampler.fit_transform(Xtest)
+    Ypred = best_clf.predict(Xtesttil)
+    C_matrix = confusion_matrix(Ytest,Ypred)
+    score = np.sum(Ypred == Ytest) / len(Ytest)
+    mylog.time_event('test done')
+
+    # write results and log files
+    classes = range(10)
+    results = ('Best Gamma = {:.1e}\n'.format(best_Gamma)
+               + 'Best Lambda = {:.1e}\n'.format(best_Lambda)
+               + 'Classification Accuracy = {}\n'.format(score))
+    print(results)
+    results = results + 'Gamma    Lambda    score\n'
+    for idx in range(len(crossval_result['Gamma'])):
+        results = (results
+                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(crossval_result['Gamma'][idx],
+                                                         crossval_result['Lambda'][idx],
+                                                         crossval_result['score'][idx]))
+    mylog.record(results)
+    mylog.save()
+
+    # plot confusion matrix
+    fig = plt.figure()
+    plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
+    plt.savefig('image/URFSVM_MNIST-cm.eps')
     plt.close(fig)
 
 def KSVM_MNIST():

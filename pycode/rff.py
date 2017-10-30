@@ -98,12 +98,9 @@ class optRBFSampler:
         return 1
 
     def fit_transform(self, X):
-        m = len(X)
-        X_til = np.empty((m,self.n_components*2))
-        factor = (np.sqrt(self.Prob[self.feature_list]
-                  * self.feature_pool_size))
-        X_til[:,:self.n_components] = np.cos(X.dot(self.sampler)) / factor
-        X_til[:,self.n_components:] = np.sin(X.dot(self.sampler)) / factor
+        X_tilc = np.cos(X.dot(self.sampler))
+        X_tils = np.sin(X.dot(self.sampler))
+        X_til = np.concatenate((X_tilc,X_tils),axis=-1)
         return X_til / np.sqrt(self.n_components)
 
 class myReLUSampler:
@@ -373,6 +370,17 @@ def unit_circle_ideal(gap,label_prob,samplesize):
     X = np.array(X)
     Y = np.array(Y)
     return X,Y
+
+def dim_modifier(X,dim,method='const'):
+    if method == 'const':
+        Tail = np.ones((X.shape[0],dim))
+        Xtil = np.concatenate((X,Tail),axis=-1)
+        return Xtil
+    else:
+        Tail = np.random.randn(X.shape[0],dim)
+        Xtil = np.concatenate((X,Tail),axis=-1)
+        return Xtil
+
 
 def gamma_est(X,portion = 0.3):
     s = 0
