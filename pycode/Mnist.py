@@ -288,9 +288,11 @@ def HRFSVM_MNIST():
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,1)
+    # LogLambda = np.arange(-12.0,-2,1)
+    LogLambda = [0.]
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.1)
+    # LogGamma = np.arange(-0.2,0.8,0.8)
+    LogGamma = [0]
     LogGamma = np.log10(gamma) + LogGamma
     # X_pool_fraction = 0.3
     n_components = 500
