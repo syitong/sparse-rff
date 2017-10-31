@@ -87,7 +87,7 @@ def plot_confusion_matrix(cm, classes,
 
 def ORFSVM_MNIST():
     # set up timer and progress tracker
-    mylog = log.log('log/ORFSVM_MNIST.log','MNIST classification starts')
+    mylog = log.log('log/ORFSVM_MNIST_1000.log','MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
@@ -98,27 +98,22 @@ def ORFSVM_MNIST():
 
     # extract a smaller data set
     m = 1000
-    Xtrain = Xtr[0:m]
-    Ytrain = Ytr[0:m]
-    Xtest = Xts[0:m]
-    Ytest = Yts[0:m]
+    Xtrain = Xtr[:m]
+    Ytrain = Ytr[:m]
+    Xtest = Xts[:m]
+    Ytest = Yts[:m]
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,2)
+    LogLambda = np.arange(-12.0,-2,1)
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
     X_pool_fraction = 0.3
     n_components = 1000
     feature_pool_size = n_components * 10
-
-    # use the same pool for all config of parameters
-    opt_feature = rff.optRBFSampler(Xtrain.shape[1],
-        feature_pool_size,n_components=n_components)
-    mylog.time_event('feature pool generated')
 
     # hyper-parameter selection
     best_score = 0
@@ -127,9 +122,13 @@ def ORFSVM_MNIST():
     crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
     for idx in range(len(LogGamma)):
         Gamma = 10**LogGamma[idx]
-        opt_feature.gamma = Gamma
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
+            opt_feature = rff.optRBFSampler(Xtrain.shape[1],
+                gamma=Gamma,
+                feature_pool_size=feature_pool_size,
+                n_components=n_components)
+            mylog.time_event('feature pool generated')
             opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
@@ -181,7 +180,7 @@ def ORFSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/ORFSVM_MNIST-cm.eps')
+    plt.savefig('image/ORFSVM_MNIST_1000-cm.eps')
     plt.close(fig)
 
 def URFSVM_MNIST():
@@ -197,16 +196,16 @@ def URFSVM_MNIST():
 
     # extract a smaller data set
     m = 1000
-    Xtrain = Xtr[:m,:]
+    Xtrain = Xtr[:m]
     Ytrain = Ytr[:m]
-    Xtest = Xts[:m,:]
+    Xtest = Xts[:m]
     Ytest = Yts[:m]
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,2)
+    LogLambda = np.arange(-12.0,-2,1)
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
@@ -298,7 +297,7 @@ def KSVM_MNIST():
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,2)
+    LogLambda = np.arange(-12.0,-2,1)
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
@@ -444,7 +443,7 @@ def HRFSVM_MNIST():
     plt.close(fig)
 
 def main():
-    URFSVM_MNIST()
+    ORFSVM_MNIST()
 
 if __name__ == '__main__':
     main()
