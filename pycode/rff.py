@@ -166,12 +166,14 @@ class HRFSVM_binary:
         for idx in range(self.max_iter):
             jlist = np.random.permutation(n)
             for jdx in range(n):
-                T = np.sqrt(jdx+idx*n+1)
+                T = jdx+idx*n+1
                 score.append(self.partial_fit(X[jlist[jdx]],Y[jlist[jdx]],T))
+                if len(score) > 1:
+                    if score[-2] - score[-1] < self.tol:
+                        break
+            if len(score) > 1:
                 if score[-2] - score[-1] < self.tol:
                     break
-            if score[-2] - score[-1] < self.tol:
-                break
         return score
 
     def partial_fit(self,Xrow,y,T):
