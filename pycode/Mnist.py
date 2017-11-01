@@ -85,26 +85,25 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
-def ORFSVM_MNIST():
+def ORFSVM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/ORFSVM_MNIST_1000.log','MNIST classification starts')
+    mylog = log.log('log/ORFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte')
-    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte')
-    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte')
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
-    # extract a smaller data set
-    m = 1000
+    # extract a smaller dataset for cross validation
     Xtrain = Xtr[:m]
     Ytrain = Ytr[:m]
-    Xtest = Xts[:m]
-    Ytest = Yts[:m]
+    # normalize features
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
+    Xtr = scaler.transform(Xtr)
 
     # set up parameters
     LogLambda = np.arange(-12.0,-2,1)
@@ -112,7 +111,6 @@ def ORFSVM_MNIST():
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
     X_pool_fraction = 0.3
-    n_components = 1000
     feature_pool_size = n_components * 10
 
     # hyper-parameter selection
@@ -151,12 +149,12 @@ def ORFSVM_MNIST():
                 best_Lambda = Lambda
                 best_Sampler = opt_feature
                 best_clf = clf
-                best_Xtil = Xtraintil
 
     # performance test
-    best_clf.fit(best_Xtil,Ytrain)
-    mylog.time_event('best model trained')
+    best_Xtil = best_Sampler.fit_transform(Xtr)
     Xtesttil = best_Sampler.fit_transform(Xtest)
+    best_clf.fit(best_Xtil,Ytr)
+    mylog.time_event('best model trained')
     Ypred = best_clf.predict(Xtesttil)
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
@@ -180,28 +178,26 @@ def ORFSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/ORFSVM_MNIST_1000-cm.eps')
+    plt.savefig('image/ORFSVM_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
-def URFSVM_MNIST():
+def URFSVM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/UbestRFSVM_MNIST.log','MNIST classification starts')
+    mylog = log.log('log/URFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
     Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
-    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
-    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
-    m = 1000
     Xtrain = Xtr[:m]
     Ytrain = Ytr[:m]
-    Xtest = Xts[:m]
-    Ytest = Yts[:m]
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
+    Xtr = scaler.transform(Xtr)
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
@@ -209,7 +205,6 @@ def URFSVM_MNIST():
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
-    n_components = 1000
 
     # hyper-parameter selection
     best_score = 0
@@ -243,12 +238,12 @@ def URFSVM_MNIST():
                 best_Lambda = Lambda
                 best_Sampler = unif_feature
                 best_clf = clf
-                best_Xtil = Xtraintil
 
     # performance test
-    best_clf.fit(best_Xtil,Ytrain)
-    mylog.time_event('best model trained')
+    best_Xtil = best_Sampler.fit_transform(Xtr)
     Xtesttil = best_Sampler.fit_transform(Xtest)
+    best_clf.fit(best_Xtil,Ytr)
+    mylog.time_event('best model trained')
     Ypred = best_clf.predict(Xtesttil)
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
@@ -272,28 +267,26 @@ def URFSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/UbestRFSVM_MNIST-cm.eps')
+    plt.savefig('image/URFSVM_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
-def KSVM_MNIST():
+def KSVM_MNIST(m=1000,trainsize=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/KSVM_MNIST.log','KSVM MNIST classfication starts')
+    mylog = log.log('log/KSVM_MNIST_{}.log'.format(trainsize),'KSVM MNIST classfication starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte')
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte')
-    Xts = read_MNIST_data('data/t10k-images.idx3-ubyte')
-    Yts = read_MNIST_data('data/t10k-labels.idx1-ubyte')
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',trainsize)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',trainsize)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
-    m = 1000
-    Xtrain = Xtr[0:m]
-    Ytrain = Ytr[0:m]
-    Xtest = Xts[0:m]
-    Ytest = Yts[0:m]
+    Xtrain = Xtr[:m]
+    Ytrain = Ytr[:m]
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
+    Xtr = scaler.transform(Xtr)
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
@@ -326,10 +319,11 @@ def KSVM_MNIST():
                 best_score = avg_score
                 best_Gamma = Gamma
                 best_Lambda = Lambda
-                best_clf = clf
 
     # performance test
-    best_clf.fit(Xtrain,Ytrain)
+    C = 1 / best_Lambda / trainsize
+    best_clf = svm.SVC(C=C,gamma=best_Gamma)
+    best_clf.fit(Xtr,Ytr)
     mylog.time_event('best model trained')
     Ypred = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -354,7 +348,7 @@ def KSVM_MNIST():
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/KSVM_MNIST-cm.eps')
+    plt.savefig('image/KSVM_MNIST_{}-cm.eps'.format(trainsize))
     plt.close(fig)
 
 def HRFSVM_MNIST():
@@ -443,7 +437,11 @@ def HRFSVM_MNIST():
     plt.close(fig)
 
 def main():
-    ORFSVM_MNIST()
+    URFSVM_MNIST(m=1000,n_components=500)
+    ORFSVM_MNIST(m=1000,n_components=500)
+    URFSVM_MNIST(m=1000,n_components=1000)
+    ORFSVM_MNIST(m=1000,n_components=1000)
+    KSVM_MNIST(m=1000,trainsize=2000)
 
 if __name__ == '__main__':
     main()
