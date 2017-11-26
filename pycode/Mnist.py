@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import rff
 import log
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, KFold
 from sklearn.linear_model import SGDClassifier
 from sklearn import svm
 from sklearn.metrics import confusion_matrix
@@ -435,6 +435,47 @@ def HRFSVM_MNIST():
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
     plt.savefig('image/HRFSVM_MNIST-cm.eps')
     plt.close(fig)
+
+def tfRFSVM_MNIST(m=1000,n_components=1000):
+    # set up timer and progress tracker
+    mylog = log.log('log/URFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
+
+    # read in MNIST data set
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
+    mylog.time_event('data read in complete')
+
+    # extract a smaller data set
+    Xtrain = Xtr[:m]
+    Ytrain = Ytr[:m]
+    scaler = StandardScaler().fit(Xtrain)
+    Xtrain = scaler.transform(Xtrain)
+    Xtr = scaler.transform(Xtr)
+    Xtest = scaler.transform(Xtest)
+
+    # set up parameters
+    LogLambda = np.arange(-12.0,-2,1)
+    gamma = rff.gamma_est(Xtrain)
+    LogGamma = np.arange(-0.2,0.8,0.1)
+    LogGamma = np.log10(gamma) + LogGamma
+
+    # hyper-parameter selection
+    best_score = 0
+    best_Gamma = 1
+    best_Lambda = 1
+    crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
+    for idx in range(len(LogGamma)):
+        Gamma = 10**LogGamma[idx]
+        for jdx in range(len(LogLambda)):
+            Lambda = 10**LogLambda[jdx]
+            unif_feature = rff.myRBFSampler(Xtrain.shape[1],
+                gamma=Gamma,n_components=n_components)
+            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                             +'features generated')
+            Xtraintil = unif_feature.fit_transform(Xtrain)
+            mylog.time_event('data transformed')
 
 def main():
     URFSVM_MNIST(m=1000,n_components=500)

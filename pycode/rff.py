@@ -298,6 +298,14 @@ class HRFSVM:
                 'tol': self.tol,
                 'n_jobs': self.n_jobs}
 
+class tfRFSVM(tf.estimator.LinearClassifier):
+    """
+    This class implements the RFSVM with softmax + cross entropy
+    as loss function by using Tensor Flow library
+    to solve multi-class problems natively.
+    """
+    def __init__(self,)
+
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
         print("The endpoints must be between 0 and 1!")
@@ -382,7 +390,6 @@ def dim_modifier(X,dim,method='const'):
         Tail = np.random.randn(X.shape[0],dim)
         Xtil = np.concatenate((X,Tail),axis=-1)
         return Xtil
-
 
 def gamma_est(X,portion = 0.3):
     s = 0
