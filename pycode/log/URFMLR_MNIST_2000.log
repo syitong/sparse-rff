@@ -1,0 +1,27 @@
+data read in complete: 19.3750
+Gamma=5.6e-04 and Lambda=1.0e-12
+features generated: 1.2344
+data transformed: 0.4375
+crossval done: 0.4531
+Gamma=5.6e-04 and Lambda=1.0e-04
+features generated: 0.0625
+data transformed: 0.4062
+crossval done: 0.5000
+Gamma=2.2e-03 and Lambda=1.0e-12
+features generated: 0.0938
+data transformed: 0.4688
+crossval done: 0.5156
+Gamma=2.2e-03 and Lambda=1.0e-04
+features generated: 0.0781
+data transformed: 0.4531
+crossval done: 0.4219
+best model trained: 82.5000
+test done: 0.2188
+Best Gamma = 2.2e-03
+Best Lambda = 1.0e-04
+Classification Accuracy = 0.906
+Gamma    Lambda    score
+5.6e-04  1.0e-12    0.8559
+5.6e-04  1.0e-04    0.8578
+2.2e-03  1.0e-12    0.8539
+2.2e-03  1.0e-04    0.8578

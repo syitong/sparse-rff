@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
-import tensorflow as tf
+# import tensorflow as tf
 
 class myRBFSampler:
     """
@@ -299,20 +299,19 @@ class HRFSVM:
                 'tol': self.tol,
                 'n_jobs': self.n_jobs}
 
-class tfSGD(tf.estimator.LinearClassifier):
-    """
-    This class implements the RFSVM with softmax + cross entropy
-    as loss function by using Tensor Flow library
-    to solve multi-class problems natively.
-    """
-    def __init__(self,feature_columns,n_classes=2,optimizer='Ftrl'
-        n_components=20,):
-
-        super().__init__(feature_columns=feature_columns,
-            n_classes=n_classes,optimizer=optimizer)
-
-    def fit(self,X,Y):
-
+# class tfSGD(tf.estimator.LinearClassifier):
+#     """
+#     This class implements the RFSVM with softmax + cross entropy
+#     as loss function by using Tensor Flow library
+#     to solve multi-class problems natively.
+#     """
+#     def __init__(self,feature_columns,n_classes=2,optimizer='Ftrl'
+#         n_components=20,):
+#         super().__init__(feature_columns=feature_columns,
+#             n_classes=n_classes,optimizer=optimizer)
+#
+#     def fit(self,X,Y):
+#         pass
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
