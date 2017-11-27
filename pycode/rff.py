@@ -317,8 +317,7 @@ class tfRFLM:
         Gamma = params['gamma']
         n_classes = params['n_classes']
         optimizer = params['optimizer']
-        stage = params['stage']
-        method = params['svm']
+        method = params['method']
         initializer = np.random.randn(N,d) / Gamma
 
         input_layer = features['x']
@@ -329,12 +328,12 @@ class tfRFLM:
             units=2*N,activation=tf.sin,use_bias=False,
             initializer=initializer)
         RF_layer = tf.concat(cos_layer,sin_layer,axis=1) / tf.sqrt(N)
-        in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+        # in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
             'RF_Layer')
         logits = tf.layers.dense(inputs=RF_layer,
             kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
             units=n_classes)
-        out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+        # out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
             'logits')
 
         predictions = {
@@ -361,25 +360,11 @@ class tfRFLM:
 
         # Configure the Training Op (for TRAIN mode)
         if mode == tf.estimator.ModeKeys.TRAIN:
-            if stage == 1:
-                train_op = optimizer.minimize(
-                    loss=loss,
-                    var_list=out_weights
-                    global_step=tf.train.get_global_step())
-                return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
-            elif stage == 2:
-                train_op = optimizer.minimize(
-                    loss=loss,
-                    var_list=in_weights,
-                    global_step=tf.train.get_global_step()
-                )
-                return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
-            elif stage == 3:
-                train_op = optimizer.minimize(
-                    loss=loss,
-                    global_step=tf.train.get_global_step()
-                )
-                return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
+            train_op = optimizer.minimize(
+                loss=loss,
+                global_step=tf.train.get_global_step()
+            )
+            return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
 
         # Add evaluation metrics (for EVAL mode)
         eval_metric_ops = {

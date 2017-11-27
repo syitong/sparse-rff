@@ -14,6 +14,7 @@ from sklearn.linear_model import SGDClassifier, LogisticRegression
 from sklearn import svm
 from sklearn.metrics import confusion_matrix
 import itertools
+import tensorflow as tf
 import time
 
 def read_MNIST_data(filepath,obs=1000):
@@ -332,7 +333,7 @@ def URFMLR_MNIST(m=1000,n_components=1000):
     best_Xtil = best_Sampler.fit_transform(Xtr)
     Xtesttil = best_Sampler.fit_transform(Xtest)
     m = len(best_Xtil)
-    best_clf = clf = LogisticRegression(penalty='l2',C=1 / m / best_Lambda,
+    best_clf = LogisticRegression(penalty='l2',C=1 / m / best_Lambda,
                 multi_class = 'multinomial',solver='sag',tol=10**(-3),
                 warm_start=True)
     best_clf.fit(best_Xtil,Ytr)
@@ -531,7 +532,7 @@ def HRFSVM_MNIST():
 
 def tfRFSVM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/URFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
+    mylog = log.log('log/tfRFLM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
@@ -553,6 +554,16 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
     gamma = rff.gamma_est(Xtrain)
     LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
+    params = {
+        'n_old_features': len(Xtrain[0]),
+        'n_components': n_components,
+        'lambda': 1,
+        'gamma': 1,
+        'n_classes': 10,
+        'optimizer': optimizer,
+        'method': 'lr'
+    }
 
     # hyper-parameter selection
     best_score = 0
@@ -563,9 +574,55 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
         Gamma = 10**LogGamma[idx]
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
+            params['lambda'] = Lambda
+            params['gamma'] = gamma
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
             clf = tfRFLM(params)
+            score = cross_val_score(clf,Xtrain,Ytrain,cv=5,n_jobs=-1)
+            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                             +'crossval done')
+            crossval_result['Gamma'].append(Gamma)
+            crossval_result['Lambda'].append(Lambda)
+            avg_score = np.sum(score) / 5
+            print('score = {:.4f}'.format(avg_score))
+            crossval_result['score'].append(avg_score)
+            if avg_score > best_score:
+                best_score = avg_score
+                best_Gamma = Gamma
+                best_Lambda = Lambda
+                best_clf = clf
+
+    # performance test
+    best_Xtil = best_Sampler.fit_transform(Xtr)
+    Xtesttil = best_Sampler.fit_transform(Xtest)
+    best_clf.fit(best_Xtil,Ytr)
+    mylog.time_event('best model trained')
+    Ypred = best_clf.predict(Xtesttil,predict_keys='classes')
+    C_matrix = confusion_matrix(Ytest,Ypred)
+    score = np.sum(Ypred == Ytest) / len(Ytest)
+    mylog.time_event('test done')
+
+    # write results and log files
+    classes = range(10)
+    results = ('Best Gamma = {:.1e}\n'.format(best_Gamma)
+               + 'Best Lambda = {:.1e}\n'.format(best_Lambda)
+               + 'Classification Accuracy = {}\n'.format(score))
+    print(results)
+    results = results + 'Gamma    Lambda    score\n'
+    for idx in range(len(crossval_result['Gamma'])):
+        results = (results
+                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(crossval_result['Gamma'][idx],
+                                                         crossval_result['Lambda'][idx],
+                                                         crossval_result['score'][idx]))
+    mylog.record(results)
+    mylog.save()
+
+    # plot confusion matrix
+    fig = plt.figure()
+    plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
+    plt.savefig('image/tfRFLM_MNIST_{}-cm.eps'.format(n_components))
+    plt.close(fig)
 
 
 def main():

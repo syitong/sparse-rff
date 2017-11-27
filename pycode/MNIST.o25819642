@@ -1,0 +1,1020 @@
+nyx6148
+nyx6158
+nyx6161
+nyx6171
+nyx6179
+MNIST classification starts: 1.0080
+data read in complete: 15.6752
+Gamma=5.6e-04 and Lambda=1.0e-12
+features generated: 1.2302
+data transformed: 1.1920
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6543
+score = 0.8559
+Gamma=5.6e-04 and Lambda=1.0e-11
+features generated: 0.0861
+data transformed: 0.9734
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6987
+score = 0.8608
+Gamma=5.6e-04 and Lambda=1.0e-10
+features generated: 0.0853
+data transformed: 0.9501
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6901
+score = 0.8659
+Gamma=5.6e-04 and Lambda=1.0e-09
+features generated: 0.0856
+data transformed: 0.9345
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7054
+score = 0.8609
+Gamma=5.6e-04 and Lambda=1.0e-08
+features generated: 0.0859
+data transformed: 0.9684
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7597
+score = 0.8599
+Gamma=5.6e-04 and Lambda=1.0e-07
+features generated: 0.0857
+data transformed: 0.9369
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7098
+score = 0.8609
+Gamma=5.6e-04 and Lambda=1.0e-06
+features generated: 0.0862
+data transformed: 0.9608
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7338
+score = 0.8668
+Gamma=5.6e-04 and Lambda=1.0e-05
+features generated: 0.0853
+data transformed: 0.9503
+crossval done: 0.7261
+score = 0.8568
+Gamma=5.6e-04 and Lambda=1.0e-04
+features generated: 0.0852
+data transformed: 0.9525
+crossval done: 0.6674
+score = 0.8599
+Gamma=5.6e-04 and Lambda=1.0e-03
+features generated: 0.0849
+data transformed: 0.9731
+crossval done: 0.6538
+score = 0.7977
+Gamma=7.0e-04 and Lambda=1.0e-12
+features generated: 0.0865
+data transformed: 0.9566
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7203
+score = 0.8658
+Gamma=7.0e-04 and Lambda=1.0e-11
+features generated: 0.0854
+data transformed: 0.9584
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7238
+score = 0.8609
+Gamma=7.0e-04 and Lambda=1.0e-10
+features generated: 0.0861
+data transformed: 0.9828
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7472
+score = 0.8620
+Gamma=7.0e-04 and Lambda=1.0e-09
+features generated: 0.0846
+data transformed: 0.9432
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7072
+score = 0.8659
+Gamma=7.0e-04 and Lambda=1.0e-08
+features generated: 0.0858
+data transformed: 0.9783
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7277
+score = 0.8557
+Gamma=7.0e-04 and Lambda=1.0e-07
+features generated: 0.0853
+data transformed: 0.9642
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7208
+score = 0.8598
+Gamma=7.0e-04 and Lambda=1.0e-06
+features generated: 0.0847
+data transformed: 0.9424
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7014
+score = 0.8618
+Gamma=7.0e-04 and Lambda=1.0e-05
+features generated: 0.0874
+data transformed: 0.9628
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7511
+score = 0.8638
+Gamma=7.0e-04 and Lambda=1.0e-04
+features generated: 0.0861
+data transformed: 0.9674
+crossval done: 0.6767
+score = 0.8648
+Gamma=7.0e-04 and Lambda=1.0e-03
+features generated: 0.0841
+data transformed: 0.9403
+crossval done: 0.6307
+score = 0.8077
+Gamma=8.8e-04 and Lambda=1.0e-12
+features generated: 0.0864
+data transformed: 0.9450
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7214
+score = 0.8589
+Gamma=8.8e-04 and Lambda=1.0e-11
+features generated: 0.0858
+data transformed: 0.9689
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7236
+score = 0.8559
+Gamma=8.8e-04 and Lambda=1.0e-10
+features generated: 0.0845
+data transformed: 0.9424
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7080
+score = 0.8609
+Gamma=8.8e-04 and Lambda=1.0e-09
+features generated: 0.0850
+data transformed: 0.9625
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7200
+score = 0.8668
+Gamma=8.8e-04 and Lambda=1.0e-08
+features generated: 0.0856
+data transformed: 0.9576
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7346
+score = 0.8679
+Gamma=8.8e-04 and Lambda=1.0e-07
+features generated: 0.0847
+data transformed: 0.9597
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7273
+score = 0.8628
+Gamma=8.8e-04 and Lambda=1.0e-06
+features generated: 0.0853
+data transformed: 0.9547
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.7178
+score = 0.8709
+Gamma=8.8e-04 and Lambda=1.0e-05
+features generated: 0.0811
+data transformed: 0.9348
+crossval done: 0.6617
+score = 0.8658
+Gamma=8.8e-04 and Lambda=1.0e-04
+features generated: 0.0811
+data transformed: 0.9347
+crossval done: 0.6186
+score = 0.8569
+Gamma=8.8e-04 and Lambda=1.0e-03
+features generated: 0.0839
+data transformed: 0.9416
+crossval done: 0.6268
+score = 0.8117
+Gamma=1.1e-03 and Lambda=1.0e-12
+features generated: 0.0839
+data transformed: 0.9442
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6903
+score = 0.8639
+Gamma=1.1e-03 and Lambda=1.0e-11
+features generated: 0.0839
+data transformed: 0.9435
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6909
+score = 0.8599
+Gamma=1.1e-03 and Lambda=1.0e-10
+features generated: 0.0839
+data transformed: 0.9433
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6918
+score = 0.8578
+Gamma=1.1e-03 and Lambda=1.0e-09
+features generated: 0.0839
+data transformed: 0.9450
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6879
+score = 0.8567
+Gamma=1.1e-03 and Lambda=1.0e-08
+features generated: 0.0842
+data transformed: 0.9463
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6889
+score = 0.8629
+Gamma=1.1e-03 and Lambda=1.0e-07
+features generated: 0.0837
+data transformed: 0.9389
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6792
+score = 0.8579
+Gamma=1.1e-03 and Lambda=1.0e-06
+features generated: 0.0840
+data transformed: 0.9357
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6774
+score = 0.8609
+Gamma=1.1e-03 and Lambda=1.0e-05
+features generated: 0.0838
+data transformed: 0.9404
+crossval done: 0.6765
+score = 0.8628
+Gamma=1.1e-03 and Lambda=1.0e-04
+features generated: 0.0837
+data transformed: 0.9333
+crossval done: 0.6232
+score = 0.8609
+Gamma=1.1e-03 and Lambda=1.0e-03
+features generated: 0.0841
+data transformed: 0.9390
+crossval done: 0.6115
+score = 0.8067
+Gamma=1.4e-03 and Lambda=1.0e-12
+features generated: 0.0836
+data transformed: 0.9390
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6830
+score = 0.8659
+Gamma=1.4e-03 and Lambda=1.0e-11
+features generated: 0.0837
+data transformed: 0.9432
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6751
+score = 0.8589
+Gamma=1.4e-03 and Lambda=1.0e-10
+features generated: 0.0831
+data transformed: 0.9444
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6866
+score = 0.8569
+Gamma=1.4e-03 and Lambda=1.0e-09
+features generated: 0.0837
+data transformed: 0.9396
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6731
+score = 0.8658
+Gamma=1.4e-03 and Lambda=1.0e-08
+features generated: 0.0848
+data transformed: 0.9510
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6921
+score = 0.8579
+Gamma=1.4e-03 and Lambda=1.0e-07
+features generated: 0.0841
+data transformed: 0.9473
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6905
+score = 0.8619
+Gamma=1.4e-03 and Lambda=1.0e-06
+features generated: 0.0837
+data transformed: 0.9433
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6808
+score = 0.8638
+Gamma=1.4e-03 and Lambda=1.0e-05
+features generated: 0.0839
+data transformed: 0.9531
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6956
+score = 0.8579
+Gamma=1.4e-03 and Lambda=1.0e-04
+features generated: 0.0837
+data transformed: 0.9405
+crossval done: 0.6313
+score = 0.8619
+Gamma=1.4e-03 and Lambda=1.0e-03
+features generated: 0.0838
+data transformed: 0.9484
+crossval done: 0.6244
+score = 0.8177
+Gamma=1.8e-03 and Lambda=1.0e-12
+features generated: 0.0837
+data transformed: 0.9450
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6808
+score = 0.8589
+Gamma=1.8e-03 and Lambda=1.0e-11
+features generated: 0.0838
+data transformed: 0.9519
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6778
+score = 0.8619
+Gamma=1.8e-03 and Lambda=1.0e-10
+features generated: 0.0840
+data transformed: 0.9457
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6792
+score = 0.8649
+Gamma=1.8e-03 and Lambda=1.0e-09
+features generated: 0.0854
+data transformed: 0.9634
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6933
+score = 0.8568
+Gamma=1.8e-03 and Lambda=1.0e-08
+features generated: 0.0839
+data transformed: 0.9512
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6878
+score = 0.8640
+Gamma=1.8e-03 and Lambda=1.0e-07
+features generated: 0.0838
+data transformed: 0.9523
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6890
+score = 0.8540
+Gamma=1.8e-03 and Lambda=1.0e-06
+features generated: 0.0837
+data transformed: 0.9483
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6769
+score = 0.8609
+Gamma=1.8e-03 and Lambda=1.0e-05
+features generated: 0.0836
+data transformed: 0.9526
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6815
+score = 0.8619
+Gamma=1.8e-03 and Lambda=1.0e-04
+features generated: 0.0832
+data transformed: 0.9517
+crossval done: 0.6240
+score = 0.8519
+Gamma=1.8e-03 and Lambda=1.0e-03
+features generated: 0.0838
+data transformed: 0.9498
+crossval done: 0.6116
+score = 0.8227
+Gamma=2.2e-03 and Lambda=1.0e-12
+features generated: 0.0840
+data transformed: 0.9516
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6802
+score = 0.8599
+Gamma=2.2e-03 and Lambda=1.0e-11
+features generated: 0.0837
+data transformed: 0.9516
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6791
+score = 0.8590
+Gamma=2.2e-03 and Lambda=1.0e-10
+features generated: 0.0837
+data transformed: 0.9505
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6752
+score = 0.8619
+Gamma=2.2e-03 and Lambda=1.0e-09
+features generated: 0.0831
+data transformed: 0.9628
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6936
+score = 0.8488
+Gamma=2.2e-03 and Lambda=1.0e-08
+features generated: 0.0840
+data transformed: 0.9601
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6870
+score = 0.8580
+Gamma=2.2e-03 and Lambda=1.0e-07
+features generated: 0.0836
+data transformed: 0.9527
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6804
+score = 0.8709
+Gamma=2.2e-03 and Lambda=1.0e-06
+features generated: 0.0837
+data transformed: 0.9547
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6852
+score = 0.8578
+Gamma=2.2e-03 and Lambda=1.0e-05
+features generated: 0.0845
+data transformed: 0.9531
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6778
+score = 0.8549
+Gamma=2.2e-03 and Lambda=1.0e-04
+features generated: 0.0838
+data transformed: 0.9532
+crossval done: 0.6282
+score = 0.8539
+Gamma=2.2e-03 and Lambda=1.0e-03
+features generated: 0.0844
+data transformed: 0.9552
+crossval done: 0.6208
+score = 0.8227
+Gamma=2.8e-03 and Lambda=1.0e-12
+features generated: 0.0838
+data transformed: 0.9603
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6711
+score = 0.8498
+Gamma=2.8e-03 and Lambda=1.0e-11
+features generated: 0.0853
+data transformed: 0.9665
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6916
+score = 0.8510
+Gamma=2.8e-03 and Lambda=1.0e-10
+features generated: 0.0839
+data transformed: 0.9658
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6821
+score = 0.8448
+Gamma=2.8e-03 and Lambda=1.0e-09
+features generated: 0.0845
+data transformed: 0.9621
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6909
+score = 0.8459
+Gamma=2.8e-03 and Lambda=1.0e-08
+features generated: 0.0828
+data transformed: 0.9605
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6865
+score = 0.8588
+Gamma=2.8e-03 and Lambda=1.0e-07
+features generated: 0.0837
+data transformed: 0.9544
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6694
+score = 0.8477
+Gamma=2.8e-03 and Lambda=1.0e-06
+features generated: 0.0838
+data transformed: 0.9589
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6804
+score = 0.8509
+Gamma=2.8e-03 and Lambda=1.0e-05
+features generated: 0.0838
+data transformed: 0.9578
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6753
+score = 0.8517
+Gamma=2.8e-03 and Lambda=1.0e-04
+features generated: 0.0838
+data transformed: 0.9589
+crossval done: 0.6390
+score = 0.8508
+Gamma=2.8e-03 and Lambda=1.0e-03
+features generated: 0.0839
+data transformed: 0.9644
+crossval done: 0.6386
+score = 0.8137
+Gamma=3.5e-03 and Lambda=1.0e-12
+features generated: 0.0842
+data transformed: 0.9653
+crossval done: 0.6799
+score = 0.8548
+Gamma=3.5e-03 and Lambda=1.0e-11
+features generated: 0.0838
+data transformed: 0.9670
+crossval done: 0.6752
+score = 0.8448
+Gamma=3.5e-03 and Lambda=1.0e-10
+features generated: 0.0836
+data transformed: 0.9636
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6849
+score = 0.8437
+Gamma=3.5e-03 and Lambda=1.0e-09
+features generated: 0.0837
+data transformed: 0.9628
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6722
+score = 0.8391
+Gamma=3.5e-03 and Lambda=1.0e-08
+features generated: 0.0837
+data transformed: 0.9619
+crossval done: 0.6592
+score = 0.8488
+Gamma=3.5e-03 and Lambda=1.0e-07
+features generated: 0.0837
+data transformed: 0.9628
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6722
+score = 0.8569
+Gamma=3.5e-03 and Lambda=1.0e-06
+features generated: 0.0837
+data transformed: 0.9594
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6823
+score = 0.8518
+Gamma=3.5e-03 and Lambda=1.0e-05
+features generated: 0.0841
+data transformed: 0.9621
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6881
+score = 0.8477
+Gamma=3.5e-03 and Lambda=1.0e-04
+features generated: 0.0839
+data transformed: 0.9627
+crossval done: 0.6393
+score = 0.8419
+Gamma=3.5e-03 and Lambda=1.0e-03
+features generated: 0.0840
+data transformed: 0.9616
+crossval done: 0.6203
+score = 0.8148
+Gamma=4.4e-03 and Lambda=1.0e-12
+features generated: 0.0837
+data transformed: 0.9659
+crossval done: 0.6684
+score = 0.8488
+Gamma=4.4e-03 and Lambda=1.0e-11
+features generated: 0.0838
+data transformed: 0.9685
+crossval done: 0.6771
+score = 0.8299
+Gamma=4.4e-03 and Lambda=1.0e-10
+features generated: 0.0837
+data transformed: 0.9669
+crossval done: 0.6660
+score = 0.8339
+Gamma=4.4e-03 and Lambda=1.0e-09
+features generated: 0.0837
+data transformed: 0.9654
+crossval done: 0.6544
+score = 0.8321
+Gamma=4.4e-03 and Lambda=1.0e-08
+features generated: 0.0836
+data transformed: 0.9685
+crossval done: 0.6673
+score = 0.8329
+Gamma=4.4e-03 and Lambda=1.0e-07
+features generated: 0.0840
+data transformed: 0.9759
+crossval done: 0.6742
+score = 0.8307
+Gamma=4.4e-03 and Lambda=1.0e-06
+features generated: 0.0841
+data transformed: 0.9684
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6828
+score = 0.8230
+Gamma=4.4e-03 and Lambda=1.0e-05
+features generated: 0.0837
+data transformed: 0.9692
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/sklearn/linear_model/sag.py:326: ConvergenceWarning: The max_iter was reached which means the coef_ did not converge
+  "the coef_ did not converge", ConvergenceWarning)
+crossval done: 0.6883
+score = 0.8448
+Gamma=4.4e-03 and Lambda=1.0e-04
+features generated: 0.0841
+data transformed: 0.9749
+crossval done: 0.6346
+score = 0.8357
+Gamma=4.4e-03 and Lambda=1.0e-03
+features generated: 0.0837
+data transformed: 0.9662
+crossval done: 0.6155
+score = 0.8069
+best model trained: 638.7758
+test done: 0.5318
+Best Gamma = 8.8e-04
+Best Lambda = 1.0e-06
+Classification Accuracy = 0.95
+
+Normalized confusion matrix
+[[  9.78571429e-01   0.00000000e+00   3.06122449e-03   2.04081633e-03
+    1.02040816e-03   5.10204082e-03   8.16326531e-03   1.02040816e-03
+    1.02040816e-03   0.00000000e+00]
+ [  0.00000000e+00   9.89427313e-01   3.52422907e-03   0.00000000e+00
+    0.00000000e+00   8.81057269e-04   3.52422907e-03   0.00000000e+00
+    2.64317181e-03   0.00000000e+00]
+ [  4.84496124e-03   2.90697674e-03   9.29263566e-01   1.06589147e-02
+    4.84496124e-03   4.84496124e-03   1.64728682e-02   9.68992248e-03
+    1.55038760e-02   9.68992248e-04]
+ [  0.00000000e+00   0.00000000e+00   9.90099010e-03   9.54455446e-01
+    9.90099010e-04   1.08910891e-02   9.90099010e-04   9.90099010e-03
+    8.91089109e-03   3.96039604e-03]
+ [  1.01832994e-03   0.00000000e+00   3.05498982e-03   3.05498982e-03
+    9.56211813e-01   1.01832994e-03   1.32382892e-02   2.03665988e-03
+    4.07331976e-03   1.62932790e-02]
+ [  4.48430493e-03   1.12107623e-03   3.36322870e-03   1.23318386e-02
+    7.84753363e-03   9.36098655e-01   1.79372197e-02   3.36322870e-03
+    1.00896861e-02   3.36322870e-03]
+ [  7.30688935e-03   3.13152401e-03   8.35073069e-03   3.13152401e-03
+    5.21920668e-03   1.25260960e-02   9.49895616e-01   4.17536534e-03
+    6.26304802e-03   0.00000000e+00]
+ [  0.00000000e+00   5.83657588e-03   2.23735409e-02   4.86381323e-03
+    4.86381323e-03   2.91828794e-03   2.91828794e-03   9.36770428e-01
+    9.72762646e-04   1.84824903e-02]
+ [  5.13347023e-03   1.02669405e-03   5.13347023e-03   1.54004107e-02
+    8.21355236e-03   1.43737166e-02   6.16016427e-03   1.12936345e-02
+    9.29158111e-01   4.10677618e-03]
+ [  7.92864222e-03   5.94648167e-03   3.96432111e-03   8.91972250e-03
+    1.09018831e-02   3.96432111e-03   2.97324083e-03   1.58572844e-02
+    4.95540139e-03   9.34588702e-01]]
