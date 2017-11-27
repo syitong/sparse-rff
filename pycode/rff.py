@@ -318,6 +318,7 @@ class tfRFMLR:
         n_classes = params['n_classes']
         optimizer = params['optimizer']
         stage = params['stage']
+        method = params['svm']
         initializer = np.random.randn(N,d) / Gamma
 
         input_layer = features['x']
@@ -347,10 +348,16 @@ class tfRFMLR:
             return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
 
         # Calculate Loss (for both TRAIN and EVAL modes)
-        onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
-            depth=n_classes)
-        loss = tf.losses.softmax_cross_entropy(
-            onehot_labels=onehot_labels, logits=logits)
+        if method == 'svm':
+            loss = tf.losses.hinge_loss(
+                labels=labels,
+                logits=logits,
+            )
+        else:
+            onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
+                depth=n_classes)
+            loss = tf.losses.softmax_cross_entropy(
+                onehot_labels=onehot_labels, logits=logits)
 
         # Configure the Training Op (for TRAIN mode)
         if mode == tf.estimator.ModeKeys.TRAIN:
