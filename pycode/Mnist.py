@@ -530,15 +530,15 @@ def HRFSVM_MNIST():
     plt.savefig('image/HRFSVM_MNIST-cm.eps')
     plt.close(fig)
 
-def tfRFSVM_MNIST(m=1000,n_components=1000):
+def tfRFLM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
     mylog = log.log('log/tfRFLM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',2000)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',2000)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',2000)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',2000)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
@@ -550,9 +550,9 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,1)
+    LogLambda = np.arange(-12.0,-2,10)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.1)
+    LogGamma = np.arange(-0.2,0.8,1)
     LogGamma = np.log10(gamma) + LogGamma
     optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
     params = {
@@ -576,10 +576,10 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
             Lambda = 10**LogLambda[jdx]
             params['lambda'] = Lambda
             params['gamma'] = gamma
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'features generated')
-            clf = tfRFLM(params)
-            score = cross_val_score(clf,Xtrain,Ytrain,cv=5,n_jobs=-1)
+            clf = rff.tfRFLM(params)
+            score = cross_val_score(clf,Xtrain,Ytrain,cv=5
+            # ,n_jobs=1
+            )
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'crossval done')
             crossval_result['Gamma'].append(Gamma)
@@ -594,11 +594,9 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
                 best_clf = clf
 
     # performance test
-    best_Xtil = best_Sampler.fit_transform(Xtr)
-    Xtesttil = best_Sampler.fit_transform(Xtest)
-    best_clf.fit(best_Xtil,Ytr)
+    best_clf.fit(Xtrain,Ytrain)
     mylog.time_event('best model trained')
-    Ypred = best_clf.predict(Xtesttil,predict_keys='classes')
+    Ypred = best_clf.infer(Xtest,predict_keys='classes')
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
     mylog.time_event('test done')
@@ -631,7 +629,8 @@ def main():
     # URFSVM_MNIST(m=1000,n_components=1000)
     # ORFSVM_MNIST(m=1000,n_components=1000)
     # KSVM_MNIST(m=1000,trainsize=2000)
-    URFMLR_MNIST(m=1000,n_components=2000)
+    # URFMLR_MNIST(m=1000,n_components=2000)
+    tfRFLM_MNIST(m=1000,n_components=200)
 
 if __name__ == '__main__':
     main()

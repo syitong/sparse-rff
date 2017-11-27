@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
-# import tensorflow as tf
+import tensorflow as tf
 
 class myRBFSampler:
     """
@@ -299,112 +299,118 @@ class HRFSVM:
                 'tol': self.tol,
                 'n_jobs': self.n_jobs}
 
-class tfRFLM:
+def _RFLM(features,labels,mode,params):
+    d = params['n_old_features']
+    N = params['n_components']
+    Lambda = params['lambda']
+    Gamma = params['gamma']
+    n_classes = params['n_classes']
+    optimizer = params['optimizer']
+    method = params['method']
+    initializer = tf.random_normal_initializer(
+        stddev=tf.divide(1,Gamma))
+
+    cos_layer = tf.layers.dense(inputs=features['x'],
+        units=2*N,activation=tf.cos,use_bias=False,
+        kernel_initializer=initializer)
+    sin_layer = tf.layers.dense(inputs=features['x'],
+        units=2*N,activation=tf.sin,use_bias=False,
+        kernel_initializer=initializer)
+    RF_layer = tf.div(tf.concat([cos_layer,sin_layer],axis=1), tf.sqrt(N*1.0))
+    # in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+    #    'RF_Layer')
+    logits = tf.layers.dense(inputs=RF_layer,
+        kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
+        units=n_classes)
+    # out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+    #    'logits')
+
+    predictions = {
+    # Generate predictions (for PREDICT and EVAL mode)
+    "classes": tf.argmax(input=logits, axis=1),
+    # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
+    # `logging_hook`.
+    "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
+    }
+    if mode == tf.estimator.ModeKeys.PREDICT:
+        return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
+
+    # Calculate Loss (for both TRAIN and EVAL modes)
+    if method == 'svm':
+        loss = tf.losses.hinge_loss(
+            labels=labels,
+            logits=logits,
+        )
+    else:
+        onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
+            depth=n_classes)
+        loss = tf.losses.softmax_cross_entropy(
+            onehot_labels=onehot_labels, logits=logits)
+
+    # Configure the Training Op (for TRAIN mode)
+    if mode == tf.estimator.ModeKeys.TRAIN:
+        train_op = optimizer.minimize(
+            loss=loss,
+            global_step=tf.train.get_global_step()
+        )
+        return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
+
+    # Add evaluation metrics (for EVAL mode)
+    eval_metric_ops = {
+        "accuracy": tf.metrics.accuracy(
+        labels=labels, predictions=predictions["classes"])}
+    return tf.estimator.EstimatorSpec(
+        mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
+
+class tfRFLM(tf.estimator.Estimator):
     """
     This class implements the RFSVM with softmax + cross entropy
     as loss function by using Tensor Flow library
     to solve multi-class problems natively.
     """
-    def __init__(self,params):
-        self.clf = tf.estimator.Estimator(model_fn=RFLM,
-            model_dir=None,params=params)
-        self.params = params
-
-    def RFLM(features,labels,mode,params):
-        d = params['n_old_features']
-        N = params['n_components']
-        Lambda = params['lambda']
-        Gamma = params['gamma']
-        n_classes = params['n_classes']
-        optimizer = params['optimizer']
-        method = params['method']
-        initializer = np.random.randn(N,d) / Gamma
-
-        input_layer = features['x']
-        cos_layer = tf.layers.dense(inputs=features['x'],
-            units=2*N,activation=tf.cos,use_bias=False,
-            initializer=initializer)
-        sin_layer = tf.layers.dense(inputs=features['x'],
-            units=2*N,activation=tf.sin,use_bias=False,
-            initializer=initializer)
-        RF_layer = tf.concat(cos_layer,sin_layer,axis=1) / tf.sqrt(N)
-        # in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-            'RF_Layer')
-        logits = tf.layers.dense(inputs=RF_layer,
-            kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
-            units=n_classes)
-        # out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-            'logits')
-
-        predictions = {
-        # Generate predictions (for PREDICT and EVAL mode)
-        "classes": tf.argmax(input=logits, axis=1),
-        # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
-        # `logging_hook`.
-        "probabilities": tf.nn.softmax(logits, name="softmax_tensor")
-        }
-        if mode == tf.estimator.ModeKeys.PREDICT:
-            return tf.estimator.EstimatorSpec(mode=mode, predictions=predictions)
-
-        # Calculate Loss (for both TRAIN and EVAL modes)
-        if method == 'svm':
-            loss = tf.losses.hinge_loss(
-                labels=labels,
-                logits=logits,
-            )
-        else:
-            onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
-                depth=n_classes)
-            loss = tf.losses.softmax_cross_entropy(
-                onehot_labels=onehot_labels, logits=logits)
-
-        # Configure the Training Op (for TRAIN mode)
-        if mode == tf.estimator.ModeKeys.TRAIN:
-            train_op = optimizer.minimize(
-                loss=loss,
-                global_step=tf.train.get_global_step()
-            )
-            return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
-
-        # Add evaluation metrics (for EVAL mode)
-        eval_metric_ops = {
-        "accuracy": tf.metrics.accuracy(
-            labels=labels, predictions=predictions["classes"])}
-            return tf.estimator.EstimatorSpec(
-        mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
+    def __init__(self,parameters):
+        super().__init__(
+            model_fn=_RFLM,
+            model_dir=None,
+            params=parameters
+        )
+        self.parameters = parameters
 
     def fit(self,X,Y,n_iter=1000):
         train_input_fn = tf.estimator.inputs.numpy_input_fn(
-            x={"x": X},
+            x={"x": X.astype(np.float32)},
             y=Y,
             batch_size=100,
             num_epochs=None,
             shuffle=True)
-        self.clf.train(
+        self.train(
             input_fn=train_input_fn,
             steps=n_iter)
         return 1
 
-    def predict(self,X,predict_keys):
+    def infer(self,X,predict_keys):
         pred_input_fn = tf.estimator.inputs.numpy_input_fn(
-            x={"x":X},
-            batch_size=1
+            x={"x":X.astype(np.float32)},
+            num_epochs=1,
+            shuffle=False
         )
-        return self.clf.predict(
+        return self.predict(
             input_fn=pred_input_fn,
-            predict_keys=predict_keys
+            predict_keys=predict_keys,
+            num_epochs=1,
         )
 
     def score(self,X,Y):
-        eval_input_fn = tf.numpy_input_fn(
-            x={'x':X},
+        eval_input_fn = tf.estimator.inputs.numpy_input_fn(
+            x={'x':X.astype(np.float32)},
             y=Y,
-            num_epochs=1
+            num_epochs=1,
+            shuffle=False
         )
-        return self.clf.evaluate(input_fn=eval_input_fn)
+        return self.evaluate(input_fn=eval_input_fn)['accuracy']
 
-    def get_params(self):
-        return {'params': self.params}
+    def get_params(self,deep=False):
+        return {"parameters": self.parameters}
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
