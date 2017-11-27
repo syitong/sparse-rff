@@ -299,18 +299,18 @@ class HRFSVM:
                 'tol': self.tol,
                 'n_jobs': self.n_jobs}
 
-class tfRFMLR:
+class tfRFLM:
     """
     This class implements the RFSVM with softmax + cross entropy
     as loss function by using Tensor Flow library
     to solve multi-class problems natively.
     """
     def __init__(self,params):
-        self.clf = tf.estimator.Estimator(model_fn=RFMLR,
+        self.clf = tf.estimator.Estimator(model_fn=RFLM,
             model_dir=None,params=params)
         self.params = params
 
-    def RFMLR(features,labels,mode,params):
+    def RFLM(features,labels,mode,params):
         d = params['n_old_features']
         N = params['n_components']
         Lambda = params['lambda']

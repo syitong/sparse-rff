@@ -563,12 +563,10 @@ def tfRFSVM_MNIST(m=1000,n_components=1000):
         Gamma = 10**LogGamma[idx]
         for jdx in range(len(LogLambda)):
             Lambda = 10**LogLambda[jdx]
-            unif_feature = rff.myRBFSampler(Xtrain.shape[1],
-                gamma=Gamma,n_components=n_components)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'features generated')
-            Xtraintil = unif_feature.fit_transform(Xtrain)
-            mylog.time_event('data transformed')
+            clf = tfRFLM(params)
+
 
 def main():
     # URFSVM_MNIST(m=1000,n_components=500)
