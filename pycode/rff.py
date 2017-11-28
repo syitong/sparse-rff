@@ -305,10 +305,9 @@ def _RFLM(features,labels,mode,params):
     Lambda = params['lambda']
     Gamma = params['gamma']
     n_classes = params['n_classes']
-    optimizer = params['optimizer']
     method = params['method']
     initializer = tf.random_normal_initializer(
-        stddev=tf.divide(1,Gamma))
+        stddev=Gamma.astype(np.float32))
 
     cos_layer = tf.layers.dense(inputs=features['x'],
         units=2*N,activation=tf.cos,use_bias=False,
@@ -349,6 +348,13 @@ def _RFLM(features,labels,mode,params):
 
     # Configure the Training Op (for TRAIN mode)
     if mode == tf.estimator.ModeKeys.TRAIN:
+        global_step = tf.Variable(0,trainable=False)
+        learning_rate = tf.train.inverse_time_decay(
+            learning_rate=1.,
+            decay_steps=1,
+            global_step=global_step,
+            decay_rate=1.)
+        optimizer = tf.train.GradientDescentOptimizer(learning_rate)
         train_op = optimizer.minimize(
             loss=loss,
             global_step=tf.train.get_global_step()
@@ -397,7 +403,6 @@ class tfRFLM(tf.estimator.Estimator):
         return self.predict(
             input_fn=pred_input_fn,
             predict_keys=predict_keys,
-            num_epochs=1,
         )
 
     def score(self,X,Y):

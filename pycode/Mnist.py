@@ -535,10 +535,10 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
     mylog = log.log('log/tfRFLM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',2000)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',2000)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',2000)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',2000)
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
@@ -550,18 +550,16 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,10)
+    LogLambda = np.arange(-12.0,-2,1)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,1)
+    LogGamma = np.arange(-0.2,0.8,0.1)
     LogGamma = np.log10(gamma) + LogGamma
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
     params = {
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
-        'lambda': 1,
-        'gamma': 1,
+        'lambda': 10.**(-6),
+        'gamma': 10.**LogGamma[2],
         'n_classes': 10,
-        'optimizer': optimizer,
         'method': 'lr'
     }
 
@@ -570,33 +568,34 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
     best_Gamma = 1
     best_Lambda = 1
     crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
-    for idx in range(len(LogGamma)):
-        Gamma = 10**LogGamma[idx]
-        for jdx in range(len(LogLambda)):
-            Lambda = 10**LogLambda[jdx]
-            params['lambda'] = Lambda
-            params['gamma'] = gamma
-            clf = rff.tfRFLM(params)
-            score = cross_val_score(clf,Xtrain,Ytrain,cv=5
-            # ,n_jobs=1
-            )
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'crossval done')
-            crossval_result['Gamma'].append(Gamma)
-            crossval_result['Lambda'].append(Lambda)
-            avg_score = np.sum(score) / 5
-            print('score = {:.4f}'.format(avg_score))
-            crossval_result['score'].append(avg_score)
-            if avg_score > best_score:
-                best_score = avg_score
-                best_Gamma = Gamma
-                best_Lambda = Lambda
-                best_clf = clf
+    # for idx in range(len(LogGamma)):
+    #     Gamma = 10**LogGamma[idx]
+    #     for jdx in range(len(LogLambda)):
+    #         Lambda = 10**LogLambda[jdx]
+    #         params['lambda'] = Lambda
+    #         params['gamma'] = gamma
+    #         clf = rff.tfRFLM(params)
+    #         score = cross_val_score(clf,Xtrain,Ytrain,cv=3
+    #             # ,n_jobs=-1
+    #             )
+    #         mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+    #                          +'crossval done')
+    #         crossval_result['Gamma'].append(Gamma)
+    #         crossval_result['Lambda'].append(Lambda)
+    #         avg_score = np.sum(score) / 5
+    #         print('score = {:.4f}'.format(avg_score))
+    #         crossval_result['score'].append(avg_score)
+    #         if avg_score > best_score:
+    #             best_score = avg_score
+    #             best_Gamma = Gamma
+    #             best_Lambda = Lambda
+    #             best_clf = clf
 
     # performance test
-    best_clf.fit(Xtrain,Ytrain)
+    best_clf = rff.tfRFLM(params)
+    best_clf.fit(Xtr,Ytr,n_iter=7000)
     mylog.time_event('best model trained')
-    Ypred = best_clf.infer(Xtest,predict_keys='classes')
+    Ypred = [p['classes'] for _, p in enumerate(best_clf.infer(Xtest,predict_keys='classes'))]
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
     mylog.time_event('test done')
@@ -630,7 +629,7 @@ def main():
     # ORFSVM_MNIST(m=1000,n_components=1000)
     # KSVM_MNIST(m=1000,trainsize=2000)
     # URFMLR_MNIST(m=1000,n_components=2000)
-    tfRFLM_MNIST(m=1000,n_components=200)
+    tfRFLM_MNIST(m=1000,n_components=2000)
 
 if __name__ == '__main__':
     main()
