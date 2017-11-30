@@ -307,7 +307,7 @@ def _RFLM(features,labels,mode,params):
     n_classes = params['n_classes']
     method = params['method']
     initializer = tf.random_normal_initializer(
-        stddev=Gamma.astype(np.float32))
+        stddev=tf.sqrt(Gamma.astype(np.float32)))
 
     cos_layer = tf.layers.dense(inputs=features['x'],
         units=2*N,activation=tf.cos,use_bias=False,

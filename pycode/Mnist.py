@@ -593,7 +593,7 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
 
     # performance test
     best_clf = rff.tfRFLM(params)
-    best_clf.fit(Xtr,Ytr,n_iter=2000)
+    best_clf.fit(Xtr,Ytr,n_iter=7000)
     mylog.time_event('best model trained')
     Ypred = [p['classes'] for _, p in enumerate(best_clf.infer(Xtest,predict_keys='classes'))]
     C_matrix = confusion_matrix(Ytest,Ypred)
