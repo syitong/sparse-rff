@@ -320,9 +320,9 @@ def _RFLM(features,labels,mode,params):
     #    'RF_Layer')
     logits = tf.layers.dense(inputs=RF_layer,
         kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
-        units=n_classes)
-    # out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-    #    'logits')
+        units=n_classes,name='logits')
+    out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+        'logits')
 
     predictions = {
     # Generate predictions (for PREDICT and EVAL mode)
@@ -354,10 +354,13 @@ def _RFLM(features,labels,mode,params):
             decay_steps=1,
             global_step=global_step,
             decay_rate=1.)
-        optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+        # optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+        optimizer = tf.train.FtrlOptimizer(learning_rate=50,
+            l2_regularization_strength=0.)
         train_op = optimizer.minimize(
             loss=loss,
-            global_step=tf.train.get_global_step()
+            global_step=tf.train.get_global_step(),
+            var_list=out_weights
         )
         return tf.estimator.EstimatorSpec(mode=mode, loss=loss, train_op=train_op)
 

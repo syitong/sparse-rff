@@ -532,7 +532,7 @@ def HRFSVM_MNIST():
 
 def tfRFLM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/tfRFLM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
+    mylog = log.log('log/tfURFMLR_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
@@ -593,7 +593,7 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
 
     # performance test
     best_clf = rff.tfRFLM(params)
-    best_clf.fit(Xtr,Ytr,n_iter=7000)
+    best_clf.fit(Xtr,Ytr,n_iter=2000)
     mylog.time_event('best model trained')
     Ypred = [p['classes'] for _, p in enumerate(best_clf.infer(Xtest,predict_keys='classes'))]
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -618,7 +618,7 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/tfRFLM_MNIST_{}-cm.eps'.format(n_components))
+    plt.savefig('image/tfURFMLR_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
 
