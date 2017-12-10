@@ -20,8 +20,8 @@ class tfRF2L:
         self._n_classes = n_classes
         self._loss_fn = loss_fn
         self._predict = None
-        self._train_op_1 = None
-        self._train_op_2 = None
+        self._global_step_layer_2 = tf.Variable(0,trainable=False)
+        self._global_step_layer_1 = tf.Variable(0,trainable=False)
         self._graph = self._model_fn()
         self._sess = tf.Session()
 
@@ -43,6 +43,12 @@ class tfRF2L:
     @property
     def loss_fn(self):
         return self._loss_fn
+    @property
+    def global_step_layer_1(self):
+        return self._sess.run(_global_step_layer_1)
+    @property
+    def global_step_layer_2(self):
+        return self._sess.run(_global_step_layer_2)
 
     def _model_fn(self):
         d = self._d
@@ -82,14 +88,17 @@ class tfRF2L:
                 probab = tf.nn.softmax(logits, name="softmax tensor")
                 # hinge loss only works for binary classification.
                 if self._n_classes == 2:
-                    loss_hinge = tf.losses.hinge_loss(labels=labels,
-                        logits=tf.reduced_sum(logits,1), name="hinge loss")
-                    loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
-                onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
-                    depth=n_classes)
-                loss_log = tf.losses.softmax_cross_entropy(
-                    onehot_labels=onehot_labels, logits=logits,
-                    name="log loss")
+                    if loss_fn = 'hinge loss':
+                        loss_hinge = tf.losses.hinge_loss(labels=labels,
+                            logits=tf.reduced_sum(logits,1), name="hinge loss")
+                        loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
+                else:
+                    self._loss_fn = 'log loss'
+                    onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
+                        depth=n_classes)
+                    loss_log = tf.losses.softmax_cross_entropy(
+                        onehot_labels=onehot_labels, logits=logits,
+                        name="log loss")
             return g
 
     def predict(self,data):
@@ -105,34 +114,45 @@ class tfRF2L:
                 "probabilities": probab}
             return self._sess(predictions,feed_dict=feed_dict)
 
-    def fit(self,data,labels):
+    def fit(self,data,labels,mode,n_iter):
         with self._graph.as_default():
             out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'logits')
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'RF Layer')
-######## construction site ########
-            # Configure the Training Op (for TRAIN mode)
-            if mode == 'train':
-                return {'loss': loss,
-                    'inner weights': in_weights,
-                    'outer weights': out_weights}
-
-            return tf.metrics.accuracy(labels=labels,
-                predictions=predictions["classes"])
-
-                global_step = tf.Variable(0,trainable=False)
+            if mode == 'layer 2':
+                loss = tf.get_tensor_by_name(self._graph,name=self._loss_fn)
                 learning_rate = tf.train.inverse_time_decay(
                     learning_rate=1.,
                     decay_steps=1,
-                    global_step=global_step,
+                    global_step=self._global_step_layer_2,
                     decay_rate=1.)
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
                  #   l2_regularization_strength=0.)
                 train_op = optimizer.minimize(
                     loss=loss,
-                    global_step=tf.train.get_global_step(),
+                    global_step=self._global_step_layer_2,
                     var_list=out_weights
                 )
-                return train_op
+            if mode == 'layer 1':
+                loss = tf.get_tensor_by_name(self._graph,name=self._loss_fn)
+                learning_rate = tf.train.inverse_time_decay(
+                    learning_rate=1.,
+                    decay_steps=1,
+                    global_step=self._global_step_layer_1,
+                    decay_rate=1.)
+                optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+                # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
+                 #   l2_regularization_strength=0.)
+                train_op = optimizer.minimize(
+                    loss=loss,
+                    global_step=self._global_step_layer_1,
+                    var_list=in_weights
+                )
+            for idx in range(n_iter):
+                feed_dict = {x:data[idx],
+                             y:label[idx]}
+                if idx % 10 == 1:
+                    print('loss: {.4f}'.format(self._sess.run(loss,feed_dict)))
+                self._sess.run(train_op,feed_dict)
