@@ -1,9 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import rff
+import tensorflow as tf
+import tfRF2L
 
-with open('data/train-labels.idx1-ubyte','rb') as file:
-    data = file.read()
-    print(data[0:20])
-    for row in range(20):
-        print(data[row])
+n_old_features = 10
+n_components = 20
+Lambda = 1
+Gamma = 1
+n_classes = 5
+clf = tfRF2L.tfRF2L(n_old_features,n_components,
+    Lambda,Gamma,n_classes)

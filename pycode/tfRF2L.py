@@ -12,18 +12,21 @@ class tfRF2L:
     """
     def __init__(self,n_old_features,
         n_components,Lambda,Gamma,n_classes,
-        loss_fn):
+        loss_fn='log loss'):
         self._d = n_old_features
         self._N = n_components
-        self._Lambda = Lambda
-        self._Gamma = Gamma
+        self._Lambda = np.float32(Lambda)
+        self._Gamma = np.float32(Gamma)
         self._n_classes = n_classes
         self._loss_fn = loss_fn
-        self._predict = None
         self._global_step_layer_2 = tf.Variable(0,trainable=False)
         self._global_step_layer_1 = tf.Variable(0,trainable=False)
-        self._graph = self._model_fn()
+        self._summary = None
+        self._graph = None
+        self._model_fn()
         self._sess = tf.Session()
+        self._train_writer = tf.summary.FileWriter('log',self._graph)
+        self._sess.run(tf.global_variables_initializer())
 
     @property
     def d(self):
@@ -58,17 +61,17 @@ class tfRF2L:
         n_classes = self._n_classes
         loss_fn = self._loss_fn
 
-        g = tf.graph()
+        g = tf.Graph()
         with g.as_default():
-            with name_scope('inputs'):
+            with tf.name_scope('inputs'):
                 x = tf.placeholder(dtype=tf.float32,
                     shape=[None,d],name='features')
-                y = tf.placeholder(dtype=tf.int,
+                y = tf.placeholder(dtype=tf.int8,
                     shape=[None,1],name='labels')
 
-            with name_scope('Layer1'):
+            with tf.name_scope('Layer1'):
                 initializer = tf.random_normal_initializer(
-                    stddev=tf.sqrt(Gamma.astype(np.float32)))
+                    stddev=tf.sqrt(Gamma))
 
                 cos_layer = tf.layers.dense(inputs=x,
                     units=2*N,activation=tf.cos,use_bias=False,
@@ -78,28 +81,34 @@ class tfRF2L:
                     kernel_initializer=initializer)
                 RF_layer = tf.div(tf.concat([cos_layer,sin_layer],axis=1),
                     tf.sqrt(N*1.0))
+                in_weights = tf.get_collection(tf.GraphKeys.WEIGHTS,
+                    'RF Layer')
+                tf.summary.histogram('inner weights', in_weights)
 
-            with name_scope('Layer2'):
+            with tf.name_scope('Layer2'):
                 logits = tf.layers.dense(inputs=RF_layer,
                     kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                     units=n_classes,name='logits')
+                out_weights = tf.get_collection(tf.GraphKeys.WEIGHTS,
+                    'logits')
+                tf.summary.histogram('outer weights', out_weights)
 
-            with name_scope('Loss'):
+            with tf.name_scope('Loss'):
                 probab = tf.nn.softmax(logits, name="softmax tensor")
                 # hinge loss only works for binary classification.
                 if self._n_classes == 2:
-                    if loss_fn = 'hinge loss':
+                    if loss_fn == 'hinge loss':
                         loss_hinge = tf.losses.hinge_loss(labels=labels,
                             logits=tf.reduced_sum(logits,1), name="hinge loss")
                         loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
                 else:
-                    self._loss_fn = 'log loss'
                     onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
                         depth=n_classes)
                     loss_log = tf.losses.softmax_cross_entropy(
                         onehot_labels=onehot_labels, logits=logits,
                         name="log loss")
-            return g
+            self._summary = tf.summary.merge_all()
+            self._graph = g
 
     def predict(self,data):
         with self._graph.as_default():
@@ -155,4 +164,20 @@ class tfRF2L:
                              y:label[idx]}
                 if idx % 10 == 1:
                     print('loss: {.4f}'.format(self._sess.run(loss,feed_dict)))
+                    summary = self._sess.run(self._summary)
+                    self._train_writer.add_summary(summary,i)
                 self._sess.run(train_op,feed_dict)
+            print('loss: {.4f}'.format(self._sess.run(loss,feed_dict)))
+            summary = self._sess.run(self._summary)
+            self._train_writer.add_summary(summary,i)
+
+    def get_params(self):
+        params = {
+            'n_old_features': self._d,
+            'n_components': self._N,
+            'Lambda': self._Lambda,
+            'Gamma': self._Gamma,
+            'n_classes': self._n_classes,
+            'loss_fn': self._loss_fn
+        }
+        return params
