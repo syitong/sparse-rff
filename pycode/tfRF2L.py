@@ -66,19 +66,19 @@ class tfRF2L:
             with tf.name_scope('inputs'):
                 x = tf.placeholder(dtype=tf.float32,
                     shape=[None,d],name='features')
-                y = tf.placeholder(dtype=tf.int8,
+                y = tf.placeholder(dtype=tf.uint8,
                     shape=[None,1],name='labels')
 
             with tf.name_scope('Layer1'):
                 initializer = tf.random_normal_initializer(
                     stddev=tf.sqrt(Gamma))
 
-                cos_layer = tf.layers.dense(inputs=x,
-                    units=2*N,activation=tf.cos,use_bias=False,
+                trans_layer = tf.layers.dense(inputs=x,units=N,
+                    use_bias=False,
                     kernel_initializer=initializer)
-                sin_layer = tf.layers.dense(inputs=x,
-                    units=2*N,activation=tf.sin,use_bias=False,
-                    kernel_initializer=initializer)
+
+                cos_layer = tf.cos(trans_layer)
+                sin_layer = tf.sin(trans_layer)
                 RF_layer = tf.div(tf.concat([cos_layer,sin_layer],axis=1),
                     tf.sqrt(N*1.0))
                 in_weights = tf.get_collection(tf.GraphKeys.WEIGHTS,
@@ -94,19 +94,19 @@ class tfRF2L:
                 tf.summary.histogram('outer weights', out_weights)
 
             with tf.name_scope('Loss'):
-                probab = tf.nn.softmax(logits, name="softmax tensor")
+                probab = tf.nn.softmax(logits, name="softmax")
                 # hinge loss only works for binary classification.
                 if self._n_classes == 2:
-                    if loss_fn == 'hinge loss':
-                        loss_hinge = tf.losses.hinge_loss(labels=labels,
-                            logits=tf.reduced_sum(logits,1), name="hinge loss")
-                        loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
-                else:
-                    onehot_labels = tf.one_hot(indices=tf.cast(labels, tf.uint8),
-                        depth=n_classes)
-                    loss_log = tf.losses.softmax_cross_entropy(
-                        onehot_labels=onehot_labels, logits=logits,
-                        name="log loss")
+                    loss_hinge = tf.losses.hinge_loss(labels=y,
+                        logits=logits,
+                        loss_collection="loss")
+                    loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
+                    tf.add_to_collection("loss",loss_ramp)
+                onehot_labels = tf.one_hot(indices=tf.cast(y, tf.uint8),
+                    depth=n_classes)
+                loss_log = tf.losses.softmax_cross_entropy(
+                    onehot_labels=onehot_labels, logits=logits,
+                    loss_collection="loss")
             self._summary = tf.summary.merge_all()
             self._graph = g
 
@@ -129,8 +129,15 @@ class tfRF2L:
                 'logits')
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'RF Layer')
+            if self._n_classes == 2:
+                h_loss,r_loss,l_loss = tf.get_collection('loss')
+            else:
+                l_loss = tf.get_collection('loss')
+            if self._loss_fn == 'hinge loss':
+                loss = h_loss
+            elif self._loss_fn == 'log loss':
+                loss = l_loss
             if mode == 'layer 2':
-                loss = tf.get_tensor_by_name(self._graph,name=self._loss_fn)
                 learning_rate = tf.train.inverse_time_decay(
                     learning_rate=1.,
                     decay_steps=1,
@@ -145,7 +152,6 @@ class tfRF2L:
                     var_list=out_weights
                 )
             if mode == 'layer 1':
-                loss = tf.get_tensor_by_name(self._graph,name=self._loss_fn)
                 learning_rate = tf.train.inverse_time_decay(
                     learning_rate=1.,
                     decay_steps=1,
