@@ -19,11 +19,12 @@ Gamma = rff.gamma_est(Xtrain)
 n_classes = 2
 clf = tfRF2L.tfRF2L(n_old_features,n_components,
     Lambda,Gamma,n_classes)
-clf.fit(Xtrain,Ytrain,'layer 2',1000)
 Ypred = clf.predict(Xtest)['classes']
 accuracy = np.sum(Ytest==Ypred) / 100
 print('accuracy={0:.3f}'.format(accuracy))
+clf.fit(Xtrain,Ytrain,'layer 2',1000)
 clf.fit(Xtrain,Ytrain,'layer 1',1000)
+# clf.fit(Xtrain,Ytrain,'over all',1000)
 Ypred = clf.predict(Xtest)['classes']
 accuracy = np.sum(Ytest==Ypred) / 100
 print('accuracy={0:.3f}'.format(accuracy))
