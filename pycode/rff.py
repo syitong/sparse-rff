@@ -309,12 +309,13 @@ def _RFLM(features,labels,mode,params):
     initializer = tf.random_normal_initializer(
         stddev=tf.sqrt(Gamma.astype(np.float32)))
 
-    cos_layer = tf.layers.dense(inputs=features['x'],
-        units=2*N,activation=tf.cos,use_bias=False,
-        kernel_initializer=initializer)
-    sin_layer = tf.layers.dense(inputs=features['x'],
-        units=2*N,activation=tf.sin,use_bias=False,
-        kernel_initializer=initializer)
+    trans_layer = tf.layers.dense(inputs=features,units=N,
+        use_bias=False,
+        kernel_initializer=initializer,
+        name='Gaussian')
+
+    cos_layer = tf.cos(trans_layer)
+    sin_layer = tf.sin(trans_layer)
     RF_layer = tf.div(tf.concat([cos_layer,sin_layer],axis=1), tf.sqrt(N*1.0))
     # in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
     #    'RF_Layer')

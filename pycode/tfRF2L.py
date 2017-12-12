@@ -22,7 +22,6 @@ class tfRF2L:
         self._total_iter = 0
         self._sess = tf.Session()
         self._model_fn()
-        self._sess.run(tf.global_variables_initializer())
 
     @property
     def d(self):
@@ -43,11 +42,8 @@ class tfRF2L:
     def loss_fn(self):
         return self._loss_fn
     @property
-    def global_step_layer_1(self):
-        return self._sess.run(_global_step_layer_1)
-    @property
-    def global_step_layer_2(self):
-        return self._sess.run(_global_step_layer_2)
+    def total_iter(self):
+        return self._total_iter
 
     def _model_fn(self):
         d = self._d
@@ -102,11 +98,10 @@ class tfRF2L:
             #     loss_ramp = (tf.max(loss_hinge,1)
             #         + regularizer)
             #     tf.add_to_collection("loss",loss_ramp)
-            onehot_labels = tf.one_hot(indices=tf.cast(y, tf.uint8),
-                depth=n_classes)
+            onehot_labels = tf.one_hot(indices=y, depth=n_classes)
             loss_log = tf.losses.softmax_cross_entropy(
                 onehot_labels=onehot_labels, logits=logits)
-            reg_log_loss = tf.add(loss_log,regularizer)
+            reg_log_loss = tf.add(tf.reduce_mean(loss_log),regularizer)
             tf.add_to_collection('Loss',reg_log_loss)
 
             merged = tf.summary.merge_all()
@@ -130,7 +125,7 @@ class tfRF2L:
                 "probabilities": probab}
             return self._sess.run(predictions,feed_dict=feed_dict)
 
-    def fit(self,data,labels,mode,n_iter):
+    def fit(self,data,labels,mode,batch_size=1,n_iter=500):
         with self._sess.graph.as_default():
             g = self._sess.graph
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
@@ -189,13 +184,12 @@ class tfRF2L:
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_1,
-                    # var_list=tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES)
                     )
 
             for idx in range(n_iter):
-                rand_i = np.random.randint(len(data))
-                feed_dict = {'features:0':data[None,rand_i,:],
-                             'labels:0':labels[None,rand_i]}
+                rand_list = np.random.randint(len(data),size=batch_size)
+                feed_dict = {'features:0':data[rand_list,:],
+                             'labels:0':labels[rand_list]}
                 if idx % 10 == 1:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
