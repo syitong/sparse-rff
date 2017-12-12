@@ -19,6 +19,7 @@ class tfRF2L:
         self._Gamma = np.float32(Gamma)
         self._n_classes = n_classes
         self._loss_fn = loss_fn
+        self._total_iter = 0
         self._sess = tf.Session()
         self._model_fn()
         self._sess.run(tf.global_variables_initializer())
@@ -133,7 +134,7 @@ class tfRF2L:
         with self._sess.graph.as_default():
             g = self._sess.graph
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-                'RF_layer')
+                'Gaussian')
             out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'Logits')
             # if self._n_classes == 2:
@@ -170,7 +171,7 @@ class tfRF2L:
                     decay_rate=1.)
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
-                 #   l2_regularization_strength=0.)
+                #     l2_regularization_strength=0.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_1,
@@ -183,11 +184,15 @@ class tfRF2L:
                 if idx % 10 == 1:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
-                    self._train_writer.add_summary(summary,idx)
+                    self._train_writer.add_summary(summary,self._total_iter)
                 self._sess.run(train_op,feed_dict)
+                self._total_iter += 1
             print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
             summary = self._sess.run(merged)
             self._train_writer.add_summary(summary,idx)
+
+    def close(self):
+        self._sess.close()
 
     def get_params(self):
         params = {
