@@ -19,14 +19,11 @@ class tfRF2L:
         self._Gamma = np.float32(Gamma)
         self._n_classes = n_classes
         self._loss_fn = loss_fn
+        self._sess = tf.Session()
+        self._model_fn()
         self._global_step_layer_2 = tf.Variable(0,trainable=False)
         self._global_step_layer_1 = tf.Variable(0,trainable=False)
         self._summary = None
-        self._graph = None
-        self._model_fn()
-        self._sess = tf.Session()
-        self._train_writer = tf.summary.FileWriter('log',self._graph)
-        self._sess.run(tf.global_variables_initializer())
 
     @property
     def d(self):
@@ -61,8 +58,8 @@ class tfRF2L:
         n_classes = self._n_classes
         loss_fn = self._loss_fn
 
-        g = tf.Graph()
-        with g.as_default():
+        with self._sess.graph.as_default():
+            g = self._sess.graph
             with tf.name_scope('inputs'):
                 x = tf.placeholder(dtype=tf.float32,
                     shape=[None,d],name='features')
@@ -75,46 +72,54 @@ class tfRF2L:
 
                 trans_layer = tf.layers.dense(inputs=x,units=N,
                     use_bias=False,
-                    kernel_initializer=initializer)
+                    kernel_initializer=initializer,
+                    name='Gaussian')
 
                 cos_layer = tf.cos(trans_layer)
                 sin_layer = tf.sin(trans_layer)
-                RF_layer = tf.div(tf.concat([cos_layer,sin_layer],axis=1),
+                RF_layer = tf.div([cos_layer,sin_layer],
                     tf.sqrt(N*1.0))
-                in_weights = tf.get_collection(tf.GraphKeys.WEIGHTS,
-                    'RF Layer')
-                tf.summary.histogram('inner weights', in_weights)
+                tf.summary.histogram('inner weights',
+                    g.get_tensor_by_name('Gaussian/kernel:0'))
 
             with tf.name_scope('Layer2'):
                 logits = tf.layers.dense(inputs=RF_layer,
                     kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                     units=n_classes,name='logits')
-                out_weights = tf.get_collection(tf.GraphKeys.WEIGHTS,
-                    'logits')
-                tf.summary.histogram('outer weights', out_weights)
+                tf.summary.histogram('outer weights',
+                    g.get_tensor_by_name('logits/kernel:0'))
 
+            probab = tf.nn.softmax(logits, name="softmax")
             with tf.name_scope('Loss'):
-                probab = tf.nn.softmax(logits, name="softmax")
                 # hinge loss only works for binary classification.
+                regularizer = tf.losses.get_regularization_loss(
+                    scope = 'Layer2'
+                )
                 if self._n_classes == 2:
                     loss_hinge = tf.losses.hinge_loss(labels=y,
                         logits=logits,
-                        loss_collection="loss")
-                    loss_ramp = tf.max(loss_hinge,1,name="ramp loss")
+                        loss_collection="loss") + regularizer
+                    loss_ramp = (tf.max(loss_hinge,1,name="ramp loss")
+                        + regularizer)
                     tf.add_to_collection("loss",loss_ramp)
                 onehot_labels = tf.one_hot(indices=tf.cast(y, tf.uint8),
                     depth=n_classes)
                 loss_log = tf.losses.softmax_cross_entropy(
                     onehot_labels=onehot_labels, logits=logits,
-                    loss_collection="loss")
-            self._summary = tf.summary.merge_all()
-            self._graph = g
+                    loss_collection="loss") + regularizer
+            merged = tf.summary.merge_all()
+            self._train_writer = tf.summary.FileWriter('log',
+                tf.get_default_graph())
+            self._sess.run(tf.global_variables_initializer())
+            summary = self._sess.run(merged)
+            self._train_writer.add_summary(summary)
 
     def predict(self,data):
         with self._graph.as_default():
             x = tf.get_tensor_by_name('features:0')
             feed_dict = {x:data}
             logits = tf.get_tensor_by_name('logits:0')
+            probab = tf.get_tensor_by_name('softmax')
             predictions = {
                 # Generate predictions (for PREDICT and EVAL mode)
                 "classes": tf.argmax(input=logits, axis=1),
@@ -126,9 +131,9 @@ class tfRF2L:
     def fit(self,data,labels,mode,n_iter):
         with self._graph.as_default():
             out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-                'logits')
+                'Layer2')
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-                'RF Layer')
+                'Layer1')
             if self._n_classes == 2:
                 h_loss,r_loss,l_loss = tf.get_collection('loss')
             else:
