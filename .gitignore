@@ -2,3 +2,4 @@
 *.swp
 pycode/data/
 pycode/__pycache__/
+pycode/tmp/
