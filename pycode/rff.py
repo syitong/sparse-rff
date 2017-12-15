@@ -537,18 +537,23 @@ class tfRF2L:
             logits,probab = tf.get_collection('Probab')
             predictions = {
                 # Generate predictions (for PREDICT and EVAL mode)
-                "classes": self._classes[tf.argmax(input=logits,axis=1)],
+                "indices": tf.argmax(input=logits,axis=1),
                 # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
                 # `logging_hook`.
                 "probabilities": probab}
-            return self._sess.run(predictions,feed_dict=feed_dict)
+            results = self._sess.run(predictions,feed_dict=feed_dict)
+            classes = [self._classes[index] for index in results['indices']]
+            probabilities = results['probabilities']
+            return classes,probabilities
 
     def evaluate(self,data,labels):
-        accuracy = np.sum(self.predict(data)['classes']==labels) / 100
+        pred,_ = self.predict(data)
+        accuracy = np.sum(pred==labels) / 100
         return accuracy
 
     def fit(self,data,labels,mode,batch_size=1,n_iter=500):
         indices = [self._classes.index(label) for label in labels]
+        indices = np.array(indices)
         with self._sess.graph.as_default():
             g = self._sess.graph
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
@@ -632,7 +637,7 @@ class tfRF2L:
             'n_components': self._N,
             'Lambda': self._Lambda,
             'Gamma': self._Gamma,
-            'n_classes': self._n_classes,
+            'classes': self._classes,
             'loss_fn': self._loss_fn
         }
         return params
