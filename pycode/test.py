@@ -15,17 +15,17 @@ Ytest = Y[200:]
 n_old_features = 2
 n_components = 20
 Lambda = 0.0005
-batch_size = 10
-Gamma = rff.gamma_est(Xtrain) / 0.2
+batch_size = 1
+Gamma = rff.gamma_est(Xtrain) / 1
 n_classes = 2
 clf = tfRF2L.tfRF2L(n_old_features,n_components,
     Lambda,Gamma,n_classes)
 Ypred = clf.predict(Xtest)['classes']
 accuracy = np.sum(Ytest==Ypred) / 100
 print('accuracy={0:.3f}'.format(accuracy))
-clf.fit(Xtrain,Ytrain,'layer 2',batch_size,1000)
-clf.fit(Xtrain,Ytrain,'layer 1',batch_size,1000)
-# clf.fit(Xtrain,Ytrain,'over all',batch_size,2000)
+# clf.fit(Xtrain,Ytrain,'layer 2',batch_size,1000)
+# clf.fit(Xtrain,Ytrain,'layer 1',batch_size,1000)
+clf.fit(Xtrain,Ytrain,'over all',batch_size,1000)
 Ypred = clf.predict(Xtest)['classes']
 accuracy = np.sum(Ytest==Ypred) / 100
 print('accuracy={0:.3f}'.format(accuracy))
