@@ -430,13 +430,17 @@ class tfRF2L:
     """
     def __init__(self,n_old_features,
         n_components,Lambda,Gamma,classes,
-        loss_fn='log loss'):
+        loss_fn='log loss',method='layer 2',
+        batch_size=1,n_iter=1000):
         self._d = n_old_features
         self._N = n_components
         self._Lambda = np.float32(Lambda)
         self._Gamma = np.float32(Gamma)
         self._classes = classes
         self._loss_fn = loss_fn
+        self.method = method
+        self.batch_size = batch_size
+        self.n_iter = n_iter
         self._total_iter = 0
         self._sess = tf.Session()
         self._model_fn()
@@ -546,12 +550,15 @@ class tfRF2L:
             probabilities = results['probabilities']
             return classes,probabilities
 
-    def evaluate(self,data,labels):
+    def score(self,data,labels):
         pred,_ = self.predict(data)
         accuracy = np.sum(pred==labels) / 100
         return accuracy
 
-    def fit(self,data,labels,mode,batch_size=1,n_iter=500):
+    def fit(self,data,labels):
+        mode = self.method
+        batch_size = self.batch_size
+        n_iter = self.n_iter
         indices = [self._classes.index(label) for label in labels]
         indices = np.array(indices)
         with self._sess.graph.as_default():
