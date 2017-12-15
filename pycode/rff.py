@@ -429,13 +429,13 @@ class tfRF2L:
     Layerwise training can be applied.
     """
     def __init__(self,n_old_features,
-        n_components,Lambda,Gamma,n_classes,
+        n_components,Lambda,Gamma,classes,
         loss_fn='log loss'):
         self._d = n_old_features
         self._N = n_components
         self._Lambda = np.float32(Lambda)
         self._Gamma = np.float32(Gamma)
-        self._n_classes = n_classes
+        self._classes = classes
         self._loss_fn = loss_fn
         self._total_iter = 0
         self._sess = tf.Session()
@@ -454,8 +454,8 @@ class tfRF2L:
     def Gamma(self):
         return self._Gamma
     @property
-    def n_classes(self):
-        return self._n_classes
+    def classes(self):
+        return self._classes
     @property
     def loss_fn(self):
         return self._loss_fn
@@ -468,7 +468,7 @@ class tfRF2L:
         N = self._N
         Lambda = self._Lambda
         Gamma = self._Gamma
-        n_classes = self._n_classes
+        n_classes = len(self._classes)
         loss_fn = self._loss_fn
 
         with self._sess.graph.as_default():
@@ -509,7 +509,7 @@ class tfRF2L:
 
             # hinge loss only works for binary classification.
             regularizer = tf.losses.get_regularization_loss(scope='Logits')
-            # if self._n_classes == 2:
+            # if n_classes == 2:
             #     loss_hinge = tf.losses.hinge_loss(labels=y,
             #         logits=logits,
             #         loss_collection="loss") + regularizer
@@ -537,7 +537,7 @@ class tfRF2L:
             logits,probab = tf.get_collection('Probab')
             predictions = {
                 # Generate predictions (for PREDICT and EVAL mode)
-                "classes": tf.argmax(input=logits,axis=1),
+                "classes": self._classes[tf.argmax(input=logits,axis=1)],
                 # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
                 # `logging_hook`.
                 "probabilities": probab}
@@ -548,6 +548,7 @@ class tfRF2L:
         return accuracy
 
     def fit(self,data,labels,mode,batch_size=1,n_iter=500):
+        indices = [self._classes.index(label) for label in labels]
         with self._sess.graph.as_default():
             g = self._sess.graph
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
@@ -611,7 +612,7 @@ class tfRF2L:
             for idx in range(n_iter):
                 rand_list = np.random.randint(len(data),size=batch_size)
                 feed_dict = {'features:0':data[rand_list,:],
-                             'labels:0':labels[rand_list]}
+                             'labels:0':indices[rand_list]}
                 if idx % 10 == 1:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
