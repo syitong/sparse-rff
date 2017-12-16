@@ -628,10 +628,10 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     mylog = log.log('log/tfURF2L_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',2000)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',2000)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',2000)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',2000)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
@@ -650,10 +650,14 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     params = {
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
-        'Lambda': 10.**(-6),
-        'Gamma': 10.**LogGamma[2],
-        'classes': [0,1,2,3,4,5,6,7,8,9]
-        'n_iter': 500
+        'Lambda': 1.,
+        'Gamma': 1.,
+        'classes': [0,1,2,3,4,5,6,7,8,9],
+    }
+    fit_params = {
+        'mode': 'layer 2',
+        'batch_size': 1,
+        'n_iter': 1000
     }
 
     # hyper-parameter selection
@@ -662,13 +666,13 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     best_Lambda = 1
     crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
     for idx in range(len(LogGamma)):
-        Gamma = 10**LogGamma[idx]
+        Gamma = np.float32(10**LogGamma[idx])
         for jdx in range(len(LogLambda)):
-            Lambda = 10**LogLambda[jdx]
+            Lambda = np.float32(10**LogLambda[jdx])
             params['Lambda'] = Lambda
             params['Gamma'] = Gamma
             clf = rff.tfRF2L(**params)
-            score = cross_val_score(clf,Xtrain,Ytrain,cv=5)
+            score = cross_val_score(clf,Xtrain,Ytrain,fit_params=fit_params,cv=5)
             mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
                              +'crossval done')
             crossval_result['Gamma'].append(Gamma)
@@ -685,7 +689,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # performance test
     best_clf.fit(Xtr,Ytr)
     mylog.time_event('best model trained')
-    Ypred,_ = best_clf.predict(Xtest,Ytest)
+    Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
     score = np.sum(Ypred == Ytest) / len(Ytest)
     mylog.time_event('test done')
@@ -719,7 +723,7 @@ def main():
     # KSVM_MNIST(m=1000,trainsize=60000)
     # URFMLR_MNIST(m=1000,n_components=2000)
     # tfRFLM_MNIST(m=1000,n_components=2000)
-    tfURF2L(m=1000,n_components=500)
+    tfURF2L_MNIST(m=1000,n_components=500)
 
 if __name__ == '__main__':
     main()

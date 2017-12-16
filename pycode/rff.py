@@ -430,19 +430,17 @@ class tfRF2L:
     """
     def __init__(self,n_old_features,
         n_components,Lambda,Gamma,classes,
-        loss_fn='log loss',method='layer 2',
-        batch_size=1,n_iter=1000):
+        loss_fn='log loss',log=False):
         self._d = n_old_features
         self._N = n_components
-        self._Lambda = np.float32(Lambda)
-        self._Gamma = np.float32(Gamma)
+        self._Lambda = Lambda
+        self._Gamma = Gamma
         self._classes = classes
         self._loss_fn = loss_fn
-        self.method = method
-        self.batch_size = batch_size
-        self.n_iter = n_iter
+        self._log = log
         self._total_iter = 0
-        self._sess = tf.Session()
+        self._graph = tf.Graph()
+        self._sess = tf.Session(graph=self._graph)
         self._model_fn()
 
     @property
@@ -464,6 +462,9 @@ class tfRF2L:
     def loss_fn(self):
         return self._loss_fn
     @property
+    def log(self):
+        return self._log
+    @property
     def total_iter(self):
         return self._total_iter
 
@@ -475,8 +476,7 @@ class tfRF2L:
         n_classes = len(self._classes)
         loss_fn = self._loss_fn
 
-        with self._sess.graph.as_default():
-            g = self._sess.graph
+        with self._graph.as_default():
             global_step_1 = tf.Variable(0,trainable=False,name='global1')
             global_step_2 = tf.Variable(0,trainable=False,name='global2')
             x = tf.placeholder(dtype=tf.float32,
@@ -492,21 +492,20 @@ class tfRF2L:
                     use_bias=False,
                     kernel_initializer=initializer,
                     name='Gaussian')
-                self._sess.run(tf.global_variables_initializer())
 
                 cos_layer = tf.cos(trans_layer)
                 sin_layer = tf.sin(trans_layer)
                 concated = tf.concat([cos_layer,sin_layer],axis=1)
                 RF_layer = tf.div(concated,tf.sqrt(N*1.0))
                 tf.summary.histogram('inner weights',
-                    g.get_tensor_by_name('Gaussian/kernel:0'))
+                    self._graph.get_tensor_by_name('Gaussian/kernel:0'))
 
             logits = tf.layers.dense(inputs=RF_layer,
                 kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                 units=n_classes,name='Logits')
             tf.add_to_collection("Probab",logits)
             tf.summary.histogram('outer weights',
-                g.get_tensor_by_name('Logits/kernel:0'))
+                self._graph.get_tensor_by_name('Logits/kernel:0'))
 
             probab = tf.nn.softmax(logits, name="softmax")
             tf.add_to_collection("Probab",probab)
@@ -531,12 +530,12 @@ class tfRF2L:
             self._train_writer = tf.summary.FileWriter('tmp',
                 tf.get_default_graph())
             self._sess.run(tf.global_variables_initializer())
-            summary = self._sess.run(merged)
-            self._train_writer.add_summary(summary)
+
+        summary = self._sess.run(merged)
+        self._train_writer.add_summary(summary)
 
     def predict(self,data):
-        with self._sess.graph.as_default():
-            g = self._sess.graph
+        with self._graph.as_default():
             feed_dict = {'features:0':data}
             logits,probab = tf.get_collection('Probab')
             predictions = {
@@ -545,24 +544,21 @@ class tfRF2L:
                 # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
                 # `logging_hook`.
                 "probabilities": probab}
-            results = self._sess.run(predictions,feed_dict=feed_dict)
-            classes = [self._classes[index] for index in results['indices']]
-            probabilities = results['probabilities']
-            return classes,probabilities
+        results = self._sess.run(predictions,feed_dict=feed_dict)
+        classes = [self._classes[index] for index in results['indices']]
+        probabilities = results['probabilities']
+        return classes,probabilities
 
     def score(self,data,labels):
         pred,_ = self.predict(data)
         accuracy = np.sum(pred==labels) / 100
         return accuracy
 
-    def fit(self,data,labels):
-        mode = self.method
-        batch_size = self.batch_size
-        n_iter = self.n_iter
+    def fit(self,data,labels,mode='layer 2',
+        batch_size=1,n_iter=1000):
         indices = [self._classes.index(label) for label in labels]
         indices = np.array(indices)
-        with self._sess.graph.as_default():
-            g = self._sess.graph
+        with self._graph.as_default():
             in_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'Gaussian')
             out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
@@ -576,8 +572,8 @@ class tfRF2L:
             # elif self._loss_fn == 'log loss':
             #     loss = l_loss
             loss = tf.get_collection('Loss')[0]
-            global_step_1 = g.get_tensor_by_name('global1:0')
-            global_step_2 = g.get_tensor_by_name('global2:0')
+            global_step_1 = self._graph.get_tensor_by_name('global1:0')
+            global_step_2 = self._graph.get_tensor_by_name('global2:0')
             merged = tf.get_collection('Summary')[0]
             if mode == 'layer 2':
                 learning_rate = tf.train.inverse_time_decay(
@@ -621,24 +617,22 @@ class tfRF2L:
                     global_step=global_step_1,
                     )
 
-            for idx in range(n_iter):
-                rand_list = np.random.randint(len(data),size=batch_size)
-                feed_dict = {'features:0':data[rand_list,:],
-                             'labels:0':indices[rand_list]}
-                if idx % 10 == 1:
+        for idx in range(n_iter):
+            rand_list = np.random.randint(len(data),size=batch_size)
+            feed_dict = {'features:0':data[rand_list,:],
+                         'labels:0':indices[rand_list]}
+            if idx % 10 == 1:
+                if self._log:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
-                    summary = self._sess.run(merged)
-                    self._train_writer.add_summary(summary,self._total_iter)
-                self._sess.run(train_op,feed_dict)
-                self._total_iter += 1
-            print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
-            summary = self._sess.run(merged)
-            self._train_writer.add_summary(summary,idx)
+                summary = self._sess.run(merged)
+                self._train_writer.add_summary(summary,self._total_iter)
+            self._sess.run(train_op,feed_dict)
+            self._total_iter += 1
 
-    def close(self):
-        self._sess.close()
+        summary = self._sess.run(merged)
+        self._train_writer.add_summary(summary,idx)
 
-    def get_params(self):
+    def get_params(self,deep=False):
         params = {
             'n_old_features': self._d,
             'n_components': self._N,
@@ -648,6 +642,10 @@ class tfRF2L:
             'loss_fn': self._loss_fn
         }
         return params
+
+    def __del__(self):
+        self._sess.close()
+        print('Session is closed.')
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
