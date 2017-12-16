@@ -628,10 +628,10 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     mylog = log.log('log/tfURF2L_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',2000)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',2000)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',2000)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',2000)
+    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
+    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
     mylog.time_event('data read in complete')
 
     # extract a smaller data set
@@ -643,9 +643,9 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     Xtest = scaler.transform(Xtest)
 
     # set up parameters
-    LogLambda = np.arange(-12.0,-2,10.)
+    LogLambda = np.arange(-12.0,-2,1.)
     gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,1.)
+    LogGamma = np.arange(-0.2,0.8,.1)
     LogGamma = np.log10(gamma) + LogGamma
     params = {
         'n_old_features': len(Xtrain[0]),
@@ -656,8 +656,8 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     }
     fit_params = {
         'mode': 'layer 2',
-        'batch_size': 1,
-        'n_iter': 1000
+        'batch_size': 10,
+        'n_iter': 500
     }
 
     # hyper-parameter selection
@@ -687,7 +687,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
                 best_clf = clf
 
     # performance test
-    best_clf.fit(Xtr,Ytr)
+    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=6000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
