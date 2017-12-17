@@ -689,7 +689,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # performance test
     best_clf = rff.tfRF2L(**params)
     best_clf.log = True
-    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=1,n_iter=300000)
+    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=3000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
