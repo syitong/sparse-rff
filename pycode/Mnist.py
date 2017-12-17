@@ -656,8 +656,8 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     }
     fit_params = {
         'mode': 'layer 2',
-        'batch_size': 10,
-        'n_iter': 500
+        'batch_size': 1,
+        'n_iter': 5000
     }
 
     # hyper-parameter selection
@@ -687,7 +687,8 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
                 best_clf = clf
 
     # performance test
-    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=6000)
+    best_clf.log = True
+    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=1,n_iter=300000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -723,7 +724,7 @@ def main():
     # KSVM_MNIST(m=1000,trainsize=60000)
     # URFMLR_MNIST(m=1000,n_components=2000)
     # tfRFLM_MNIST(m=1000,n_components=2000)
-    tfURF2L_MNIST(m=1000,n_components=500)
+    tfURF2L_MNIST(m=1000,n_components=2000)
 
 if __name__ == '__main__':
     main()

@@ -437,7 +437,7 @@ class tfRF2L:
         self._Gamma = Gamma
         self._classes = classes
         self._loss_fn = loss_fn
-        self._log = log
+        self.log = log
         self._total_iter = 0
         self._graph = tf.Graph()
         self._sess = tf.Session(graph=self._graph)
@@ -461,9 +461,6 @@ class tfRF2L:
     @property
     def loss_fn(self):
         return self._loss_fn
-    @property
-    def log(self):
-        return self._log
     @property
     def total_iter(self):
         return self._total_iter
@@ -531,8 +528,9 @@ class tfRF2L:
                 tf.get_default_graph())
             self._sess.run(tf.global_variables_initializer())
 
-        summary = self._sess.run(merged)
-        self._train_writer.add_summary(summary)
+        if self._log:
+            summary = self._sess.run(merged)
+            self._train_writer.add_summary(summary)
 
     def predict(self,data):
         with self._graph.as_default():
@@ -624,13 +622,10 @@ class tfRF2L:
             if idx % 10 == 1:
                 if self._log:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
-                summary = self._sess.run(merged)
-                self._train_writer.add_summary(summary,self._total_iter)
+                    summary = self._sess.run(merged)
+                    self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
             self._total_iter += 1
-
-        summary = self._sess.run(merged)
-        self._train_writer.add_summary(summary,idx)
 
     def get_params(self,deep=False):
         params = {
