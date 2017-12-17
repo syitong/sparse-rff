@@ -650,8 +650,8 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     params = {
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
-        'Lambda': 1.,
-        'Gamma': 1.,
+        'Lambda': 10.**(-6),
+        'Gamma': 10.**LogGamma[2],
         'classes': [0,1,2,3,4,5,6,7,8,9],
     }
     fit_params = {
@@ -662,31 +662,32 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
 
     # hyper-parameter selection
     best_score = 0
-    best_Gamma = 1
-    best_Lambda = 1
+    best_Gamma = 10.**LogGamma[2]
+    best_Lambda = 10.**(-6)
     crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
-    for idx in range(len(LogGamma)):
-        Gamma = np.float32(10**LogGamma[idx])
-        for jdx in range(len(LogLambda)):
-            Lambda = np.float32(10**LogLambda[jdx])
-            params['Lambda'] = Lambda
-            params['Gamma'] = Gamma
-            clf = rff.tfRF2L(**params)
-            score = cross_val_score(clf,Xtrain,Ytrain,fit_params=fit_params,cv=5)
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'crossval done')
-            crossval_result['Gamma'].append(Gamma)
-            crossval_result['Lambda'].append(Lambda)
-            avg_score = np.sum(score) / 5
-            print('score = {:.4f}'.format(avg_score))
-            crossval_result['score'].append(avg_score)
-            if avg_score > best_score:
-                best_score = avg_score
-                best_Gamma = Gamma
-                best_Lambda = Lambda
-                best_clf = clf
+    # for idx in range(len(LogGamma)):
+    #     Gamma = np.float32(10**LogGamma[idx])
+    #     for jdx in range(len(LogLambda)):
+    #         Lambda = np.float32(10**LogLambda[jdx])
+    #         params['Lambda'] = Lambda
+    #         params['Gamma'] = Gamma
+    #         clf = rff.tfRF2L(**params)
+    #         score = cross_val_score(clf,Xtrain,Ytrain,fit_params=fit_params,cv=5)
+    #         mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+    #                          +'crossval done')
+    #         crossval_result['Gamma'].append(Gamma)
+    #         crossval_result['Lambda'].append(Lambda)
+    #         avg_score = np.sum(score) / 5
+    #         print('score = {:.4f}'.format(avg_score))
+    #         crossval_result['score'].append(avg_score)
+    #         if avg_score > best_score:
+    #             best_score = avg_score
+    #             best_Gamma = Gamma
+    #             best_Lambda = Lambda
+    #             best_clf = clf
 
     # performance test
+    best_clf = rff.tfRF2L(**params)
     best_clf.log = True
     best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=1,n_iter=300000)
     mylog.time_event('best model trained')

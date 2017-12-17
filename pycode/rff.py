@@ -524,11 +524,9 @@ class tfRF2L:
 
             merged = tf.summary.merge_all()
             tf.add_to_collection('Summary',merged)
-            self._train_writer = tf.summary.FileWriter('tmp',
-                tf.get_default_graph())
             self._sess.run(tf.global_variables_initializer())
 
-        if self._log:
+        if self.log:
             summary = self._sess.run(merged)
             self._train_writer.add_summary(summary)
 
@@ -614,13 +612,16 @@ class tfRF2L:
                     loss=loss,
                     global_step=global_step_1,
                     )
+            if self.log:
+                self._train_writer = tf.summary.FileWriter('tmp',
+                    tf.get_default_graph())
 
         for idx in range(n_iter):
             rand_list = np.random.randint(len(data),size=batch_size)
             feed_dict = {'features:0':data[rand_list,:],
                          'labels:0':indices[rand_list]}
             if idx % 10 == 1:
-                if self._log:
+                if self.log:
                     print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
