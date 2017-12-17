@@ -577,9 +577,9 @@ class tfRF2L:
                     decay_steps=1,
                     global_step=global_step_2,
                     decay_rate=1.)
-                # optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-                optimizer = tf.train.FtrlOptimizer(learning_rate=50,
-                    l2_regularization_strength=0.)
+                optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+                # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
+                 #   l2_regularization_strength=0.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_2,
@@ -622,7 +622,8 @@ class tfRF2L:
                          'labels:0':indices[rand_list]}
             if idx % 10 == 1:
                 if self.log:
-                    print('loss: {0:.4f}'.format(self._sess.run(loss,feed_dict)))
+                    print('iter: {0:d}, loss: {1:.4f}'.format(
+                        idx, self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
