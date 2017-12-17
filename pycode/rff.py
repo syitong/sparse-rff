@@ -577,9 +577,9 @@ class tfRF2L:
                     decay_steps=1,
                     global_step=global_step_2,
                     decay_rate=1.)
-                optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-                # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
-                 #   l2_regularization_strength=0.)
+                # optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+                optimizer = tf.train.FtrlOptimizer(learning_rate=50,
+                    l2_regularization_strength=0.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_2,

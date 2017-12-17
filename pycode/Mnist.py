@@ -650,8 +650,8 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     params = {
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
-        'Lambda': 10.**(-6),
-        'Gamma': 10.**LogGamma[2],
+        'Lambda': np.float32(10.**(-6)),
+        'Gamma': np.float32(10.**LogGamma[2]),
         'classes': [0,1,2,3,4,5,6,7,8,9],
     }
     fit_params = {
