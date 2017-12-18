@@ -577,14 +577,16 @@ class tfRF2L:
                     decay_steps=1,
                     global_step=global_step_2,
                     decay_rate=1.)
-                optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-                # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
-                 #   l2_regularization_strength=0.)
+                # optimizer = tf.train.GradientDescentOptimizer(learning_rate)
+                optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
+                    l2_regularization_strength=0.)
+                # optimizer = tf.train.AdamOptimizer(learning_rate=10.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_2,
                     var_list=out_weights
                 )
+                self._sess.run(tf.global_variables_initializer())
             if mode == 'layer 1':
                 learning_rate = tf.train.inverse_time_decay(
                     learning_rate=1.,
