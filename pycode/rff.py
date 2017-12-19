@@ -572,11 +572,6 @@ class tfRF2L:
             global_step_2 = self._graph.get_tensor_by_name('global2:0')
             merged = tf.get_collection('Summary')[0]
             if mode == 'layer 2':
-                learning_rate = tf.train.inverse_time_decay(
-                    learning_rate=50.,
-                    decay_steps=1,
-                    global_step=global_step_2,
-                    decay_rate=1.)
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
                  #   l2_regularization_strength=0.)
@@ -586,13 +581,8 @@ class tfRF2L:
                     global_step=global_step_2,
                     var_list=out_weights
                 )
-                self._sess.run(tf.global_variables_initializer())
+                # self._sess.run(tf.global_variables_initializer())
             if mode == 'layer 1':
-                learning_rate = tf.train.inverse_time_decay(
-                    learning_rate=1.,
-                    decay_steps=1,
-                    global_step=global_step_1,
-                    decay_rate=1.)
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
                 #    l2_regularization_strength=0.)
@@ -603,22 +593,18 @@ class tfRF2L:
                     global_step=global_step_1,
                     var_list=in_weights
                 )
+                # self._sess.run(tf.global_variables_initializer())
             if mode == 'over all':
-                learning_rate = tf.train.inverse_time_decay(
-                    learning_rate=1.,
-                    decay_steps=1,
-                    global_step=global_step_1,
-                    decay_rate=1.)
-                # optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
-                optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
-                    l2_regularization_strength=0.)
+                optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
+                # optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
+                 #   l2_regularization_strength=0.)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50,
                 #     l2_regularization_strength=0.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_1,
                     )
-                self._sess.run(tf.global_variables_initializer())
+                # self._sess.run(tf.global_variables_initializer())
             if self.log:
                 self._train_writer = tf.summary.FileWriter('tmp',
                     tf.get_default_graph())

@@ -625,7 +625,7 @@ def tfRFLM_MNIST(m=1000,n_components=1000):
 
 def tfURF2L_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/tfURF2Lsgd_MNIST_{}.log'.format(n_components),'MNIST classification starts')
+    mylog = log.log('log/tfnnRF2Ldropout_MNIST_{}.log'.format(n_components),'MNIST classification starts')
 
     # read in MNIST data set
     Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
@@ -691,8 +691,9 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # performance test
     best_clf = rff.tfRF2L(**params)
     best_clf.log = True
-    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=7000)
-    # best_clf.fit(Xtr,Ytr,mode='layer 1',batch_size=100,n_iter=3000)
+    # best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=7000)
+    # best_clf.fit(Xtr,Ytr,mode='layer 1',batch_size=100,n_iter=7000)
+    best_clf.fit(Xtr,Ytr,mode='over all',batch_size=100,n_iter=7000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -717,7 +718,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/tfnnRF2Lsgd_MNIST_{}-cm.eps'.format(n_components))
+    plt.savefig('image/tfnnRF2Ldropout_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
 def main():
