@@ -130,7 +130,7 @@ class myReLUSampler:
 
 class tfRF2L:
     """
-    This is class constructs a 2-layer net with cos and sin nodes
+    This is a class constructing a 2-layer net with cos and sin nodes
     in the hidden layer. The weights in the first layer is
     initialized using random Gaussian features.
     Layerwise training can be applied.
