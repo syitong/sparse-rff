@@ -253,8 +253,11 @@ class tfRF2L:
         return classes,probabilities
 
     def score(self,data,labels):
-        pred,_ = self.predict(data)
-        accuracy = np.sum(pred==labels) / 100
+        predictions,_ = self.predict(data)
+        s = 0.
+        for idx in range(len(data)):
+            s += predictions[idx]==labels[idx]
+        accuracy = s / len(data)
         return accuracy
 
     def fit(self,data,labels,mode='layer 2',
