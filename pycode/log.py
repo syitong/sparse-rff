@@ -18,9 +18,6 @@ class log:
               + ': {:.4f}'.format(self.progress['time'][-1]
                               - self.progress['time'][-2]))
 
-    def record(self,message):
-        self.message = message
-
     def save(self):
         progress = self.progress
         with open(self.filepath,'w') as logfile:
@@ -28,4 +25,3 @@ class log:
                 logfile.write(progress['task'][idx]
                               + ': {:.4f}\n'.format(progress['time'][idx]
                                                     - progress['time'][idx - 1]))
-            logfile.write(self.message)
