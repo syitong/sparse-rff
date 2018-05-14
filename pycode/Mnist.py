@@ -22,8 +22,8 @@ def read_MNIST_data(filepath,obs=1000):
     This method is sufficiently general to read in any
     data set of the same structure with MNIST
     """
-    with open(filepath,'rb') as file:
-        data = file.read()
+    with open(filepath,'rb') as f:
+        data = f.read()
         offset = 0
         if data[2] < 10:
             length = 1
