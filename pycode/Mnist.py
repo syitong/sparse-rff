@@ -435,7 +435,7 @@ def main():
     # ORFSVM_MNIST(m=1000,n_components=500)
     uscore_list = []
     oscore_list = []
-    for m in range(60000,60001,5000):
+    for m in range(1000,60001,5000):
         score = URFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
         uscore_list.append(score)
         score = ORFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
