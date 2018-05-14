@@ -3,24 +3,22 @@ import matplotlib.pyplot as plt
 import rff
 import tensorflow as tf
 
-X,Y = rff.unit_circle_ideal(0.1,0.9,300)
-Xtrain = X[:200]
-Ytrain = Y[:200]
-Xtest = X[200:]
-Ytest = Y[200:]
-n_old_features = 2
-n_components = 20
-Lambda = 0.0005
-batch_size = 1
-n_iter = 1000
-Gamma = rff.gamma_est(Xtrain) / 1
-classes = [-1,1]
-clf = rff.tfRF2L(n_old_features,n_components,
-    Lambda,Gamma,classes)
-accuracy = clf.score(Xtest,Ytest)
-print('accuracy={0:.3f}'.format(accuracy))
-clf.fit(Xtrain,Ytrain,'layer 2',batch_size,n_iter)
-# clf.fit(Xtrain,Ytrain,'layer 1',batch_size,n_iter)
-# clf.fit(Xtrain,Ytrain,'over all',batch_size,n_iter)
-accuracy = clf.score(Xtest,Ytest)
-print('accuracy={0:.3f}'.format(accuracy))
+samplesize = np.arange(1000,60001,5000)
+orfsvm = np.zeros((10,len(samplesize)))
+urfsvm = np.zeros((10,len(samplesize)))
+for idx in range(1,11,1):
+    orfsvm[idx-1,:] = np.loadtxt('result/ORFSVM'+str(idx))
+    urfsvm[idx-1,:] = np.loadtxt('result/URFSVM'+str(idx))
+
+orfmean = np.mean(orfsvm,axis=0)
+urfmean = np.mean(urfsvm,axis=0)
+orfstd = np.std(orfsvm,axis=0)
+urfstd = np.std(urfsvm,axis=0)
+
+plt.title("opt vs unif feature selection on MNIST")
+plt.xlabel('sample size (k)')
+plt.ylabel('accuracy')
+plt.xticks(samplesize/1000)
+plt.errorbar(samplesize/1000,orfmean,yerr=orfstd,fmt='rx-')
+plt.errorbar(samplesize/1000,urfmean,yerr=urfstd,fmt='bx-')
+plt.savefig('image/opt_vs_unif.eps')
