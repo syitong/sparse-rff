@@ -14,7 +14,6 @@ from sklearn.linear_model import SGDClassifier, LogisticRegression
 from sklearn import svm
 from sklearn.metrics import confusion_matrix
 import itertools
-import tensorflow as tf
 import time
 from sys import argv
 

@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
-import tensorflow as tf
 
 class myRBFSampler:
     """
@@ -138,6 +137,7 @@ class tfRF2L:
     def __init__(self,n_old_features,
         n_components,Lambda,Gamma,classes,
         loss_fn='log loss',log=False):
+        import tensorflow as tf
         self._d = n_old_features
         self._N = n_components
         self._Lambda = Lambda
