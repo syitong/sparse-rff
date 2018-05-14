@@ -6,6 +6,7 @@ class log:
     and write it into a log file.
     """
     def __init__(self,filepath,init_message):
+        self.message = ''
         self.filepath = filepath
         self.progress = {'task':[init_message],'time':[time.process_time()]}
         print(self.progress['task'][-1]

@@ -16,6 +16,7 @@ from sklearn.metrics import confusion_matrix
 import itertools
 import tensorflow as tf
 import time
+from sys import argv
 
 def read_MNIST_data(filepath,obs=1000):
     """
@@ -86,80 +87,71 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
-def ORFSVM_MNIST(m=1000,n_components=1000):
-    # set up timer and progress tracker
-    mylog = log.log('log/ORFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
-
+def get_train_test_data(train_size=-1,test_size=-1):
     # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
-    mylog.time_event('data read in complete')
-
-    # extract a smaller dataset for cross validation
-    Xtrain = Xtr[:m]
-    Ytrain = Ytr[:m]
-    # normalize features
+    Xtrain = read_MNIST_data('data/train-images.idx3-ubyte',train_size)
+    Ytrain = read_MNIST_data('data/train-labels.idx1-ubyte',train_size)
+    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',test_size)
+    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',test_size)
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
-    Xtr = scaler.transform(Xtr)
+    return Xtrain,Ytrain,Xtest,Ytest
+
+def ORFSVM_MNIST(m=1000,n_components=1000,trial_num=None):
+    # set up timer and progress tracker
+    mylog = log.log('log/ORFSVM_MNIST_Best_Perform_{:.2e}.log'.format(n_components),
+    'ORFSVM MNIST classification starts')
+    Xtrain,Ytrain,Xtest,Ytest = get_train_test_data(train_size=m,test_size=int(m/3))
+    mylog.time_event('data read in complete')
 
     # set up parameters
     LogLambda = np.arange(-12.0,-2,1)
-    gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.1)
-    LogGamma = np.log10(gamma) + LogGamma
+    Gamma = 10.**(-3)
     X_pool_fraction = 0.3
     feature_pool_size = n_components * 10
 
     # hyper-parameter selection
     best_score = 0
-    best_Gamma = 1
     best_Lambda = 1
-    crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
-    for idx in range(len(LogGamma)):
-        Gamma = 10**LogGamma[idx]
-        for jdx in range(len(LogLambda)):
-            Lambda = 10**LogLambda[jdx]
-            opt_feature = rff.optRBFSampler(Xtrain.shape[1],
-                gamma=Gamma,
-                feature_pool_size=feature_pool_size,
-                n_components=n_components)
-            mylog.time_event('feature pool generated')
-            opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'features generated')
-            Xtraintil = opt_feature.fit_transform(Xtrain)
-            mylog.time_event('data transformed')
-            # n_jobs is used for parallel computing 1 vs all;
-            # -1 means all available cores
-            clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
-                tol=10**(-3),n_jobs=-1,warm_start=True)
-            score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
-            mylog.time_event('crossval done')
-            crossval_result['Gamma'].append(Gamma)
-            crossval_result['Lambda'].append(Lambda)
-            avg_score = np.sum(score) / 5
-            print('score = {:.4f}'.format(avg_score))
-            crossval_result['score'].append(avg_score)
-            if avg_score > best_score:
-                best_score = avg_score
-                best_Gamma = Gamma
-                best_Lambda = Lambda
-                best_Sampler = opt_feature
-                best_clf = clf
+    result = {'Gamma':[],'Lambda':[],'score':[]}
+    for jdx in range(len(LogLambda)):
+        Lambda = 10**LogLambda[jdx]
+        opt_feature = rff.optRBFSampler(Xtrain.shape[1],
+            gamma=Gamma,
+            feature_pool_size=feature_pool_size,
+            n_components=n_components)
+        opt_feature.reweight(Xtrain,X_pool_fraction,Lambda=Lambda)
+        mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                         +'features generated')
+        Xtraintil = opt_feature.fit_transform(Xtrain)
+        mylog.time_event('data transformed')
+        # n_jobs is used for parallel computing 1 vs all;
+        # -1 means all available cores
+        clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
+            tol=10**(-3),n_jobs=-1,warm_start=True)
+        clf.fit(Xtraintil,Ytrain)
+        mylog.time_event('training done')
+        result['Gamma'].append(Gamma)
+        result['Lambda'].append(Lambda)
+        Xtesttil = opt_feature.fit_transform(Xtest)
+        Ypred = clf.predict(Xtesttil)
+        score = np.sum(Ypred == Ytest) / len(Ytest)
+        print('score = {:.4f}'.format(score))
+        mylog.time_event('testing done')
+        result['score'].append(score)
+        if score > best_score:
+            best_score = score
+            best_Gamma = Gamma
+            best_Lambda = Lambda
+            best_Sampler = opt_feature
+            best_clf = clf
 
     # performance test
-    best_Xtil = best_Sampler.fit_transform(Xtr)
-    Xtesttil = best_Sampler.fit_transform(Xtest)
-    best_clf.fit(best_Xtil,Ytr)
-    mylog.time_event('best model trained')
-    Ypred = best_clf.predict(Xtesttil)
-    C_matrix = confusion_matrix(Ytest,Ypred)
-    score = np.sum(Ypred == Ytest) / len(Ytest)
-    mylog.time_event('test done')
+    # Xtesttil = best_Sampler.fit_transform(Xtest)
+    # mylog.time_event('best model trained')
+    # Ypred = best_clf.predict(Xtesttil)
+    # C_matrix = confusion_matrix(Ytest,Ypred)
 
     # write results and log files
     classes = range(10)
@@ -168,108 +160,93 @@ def ORFSVM_MNIST(m=1000,n_components=1000):
                + 'Classification Accuracy = {}\n'.format(score))
     print(results)
     results = results + 'Gamma    Lambda    score\n'
-    for idx in range(len(crossval_result['Gamma'])):
+    for idx in range(len(result['Gamma'])):
         results = (results
-                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(crossval_result['Gamma'][idx],
-                                                         crossval_result['Lambda'][idx],
-                                                         crossval_result['score'][idx]))
+                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(result['Gamma'][idx],
+                                                         result['Lambda'][idx],
+                                                         result['score'][idx]))
     mylog.record(results)
     mylog.save()
+    return best_score
 
     # plot confusion matrix
-    fig = plt.figure()
-    plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/ORFSVM_MNIST_{}-cm.eps'.format(n_components))
-    plt.close(fig)
+    # fig = plt.figure()
+    # plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
+    # plt.savefig('image/ORFSVM_MNIST_{}-cm.eps'.format(n_components))
+    # plt.close(fig)
 
 def URFSVM_MNIST(m=1000,n_components=1000):
     # set up timer and progress tracker
-    mylog = log.log('log/URFSVM_MNIST_{}.log'.format(n_components),'MNIST classification starts')
-
-    # read in MNIST data set
-    Xtr = read_MNIST_data('data/train-images.idx3-ubyte',-1)
-    Ytr = read_MNIST_data('data/train-labels.idx1-ubyte',-1)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',-1)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',-1)
+    mylog = log.log('log/URFSVM_MNIST_Best_Perform_{:.2e}.log'.format(n_components),
+    'URFSVM MNIST classification starts')
+    Xtrain,Ytrain,Xtest,Ytest = get_train_test_data(train_size=m,test_size=int(m/3))
     mylog.time_event('data read in complete')
-
-    # extract a smaller data set
-    Xtrain = Xtr[:m]
-    Ytrain = Ytr[:m]
-    scaler = StandardScaler().fit(Xtrain)
-    Xtrain = scaler.transform(Xtrain)
-    Xtr = scaler.transform(Xtr)
-    Xtest = scaler.transform(Xtest)
 
     # set up parameters
     LogLambda = np.arange(-12.0,-2,1)
-    gamma = rff.gamma_est(Xtrain)
-    LogGamma = np.arange(-0.2,0.8,0.1)
-    LogGamma = np.log10(gamma) + LogGamma
+    Gamma = 10.**(-3.)
 
     # hyper-parameter selection
     best_score = 0
     best_Gamma = 1
     best_Lambda = 1
-    crossval_result = {'Gamma':[],'Lambda':[],'score':[]}
-    for idx in range(len(LogGamma)):
-        Gamma = 10**LogGamma[idx]
-        for jdx in range(len(LogLambda)):
-            Lambda = 10**LogLambda[jdx]
-            unif_feature = rff.myRBFSampler(Xtrain.shape[1],
-                gamma=Gamma,n_components=n_components)
-            mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
-                             +'features generated')
-            Xtraintil = unif_feature.fit_transform(Xtrain)
-            mylog.time_event('data transformed')
-            # n_jobs is used for parallel computing 1 vs all;
-            # -1 means all available cores
-            clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
-                tol=10**(-3),n_jobs=-1,warm_start=True)
-            score = cross_val_score(clf,Xtraintil,Ytrain,cv=5,n_jobs=-1)
-            mylog.time_event('crossval done')
-            crossval_result['Gamma'].append(Gamma)
-            crossval_result['Lambda'].append(Lambda)
-            avg_score = np.sum(score) / 5
-            print('score = {:.4f}'.format(avg_score))
-            crossval_result['score'].append(avg_score)
-            if avg_score > best_score:
-                best_score = avg_score
-                best_Gamma = Gamma
-                best_Lambda = Lambda
-                best_Sampler = unif_feature
-                best_clf = clf
+    result = {'Gamma':[],'Lambda':[],'score':[]}
+    for jdx in range(len(LogLambda)):
+        Lambda = 10**LogLambda[jdx]
+        unif_feature = rff.myRBFSampler(Xtrain.shape[1],
+            gamma=Gamma,n_components=n_components)
+        mylog.time_event('Gamma={0:.1e} and Lambda={1:.1e}\n'.format(Gamma,Lambda)
+                         +'features generated')
+        Xtraintil = unif_feature.fit_transform(Xtrain)
+        mylog.time_event('data transformed')
+        # n_jobs is used for parallel computing 1 vs all;
+        # -1 means all available cores
+        clf = SGDClassifier(loss='hinge',penalty='l2',alpha=Lambda,
+            tol=10**(-3),n_jobs=-1,warm_start=True)
+        clf.fit(Xtraintil,Ytrain)
+        mylog.time_event('training done')
+        result['Gamma'].append(Gamma)
+        result['Lambda'].append(Lambda)
+        Xtesttil = unif_feature.fit_transform(Xtest)
+        Ypred = clf.predict(Xtesttil)
+        score = np.sum(Ypred == Ytest) / len(Ytest)
+        print('score = {:.4f}'.format(score))
+        mylog.time_event('testing done')
+        result['score'].append(score)
+        if score > best_score:
+            best_score = score
+            best_Gamma = Gamma
+            best_Lambda = Lambda
+            best_Sampler = unif_feature
+            best_clf = clf
 
     # performance test
-    best_Xtil = best_Sampler.fit_transform(Xtr)
-    Xtesttil = best_Sampler.fit_transform(Xtest)
-    best_clf.fit(best_Xtil,Ytr)
-    mylog.time_event('best model trained')
-    Ypred = best_clf.predict(Xtesttil)
-    C_matrix = confusion_matrix(Ytest,Ypred)
-    score = np.sum(Ypred == Ytest) / len(Ytest)
-    mylog.time_event('test done')
+    # Xtesttil = best_Sampler.fit_transform(Xtest)
+    # Ypred = best_clf.predict(Xtesttil)
+    # C_matrix = confusion_matrix(Ytest,Ypred)
+    # mylog.time_event('test done')
 
     # write results and log files
     classes = range(10)
-    results = ('Best Gamma = {:.1e}\n'.format(best_Gamma)
+    output_results = ('Best Gamma = {:.1e}\n'.format(best_Gamma)
                + 'Best Lambda = {:.1e}\n'.format(best_Lambda)
                + 'Classification Accuracy = {}\n'.format(score))
-    print(results)
-    results = results + 'Gamma    Lambda    score\n'
-    for idx in range(len(crossval_result['Gamma'])):
-        results = (results
-                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(crossval_result['Gamma'][idx],
-                                                         crossval_result['Lambda'][idx],
-                                                         crossval_result['score'][idx]))
-    mylog.record(results)
+    print(output_results)
+    output_results = output_results + 'Gamma    Lambda    score\n'
+    for idx in range(len(result['Gamma'])):
+        output_results = (output_results
+                   + '{0:.1e}{1:9.1e}{2:10.4f}\n'.format(result['Gamma'][idx],
+                                                         result['Lambda'][idx],
+                                                         result['score'][idx]))
+    mylog.record(output_results)
     mylog.save()
+    return best_score
 
     # plot confusion matrix
-    fig = plt.figure()
-    plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/URFSVM_MNIST_{}-cm.eps'.format(n_components))
-    plt.close(fig)
+    # fig = plt.figure()
+    # plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
+    # plt.savefig('image/URFSVM_MNIST_{}-cm.eps'.format(n_components))
+    # plt.close(fig)
 
 def KSVM_MNIST(m=1000,trainsize=1000):
     # set up timer and progress tracker
@@ -453,14 +430,22 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     plt.close(fig)
 
 def main():
+    prefix = argv[1]
     # URFSVM_MNIST(m=1000,n_components=500)
     # ORFSVM_MNIST(m=1000,n_components=500)
-    # URFSVM_MNIST(m=1000,n_components=1000)
-    # ORFSVM_MNIST(m=1000,n_components=1000)
+    uscore_list = []
+    oscore_list = []
+    for m in range(60000,60001,5000):
+        score = URFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
+        uscore_list.append(score)
+        score = ORFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
+        oscore_list.append(score)
+    np.savetxt('result/URFSVM'+str(prefix),np.array(uscore_list))
+    np.savetxt('result/ORFSVM'+str(prefix),np.array(oscore_list))
     # KSVM_MNIST(m=1000,trainsize=60000)
     # URFMLR_MNIST(m=1000,n_components=2000)
     # tfRFLM_MNIST(m=1000,n_components=2000)
-    tfURF2L_MNIST(m=1000,n_components=2000)
+    # tfURF2L_MNIST(m=1000,n_components=2000)
 
 if __name__ == '__main__':
     main()

@@ -148,7 +148,8 @@ class tfRF2L:
         self._total_iter = 0
         self._graph = tf.Graph()
         self._sess = tf.Session(graph=self._graph)
-        self._model_fn()
+        if self._model_fn() == 0:
+            raise ValueError
 
     @property
     def d(self):
@@ -204,9 +205,18 @@ class tfRF2L:
                 tf.summary.histogram('inner weights',
                     self._graph.get_tensor_by_name('Gaussian/kernel:0'))
 
-            logits = tf.layers.dense(inputs=RF_layer,
-                kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
-                units=n_classes,name='Logits')
+            if self._loss_fn == 'hinge loss':
+                if n_classes == 2:
+                    logits = tf.layers.dense(inputs=RF_layer,
+                        kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
+                        units=1,name='Logits')
+                else:
+                    print("hinge loss only works for binary classificaiton.")
+                    return 0
+            elif self._loss_fn == 'log loss':
+                logits = tf.layers.dense(inputs=RF_layer,
+                    kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
+                    units=n_classes,name='Logits')
             tf.add_to_collection("Probab",logits)
             tf.summary.histogram('outer weights',
                 self._graph.get_tensor_by_name('Logits/kernel:0'))
@@ -216,18 +226,15 @@ class tfRF2L:
 
             # hinge loss only works for binary classification.
             regularizer = tf.losses.get_regularization_loss(scope='Logits')
-            # if n_classes == 2:
-            #     loss_hinge = tf.losses.hinge_loss(labels=y,
-            #         logits=logits,
-            #         loss_collection="loss") + regularizer
-            #     loss_ramp = (tf.max(loss_hinge,1)
-            #         + regularizer)
-            #     tf.add_to_collection("loss",loss_ramp)
-            onehot_labels = tf.one_hot(indices=y, depth=n_classes)
-            loss_log = tf.losses.softmax_cross_entropy(
-                onehot_labels=onehot_labels, logits=logits)
-            reg_log_loss = tf.add(tf.reduce_mean(loss_log),regularizer)
-            tf.add_to_collection('Loss',reg_log_loss)
+            if self._loss_fn == 'hinge loss':
+                reg_loss = tf.losses.hinge_loss(labels=y,
+                    logits=logits) + regularizer
+            elif self._loss_fn == 'log loss':
+                onehot_labels = tf.one_hot(indices=y, depth=n_classes)
+                loss_log = tf.losses.softmax_cross_entropy(
+                    onehot_labels=onehot_labels, logits=logits)
+                reg_loss = tf.add(tf.reduce_mean(loss_log),regularizer)
+            tf.add_to_collection('Loss',reg_loss)
 
             merged = tf.summary.merge_all()
             tf.add_to_collection('Summary',merged)
@@ -236,17 +243,31 @@ class tfRF2L:
         if self.log:
             summary = self._sess.run(merged)
             self._train_writer.add_summary(summary)
+        return 1
 
     def predict(self,data):
         with self._graph.as_default():
             feed_dict = {'features:0':data}
             logits,probab = tf.get_collection('Probab')
-            predictions = {
-                # Generate predictions (for PREDICT and EVAL mode)
-                "indices": tf.argmax(input=logits,axis=1),
-                # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
-                # `logging_hook`.
-                "probabilities": probab}
+            if self._loss_fn == 'hinge loss':
+                if logits > 0:
+                    index = 1
+                else:
+                    index = 0
+                predictions = {
+                    # Generate predictions (for PREDICT and EVAL mode)
+                    "indices": index,
+                    # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
+                    # `logging_hook`.
+                    "probabilities": probab}
+            elif self._loss_fn == 'log loss':
+                predictions = {
+                    # Generate predictions (for PREDICT and EVAL mode)
+                    "indices": tf.argmax(input=logits,axis=1),
+                    # Add `softmax_tensor` to the graph. It is used for PREDICT and by the
+                    # `logging_hook`.
+                    "probabilities": probab}
+
         results = self._sess.run(predictions,feed_dict=feed_dict)
         classes = [self._classes[index] for index in results['indices']]
         probabilities = results['probabilities']
@@ -269,14 +290,6 @@ class tfRF2L:
                 'Gaussian')
             out_weights = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
                 'Logits')
-            # if self._n_classes == 2:
-            #     h_loss,r_loss,l_loss = tf.get_collection('loss')
-            # else:
-            #     l_loss = tf.get_collection('loss')
-            # if self._loss_fn == 'hinge loss':
-            #     loss = h_loss
-            # elif self._loss_fn == 'log loss':
-            #     loss = l_loss
             loss = tf.get_collection('Loss')[0]
             global_step_1 = self._graph.get_tensor_by_name('global1:0')
             global_step_2 = self._graph.get_tensor_by_name('global2:0')
