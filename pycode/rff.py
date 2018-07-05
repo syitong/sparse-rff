@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
+import tensorflow as tf
 
 class myRBFSampler:
     """
@@ -137,7 +138,6 @@ class tfRF2L:
     def __init__(self,feature,n_old_features,
         n_components,Lambda,Gamma,classes,
         loss_fn='log loss',log=False):
-        import tensorflow as tf
         self._feature = feature
         self._d = n_old_features
         self._N = n_components
@@ -177,8 +177,8 @@ class tfRF2L:
     def total_iter(self):
         return self._total_iter
 
-    def _feature_generate(self):
-        initializer = tf.random_normal_initializer(std=self.Gamma)
+    def _feature_layer(self,x,N):
+        initializer = tf.random_normal_initializer(stddev=self.Gamma)
         if self.feature == 'Gaussian':
             trans_layer = tf.layers.dense(inputs=x,units=N,
                 use_bias=False,
@@ -195,10 +195,10 @@ class tfRF2L:
 
         if self.feature == 'ReLU':
             trans_layer = tf.layers.dense(inputs=x,units=N,
-                use_bias=true,
+                use_bias=True,
                 kernel_initializer=initializer,
                 bias_initializer=initializer,
-                activation=tf.relu,
+                activation=tf.nn.relu,
                 name='Gaussian')
 
             RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
@@ -223,7 +223,7 @@ class tfRF2L:
                 shape=[None],name='labels')
 
             with tf.name_scope('RF_layer'):
-                RF_layer = _feature_layer(self.feature,Gamma)
+                RF_layer = self._feature_layer(x,N)
 
             if self._loss_fn == 'hinge loss':
                 if n_classes == 2:

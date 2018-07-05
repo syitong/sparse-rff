@@ -355,6 +355,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     LogGamma = np.arange(-0.2,0.8,.1)
     LogGamma = np.log10(gamma) + LogGamma
     params = {
+        'feature': 'Gaussian',
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
         # 'Lambda': np.float32(10.**(-6)),
@@ -398,9 +399,9 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # performance test
     best_clf = rff.tfRF2L(**params)
     best_clf.log = True
-    # best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=7000)
+    best_clf.fit(Xtr,Ytr,mode='layer 2',batch_size=100,n_iter=7000)
     # best_clf.fit(Xtr,Ytr,mode='layer 1',batch_size=100,n_iter=7000)
-    best_clf.fit(Xtr,Ytr,mode='over all',batch_size=100,n_iter=7000)
+    # best_clf.fit(Xtr,Ytr,mode='over all',batch_size=100,n_iter=7000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -425,26 +426,26 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/tfnnRF2Ldropout_MNIST_{}-cm.eps'.format(n_components))
+    plt.savefig('image/tfURF2L_Gaussian_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
 def main():
     prefix = argv[1]
     # URFSVM_MNIST(m=1000,n_components=500)
     # ORFSVM_MNIST(m=1000,n_components=500)
-    uscore_list = []
-    oscore_list = []
-    for m in range(1000,60001,5000):
-        score = URFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
-        uscore_list.append(score)
-        score = ORFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
-        oscore_list.append(score)
-    np.savetxt('result/URFSVM'+str(prefix),np.array(uscore_list))
-    np.savetxt('result/ORFSVM'+str(prefix),np.array(oscore_list))
+    # uscore_list = []
+    # oscore_list = []
+    # for m in range(1000,60001,5000):
+    #     score = URFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
+    #     uscore_list.append(score)
+    #     score = ORFSVM_MNIST(m=m,n_components=int(np.sqrt(m)))
+    #     oscore_list.append(score)
+    # np.savetxt('result/URFSVM'+str(prefix),np.array(uscore_list))
+    # np.savetxt('result/ORFSVM'+str(prefix),np.array(oscore_list))
     # KSVM_MNIST(m=1000,trainsize=60000)
     # URFMLR_MNIST(m=1000,n_components=2000)
     # tfRFLM_MNIST(m=1000,n_components=2000)
-    # tfURF2L_MNIST(m=1000,n_components=2000)
+    tfURF2L_MNIST(m=1000,n_components=2000)
 
 if __name__ == '__main__':
     main()
