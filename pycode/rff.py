@@ -106,11 +106,11 @@ class optRBFSampler:
 class myReLUSampler:
     """
     The random nodes have the form
-    max(sqrt(gamma)*w dot x, 0)
+    max(sqrt(gamma)*w dot x + b, 0)
     """
     def __init__(self,n_old_features,gamma=1,n_components=20):
         self.name = 'ReLU'
-        self.sampler = np.random.randn(n_old_features,n_components)*np.sqrt(gamma)
+        self.sampler = np.random.randn(n_old_features + 1,n_components)*np.sqrt(gamma)
         self.gamma = gamma
         self.n_components = n_components
 
@@ -134,10 +134,11 @@ class tfRF2L:
     initialized using random Gaussian features.
     Layerwise training can be applied.
     """
-    def __init__(self,n_old_features,
+    def __init__(self,feature,n_old_features,
         n_components,Lambda,Gamma,classes,
         loss_fn='log loss',log=False):
         import tensorflow as tf
+        self._feature = feature
         self._d = n_old_features
         self._N = n_components
         self._Lambda = Lambda
@@ -151,6 +152,9 @@ class tfRF2L:
         if self._model_fn() == 0:
             raise ValueError
 
+    @property
+    def feature(self):
+        return self._feature
     @property
     def d(self):
         return self._d
@@ -173,6 +177,35 @@ class tfRF2L:
     def total_iter(self):
         return self._total_iter
 
+    def _feature_generate(self):
+        initializer = tf.random_normal_initializer(std=self.Gamma)
+        if self.feature == 'Gaussian':
+            trans_layer = tf.layers.dense(inputs=x,units=N,
+                use_bias=False,
+                kernel_initializer=initializer,
+                name='Gaussian')
+
+            cos_layer = tf.cos(trans_layer)
+            sin_layer = tf.sin(trans_layer)
+            concated = tf.concat([cos_layer,sin_layer],axis=1)
+            RF_layer = tf.div(concated,tf.sqrt(N*1.0))
+            tf.summary.histogram('inner weights',
+                self._graph.get_tensor_by_name('Gaussian/kernel:0'))
+            return RF_layer
+
+        if self.feature == 'ReLU':
+            trans_layer = tf.layers.dense(inputs=x,units=N,
+                use_bias=true,
+                kernel_initializer=initializer,
+                bias_initializer=initializer,
+                activation=tf.relu,
+                name='Gaussian')
+
+            RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
+            tf.summary.histogram('inner weights',
+                self._graph.get_tensor_by_name('Gaussian/kernel:0'))
+            return RF_layer
+
     def _model_fn(self):
         d = self._d
         N = self._N
@@ -190,20 +223,7 @@ class tfRF2L:
                 shape=[None],name='labels')
 
             with tf.name_scope('RF_layer'):
-                initializer = tf.random_normal_initializer(
-                    stddev=tf.sqrt(Gamma))
-
-                trans_layer = tf.layers.dense(inputs=x,units=N,
-                    use_bias=False,
-                    kernel_initializer=initializer,
-                    name='Gaussian')
-
-                cos_layer = tf.cos(trans_layer)
-                sin_layer = tf.sin(trans_layer)
-                concated = tf.concat([cos_layer,sin_layer],axis=1)
-                RF_layer = tf.div(concated,tf.sqrt(N*1.0))
-                tf.summary.histogram('inner weights',
-                    self._graph.get_tensor_by_name('Gaussian/kernel:0'))
+                RF_layer = _feature_layer(self.feature,Gamma)
 
             if self._loss_fn == 'hinge loss':
                 if n_classes == 2:
