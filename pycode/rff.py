@@ -315,16 +315,16 @@ class tfRF2L:
             global_step_2 = self._graph.get_tensor_by_name('global2:0')
             merged = tf.get_collection('Summary')[0]
             if mode == 'layer 2':
-                optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
+                # optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
                  #   l2_regularization_strength=0.)
-                # optimizer = tf.train.AdamOptimizer(learning_rate=10.)
+                optimizer = tf.train.AdamOptimizer(learning_rate=10.)
                 train_op = optimizer.minimize(
                     loss=loss,
                     global_step=global_step_2,
                     var_list=out_weights
                 )
-                # self._sess.run(tf.global_variables_initializer())
+                self._sess.run(tf.global_variables_initializer())
             if mode == 'layer 1':
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate=10)
                 # optimizer = tf.train.FtrlOptimizer(learning_rate=50.,
