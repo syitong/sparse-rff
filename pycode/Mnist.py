@@ -355,7 +355,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     LogGamma = np.arange(-0.2,0.8,.1)
     LogGamma = np.log10(gamma) + LogGamma
     params = {
-        'feature': 'Gaussian',
+        'feature': 'ReLU',
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
         # 'Lambda': np.float32(10.**(-6)),
@@ -426,7 +426,7 @@ def tfURF2L_MNIST(m=1000,n_components=1000):
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/tfURF2L_Gaussian_MNIST_{}-cm.eps'.format(n_components))
+    plt.savefig('image/tfURF2L_ReLU_MNIST_{}-cm.eps'.format(n_components))
     plt.close(fig)
 
 def main():
