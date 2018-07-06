@@ -1,0 +1,11 @@
+data read in complete: 0.5469
+Gamma=1.0e-03 and Lambda=1.0e-12
+features generated: 0.0000
+data transformed: 0.0156
+training done: 0.1094
+testing done: 0.0000
+Best Gamma = 1.0e-03
+Best Lambda = 1.0e-12
+Classification Accuracy = 0.4894894894894895
+Gamma    Lambda    score
+1.0e-03  1.0e-12    0.4895

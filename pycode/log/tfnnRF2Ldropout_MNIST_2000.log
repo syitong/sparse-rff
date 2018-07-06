@@ -1,7 +1,0 @@
-data read in complete: 21.7500
-best model trained: 156.5625
-test done: 0.2656
-Best Gamma = 8.8e-04
-Best Lambda = 0.0e+00
-Classification Accuracy = 0.911
-Gamma    Lambda    score
