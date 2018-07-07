@@ -2,7 +2,7 @@
 
 ####  PBS preamble
 
-#PBS -N nn_MNIST
+#PBS -N real_nn_MNIST
 #PBS -M syitong@umich.edu
 #PBS -m abe
 

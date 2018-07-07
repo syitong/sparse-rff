@@ -10,10 +10,10 @@ from sklearn.metrics import confusion_matrix
 from sys import argv
 from libmnist import plot_confusion_matrix, get_train_test_data
 
-def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU'):
+def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU',mode='layer 2'):
     # set up timer and progress tracker
-    mylog = log.log('log/tfRF2L_{2:s}_m_{0:.2e}_N_{1:.2e}.log'.format(m,
-        n_components,feature),
+    mylog = log.log('log/tfRF2L_{2:s}{3:s}_m_{0:.2e}_N_{1:.2e}.log'.format(m,
+        n_components,feature,mode),
         'MNIST classification starts')
     Xtrain,Ytrain,Xtest,Ytest = get_train_test_data(train_size=m,
         test_size=int(m/3))
@@ -34,7 +34,7 @@ def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU'):
         'classes': [0,1,2,3,4,5,6,7,8,9],
     }
     fit_params = {
-        'mode': 'layer 2',
+        'mode': mode,
         'opt_method': 'sgd',
         'opt_rate': 0.5,
         'batch_size': 10,
@@ -72,8 +72,6 @@ def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU'):
     best_clf = rff.tfRF2L(**params)
     best_clf.log = True
     best_clf.fit(Xtrain,Ytrain,**fit_params)
-    # best_clf.fit(Xtr,Ytr,mode='layer 1',batch_size=100,n_iter=7000)
-    # best_clf.fit(Xtr,Ytr,mode='over all',batch_size=100,n_iter=7000)
     mylog.time_event('best model trained')
     Ypred,_ = best_clf.predict(Xtest)
     C_matrix = confusion_matrix(Ytest,Ypred)
@@ -98,8 +96,8 @@ def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU'):
     # plot confusion matrix
     fig = plt.figure()
     plot_confusion_matrix(C_matrix,classes=classes,normalize=True)
-    plt.savefig('image/tfRF2L_{2:s}_m_{0:.2e}_N_{1:.2e}.eps'.format(m,
-        n_components,feature))
+    plt.savefig('image/tfRF2L_{2:s}{3:s}_m_{0:.2e}_N_{1:.2e}.eps'.format(m,
+        n_components,feature,mode))
     plt.close(fig)
 
     return score
@@ -108,17 +106,18 @@ def main():
     prefix = argv[1]
     score_list = []
     feature = 'ReLU'
+    mode = 'over all'
     increment = 5000
     for m in range(1000,60001,increment):
-        score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature)
+        score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)
-    np.savetxt('result/tfRFSVM_{0:s}{1:s}'.format(feature,str(prefix)),np.array(score_list))
+    np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
     score_list = []
     feature = 'Gaussian'
     for m in range(1000,60001,increment):
-        score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature)
+        score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)
-    np.savetxt('result/tfRFSVM_{0:s}{1:s}'.format(feature,str(prefix)),np.array(score_list))
+    np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
 
 if __name__ == '__main__':
     main()
