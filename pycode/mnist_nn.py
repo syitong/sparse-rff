@@ -108,7 +108,7 @@ def main():
     prefix = argv[1]
     score_list = []
     feature = 'ReLU'
-    increment = 50000
+    increment = 5000
     for m in range(1000,60001,increment):
         score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature)
         score_list.append(score)
