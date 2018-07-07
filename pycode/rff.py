@@ -178,7 +178,7 @@ class tfRF2L:
 
     def _feature_layer(self,x,N):
         if self._initializer == None:
-            initializer = tf.random_normal_initializer(stddev=self.Gamma)
+            initializer = tf.random_normal_initializer(stddev=np.sqrt(self.Gamma))
         else:
             initializer = self._initializer
         if self.feature == 'Gaussian':
@@ -310,7 +310,6 @@ class tfRF2L:
             merged = tf.get_collection('Summary')[0]
             if opt_method == 'adam':
                 optimizer = tf.train.AdamOptimizer(learning_rate=opt_rate)
-                self._sess.run(tf.global_variables_initializer())
             if opt_method == 'sgd':
                 optimizer = tf.train.GradientDescentOptimizer(learning_rate=opt_rate)
             if mode == 'layer 2':
@@ -330,6 +329,8 @@ class tfRF2L:
                     loss=loss,
                     global_step=global_step_1,
                     )
+            # initialize global variables in optimizer
+            self._sess.run(tf.global_variables_initializer())
             if self.log:
                 self._train_writer = tf.summary.FileWriter('tmp',
                     tf.get_default_graph())
