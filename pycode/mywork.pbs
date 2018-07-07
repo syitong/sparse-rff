@@ -2,19 +2,19 @@
 
 ####  PBS preamble
 
-#PBS -N MNIST
+#PBS -N nn_MNIST
 #PBS -M syitong@umich.edu
 #PBS -m abe
 
 # Change the number of cores (ppn=1), amount of memory, and walltime:
-#PBS -l procs=1,mem=4gb,walltime=04:00:00
+#PBS -l procs=1,mem=8gb,walltime=06:00:00
 #PBS -j oe
 #PBS -V
 #PBS -t 1-10
 
 # Change "example_flux" to the name of your Flux allocation:
-#PBS -A lsa_flux
-#PBS -q flux
+#PBS -A tewaria_fluxm
+#PBS -q fluxm
 #PBS -l qos=flux
 
 ####  End PBS preamble
@@ -26,4 +26,4 @@ if [ -n "$PBS_NODEFILE" ]; then cat $PBS_NODEFILE; fi
 if [ -n "$PBS_O_WORKDIR" ]; then cd $PBS_O_WORKDIR; fi
 
 #  Put your job commands here:
-python Mnist.py ${PBS_ARRAYID}
+python mnist_nn.py ${PBS_ARRAYID}
