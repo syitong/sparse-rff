@@ -226,7 +226,7 @@ class tfRF2L:
                 RF_layer = self._feature_layer(x,N)
 
             if self._loss_fn == 'hinge loss':
-                np_init = np.random.choice([-1,1],size=N)
+                np_init = np.random.choice([-1,1],size=(N,1))
                 logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
 
                 if n_classes == 2:
@@ -238,7 +238,7 @@ class tfRF2L:
                     print("hinge loss only works for binary classificaiton.")
                     return 0
             elif self._loss_fn == 'log loss':
-                np_init = np.random.choice([-1,1],size=(n_classes,N))
+                np_init = np.random.choice([-1,1],size=(N,n_classes))
                 logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
 
                 logits = tf.layers.dense(inputs=RF_layer,
