@@ -113,11 +113,17 @@ def main():
         score_list.append(score)
     np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
     score_list = []
-    feature = 'Gaussian'
+    mode = 'layer 1'
     for m in range(1000,60001,increment):
         score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)
     np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
+    # score_list = []
+    # feature = 'Gaussian'
+    # for m in range(1000,60001,increment):
+    #     score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
+    #     score_list.append(score)
+    # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
 
 if __name__ == '__main__':
     main()

@@ -180,7 +180,7 @@ class tfRF2L:
         if self._initializer == None:
             initializer = tf.random_normal_initializer(stddev=np.sqrt(self.Gamma))
         else:
-            initializer = self._initializer
+            initializer = tf.constant_initializer(self._initializer,dtype=tf.float32)
         if self.feature == 'Gaussian':
             trans_layer = tf.layers.dense(inputs=x,units=N,
                 use_bias=False,
@@ -226,16 +226,24 @@ class tfRF2L:
                 RF_layer = self._feature_layer(x,N)
 
             if self._loss_fn == 'hinge loss':
+                np_init = np.random.choice([-1,1],size=N)
+                logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
+
                 if n_classes == 2:
                     logits = tf.layers.dense(inputs=RF_layer,
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
+                        kernel_initializer=logits_init,
                         units=1,name='Logits')
                 else:
                     print("hinge loss only works for binary classificaiton.")
                     return 0
             elif self._loss_fn == 'log loss':
+                np_init = np.random.choice([-1,1],size=(n_classes,N))
+                logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
+
                 logits = tf.layers.dense(inputs=RF_layer,
                     kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
+                    kernel_initializer=logits_init,
                     units=n_classes,name='Logits')
                 probab = tf.nn.softmax(logits, name="softmax")
                 tf.add_to_collection("Probab",probab)
