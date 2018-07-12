@@ -152,6 +152,7 @@ class tfRF2L:
             sin_layer = tf.sin(trans_layer)
             concated = tf.concat([cos_layer,sin_layer],axis=1)
             RF_layer = tf.div(concated,tf.sqrt(N*1.0))
+            tf.add_to_collection('Hidden',RF_layer)
 
         elif self.feature == 'ReLU':
             trans_layer = tf.layers.dense(inputs=x,units=N,
@@ -160,8 +161,8 @@ class tfRF2L:
                 bias_initializer=initializer,
                 activation=tf.nn.relu,
                 name='Gaussian')
-
             RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
+            tf.add_to_collection('Hidden',RF_layer)
 
         tf.summary.histogram('inner weights',
             self._graph.get_tensor_by_name('Gaussian/kernel:0'))
@@ -247,14 +248,18 @@ class tfRF2L:
                     "probabilities": None}
             elif self._loss_fn == 'log loss':
                 logits,probab = tf.get_collection('Probab')
+                f_vec = tf.get_collection('Hidden')[0]
                 predictions = {
                     "indices": tf.argmax(input=logits,axis=1),
-                    "probabilities": probab}
+                    "probabilities": probab,
+                    "feature_vec": f_vec}
 
         results = self._sess.run(predictions,feed_dict=feed_dict)
         classes = [self._classes[index] for index in results['indices']]
         probabilities = results['probabilities']
-        return classes,probabilities
+        feature_vec = results['feature_vec']
+        sparsity = np.count_nonzero(feature_vec)/feature_vec.shape[0] /feature_vec.shape[1]
+        return classes,probabilities,sparsity
 
     def score(self,data,labels):
         predictions,_ = self.predict(data)
