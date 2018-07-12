@@ -3,45 +3,6 @@ import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
 import tensorflow as tf
 
-# class myRBFSampler:
-#     """
-#     The random nodes have the form
-#     cos(sqrt(gamma)*w dot x), sin(sqrt(gamma)*w dot x)
-#     """
-#     def __init__(self,n_old_features,gamma=1,n_components=20):
-#         self.name = 'rbf'
-#         self.sampler = np.random.randn(n_old_features,n_components)*np.sqrt(gamma)
-#         self.gamma = gamma
-#         self.n_components = n_components
-#
-#     def update(self, idx):
-#         self.sampler[:,idx] = np.random.randn(self.sampler.shape[0])*np.sqrt(self.gamma)
-#         return 1
-#
-#     def fit_transform(self, X):
-#         X_tilc = np.cos(X.dot(self.sampler))
-#         X_tils = np.sin(X.dot(self.sampler))
-#         X_til = np.concatenate((X_tilc,X_tils),axis=-1)
-#         return X_til / np.sqrt(self.n_components)
-#
-#     def weight_estimate(self, X, X_pool_fraction, Lambda):
-#         m = len(X)
-#         X_pool_size = min(int(m * X_pool_fraction),500)
-#         n_components = self.n_components
-#         T = np.empty((X_pool_size,n_components*2))
-#         k = np.random.randint(m,size=X_pool_size)
-#         X_pool = X[k,:]
-#         A = X_pool.dot(self.sampler)
-#         T[:,:n_components] = np.cos(A)
-#         T[:,n_components:] = np.sin(A)
-#         U,s,V = np.linalg.svd(T, full_matrices=False)
-#         Trace = s**2 / (s**2 + Lambda * X_pool_size * n_components)
-#         Weight = np.empty(n_components*2)
-#         for idx in range(n_components*2):
-#             Weight[idx] = V[:,idx].dot(Trace * V[:,idx])
-#         Weight = Weight[:n_components] + Weight[n_components:]
-#         return Weight
-
 class optRBFSampler:
     """
     The random nodes have the form
