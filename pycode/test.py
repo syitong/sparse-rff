@@ -1,24 +1,28 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import rff
+import time
 import tensorflow as tf
 
-samplesize = np.arange(1000,60001,5000)
-orfsvm = np.zeros((10,len(samplesize)))
-urfsvm = np.zeros((10,len(samplesize)))
-for idx in range(1,11,1):
-    orfsvm[idx-1,:] = np.loadtxt('result/ORFSVM'+str(idx))
-    urfsvm[idx-1,:] = np.loadtxt('result/URFSVM'+str(idx))
+def time_sparsity():
+    a = np.random.randn(100)
+    b = a.copy()
+    b[50:100] = 0
+    A = np.random.randn(1000).reshape((10,100))
+    with tf.Session() as sess:
+        a1 = tf.constant(a,shape=[100,1])
+        b1 = tf.constant(b,shape=[100,1])
+        A1 = tf.constant(A)
+        c = tf.matmul(A1,a1)
+        d = tf.matmul(A1,b1)
+        t1 = time.process_time()
+        for i in range(1000):
+            sess.run(c)
+        t2 = time.process_time()
+        print(t2-t1)
+        t1 = time.process_time()
+        for i in range(1000):
+            sess.run(d)
+        t2 = time.process_time()
+        print(t2-t1)
 
-orfmean = np.mean(orfsvm,axis=0)
-urfmean = np.mean(urfsvm,axis=0)
-orfstd = np.std(orfsvm,axis=0)
-urfstd = np.std(urfsvm,axis=0)
-
-plt.title("opt vs unif feature selection on MNIST")
-plt.xlabel('sample size (k)')
-plt.ylabel('accuracy')
-plt.xticks(samplesize/1000)
-plt.errorbar(samplesize/1000,orfmean,yerr=orfstd,fmt='rx-')
-plt.errorbar(samplesize/1000,urfmean,yerr=urfstd,fmt='bx-')
-plt.savefig('image/opt_vs_unif.eps')
+if __name__ == '__main__':
+    time_sparsity()
