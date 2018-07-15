@@ -139,26 +139,27 @@ class tfRF2L:
 
     def _feature_layer(self,x,N):
         if self._initializer == None:
-            initializer = tf.random_normal_initializer(stddev=np.sqrt(self.Gamma))
+            k_initializer = tf.random_normal_initializer(stddev=np.sqrt(self.Gamma))
+            b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
         else:
-            initializer = tf.constant_initializer(self._initializer,dtype=tf.float32)
+            k_initializer = tf.constant_initializer(self._initializer,dtype=tf.float32)
+            b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
         if self.feature == 'Gaussian':
             trans_layer = tf.layers.dense(inputs=x,units=N,
-                use_bias=False,
-                kernel_initializer=initializer,
+                use_bias=True,
+                kernel_initializer=k_initializer,
+                # random fourier features requires bias to be uniform in [0,pi]
+                bias_initializer=b_initializer,
+                activation=tf.cos,
                 name='Gaussian')
-
-            cos_layer = tf.cos(trans_layer)
-            sin_layer = tf.sin(trans_layer)
-            concated = tf.concat([cos_layer,sin_layer],axis=1)
-            RF_layer = tf.div(concated,tf.sqrt(N*1.0))
+            RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
             tf.add_to_collection('Hidden',RF_layer)
 
         elif self.feature == 'ReLU':
             trans_layer = tf.layers.dense(inputs=x,units=N,
                 use_bias=True,
-                kernel_initializer=initializer,
-                bias_initializer=initializer,
+                kernel_initializer=k_initializer,
+                bias_initializer=k_initializer,
                 activation=tf.nn.relu,
                 name='Gaussian')
             RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
@@ -313,7 +314,7 @@ class tfRF2L:
             rand_list = np.random.randint(len(data),size=batch_size)
             feed_dict = {'features:0':data[rand_list,:],
                          'labels:0':indices[rand_list]}
-            if idx % 10 == 1:
+            if idx % 1000 == 1:
                 if self.log:
                     print('iter: {0:d}, loss: {1:.4f}'.format(
                         idx, self._sess.run(loss,feed_dict)))
