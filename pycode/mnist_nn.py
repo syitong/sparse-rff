@@ -64,15 +64,15 @@ def main():
     score_list = []
     feature = 'ReLU'
     mode = 'layer 2'
-    increment = 500000
-    for m in range(5000,60001,increment):
+    increment = 5000
+    for m in range(1000,60001,increment):
         score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)
     np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
     score_list = []
     mode = 'layer 2'
     feature = 'Gaussian'
-    for m in range(5000,60001,increment):
+    for m in range(1000,60001,increment):
         score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)
     np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
