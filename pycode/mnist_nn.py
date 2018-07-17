@@ -64,7 +64,7 @@ def main():
     score_list = []
     feature = 'ReLU'
     mode = 'layer 2'
-    increment = 50000
+    increment = 5000
     for m in range(1000,10001,increment):
         score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
         score_list.append(score)

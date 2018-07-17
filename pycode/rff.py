@@ -281,7 +281,7 @@ class tfRF2L:
         return accuracy
 
     def fit(self,data,labels,mode='layer 2',opt_method='adam',opt_rate=10.,
-        batch_size=1,n_iter=1000,lowerbd=-100,upperbd=100):
+        batch_size=1,n_iter=1000,bd=100):
         indices = [self._classes.index(label) for label in labels]
         indices = np.array(indices)
         with self._graph.as_default():
@@ -303,10 +303,7 @@ class tfRF2L:
                     global_step=global_step_2,
                     var_list=out_weights
                 )
-                lbd = lowerbd*tf.ones(shape=tf.shape(out_weights[0]))
-                ubd = upperbd*tf.ones(shape=tf.shape(out_weights[0]))
-                clip = out_weights[0].assign(tf.minimum(
-                    tf.maximum(lbd,out_weights[0]),ubd))
+                clip = maxnorm_tensor(out_weights[0],bd)
             if mode == 'layer 1':
                 train_op = optimizer.minimize(
                     loss=loss,
@@ -476,3 +473,10 @@ def plot_circle(X,Y,ratio=1):
     plt.savefig('image/circle.eps')
     plt.close(fig)
     return 1
+
+def maxnorm_tensor(t,c):
+    cc = c*tf.ones(shape=tf.shape(t))
+    nt = tf.stack(tf.norm(t,ord=np.inf,axis=0),axis=0)
+    factor = tf.divide(tf.minimum(nt,cc),nt)
+    t1 = tf.multiply(t,factor)
+    return t1
