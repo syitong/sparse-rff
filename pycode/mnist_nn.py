@@ -36,14 +36,15 @@ def tfRF2L_MNIST(m=1000,n_components=1000,feature='ReLU',mode='layer 2'):
     # performance test
     best_clf = rff.tfRF2L(**params)
     best_clf.log = False
+    mylog.time_event('model load')
     best_clf.fit(Xtrain,Ytrain,**fit_params)
     mylog.time_event('best model trained')
     train_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
     Ypred,_,sparsity = best_clf.predict(Xtest)
-    C_matrix = confusion_matrix(Ytest,Ypred)
-    score = np.sum(Ypred == Ytest) / len(Ytest)
     mylog.time_event('test done')
     test_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
+    C_matrix = confusion_matrix(Ytest,Ypred)
+    score = np.sum(Ypred == Ytest) / len(Ytest)
 
     # plot confusion matrix
     fig = plt.figure()
