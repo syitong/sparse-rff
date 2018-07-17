@@ -156,10 +156,18 @@ class tfRF2L:
             tf.add_to_collection('Hidden',RF_layer)
 
         elif self.feature == 'ReLU':
+            k_initializer = np.random.randn(self._d+1,self.N)
+            for idx in range(self.N):
+                k_vec = k_initializer[:,idx].copy()
+                k_initializer[:,idx] = k_vec / np.linalg.norm(k_vec)
+            b_initializer = tf.constant_initializer(k_initializer[-1,:],
+                dtype=tf.float32)
+            k_initializer = tf.constant_initializer(k_initializer[:-1,:],
+                dtype=tf.float32)
             trans_layer = tf.layers.dense(inputs=x,units=N,
                 use_bias=True,
                 kernel_initializer=k_initializer,
-                bias_initializer=k_initializer,
+                bias_initializer=b_initializer,
                 activation=tf.nn.relu,
                 name='Gaussian')
             RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
@@ -194,6 +202,7 @@ class tfRF2L:
 
                 if n_classes == 2:
                     logits = tf.layers.dense(inputs=RF_layer,
+                        use_bias = False,
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                         kernel_initializer=logits_init,
                         units=1,name='Logits')
@@ -205,6 +214,7 @@ class tfRF2L:
                 logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
 
                 logits = tf.layers.dense(inputs=RF_layer,
+                    use_bias = False,
                     kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                     kernel_initializer=logits_init,
                     units=n_classes,name='Logits')
@@ -271,7 +281,7 @@ class tfRF2L:
         return accuracy
 
     def fit(self,data,labels,mode='layer 2',opt_method='adam',opt_rate=10.,
-        batch_size=1,n_iter=1000):
+        batch_size=1,n_iter=1000,lowerbd=-100,upperbd=100):
         indices = [self._classes.index(label) for label in labels]
         indices = np.array(indices)
         with self._graph.as_default():
@@ -293,6 +303,10 @@ class tfRF2L:
                     global_step=global_step_2,
                     var_list=out_weights
                 )
+                lbd = lowerbd*tf.ones(shape=tf.shape(out_weights[0]))
+                ubd = upperbd*tf.ones(shape=tf.shape(out_weights[0]))
+                clip = out_weights[0].assign(tf.minimum(
+                    tf.maximum(lbd,out_weights[0]),ubd))
             if mode == 'layer 1':
                 train_op = optimizer.minimize(
                     loss=loss,
@@ -321,6 +335,7 @@ class tfRF2L:
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
+            self._sess.run(clip)
             self._total_iter += 1
 
     def get_params(self,deep=False):
