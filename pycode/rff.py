@@ -333,7 +333,8 @@ class tfRF2L:
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
-            self._sess.run(clip) if bd > 0
+            if bd > 0:
+                self._sess.run(clip) 
             self._total_iter += 1
 
     def get_params(self,deep=False):
