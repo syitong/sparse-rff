@@ -157,6 +157,7 @@ class tfRF2L:
 
         elif self.feature == 'ReLU':
             k_initializer = np.random.randn(self._d+1,self.N)
+            # initialize by unit vectors
             for idx in range(self.N):
                 k_vec = k_initializer[:,idx].copy()
                 k_initializer[:,idx] = k_vec / np.linalg.norm(k_vec)
@@ -332,7 +333,7 @@ class tfRF2L:
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
-            self._sess.run(clip)
+            self._sess.run(clip) if bd > 0
             self._total_iter += 1
 
     def get_params(self,deep=False):
