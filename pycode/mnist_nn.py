@@ -74,7 +74,7 @@ def main():
     score_list = []
     feature = 'ReLU'
     mode = 'layer 2'
-    m_max = 600
+    m_max = 60000
     # increment = 5000
     # for m in range(1000,60001,increment):
     for log_opt_rate in np.arange(-2.,3,0.5):

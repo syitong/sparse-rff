@@ -1,0 +1,206 @@
+nyx7015
+2018-08-16 17:07:18.859241: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 17:07:18.859357: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 17:07:18.859379: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 17:07:18.859550: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 17:07:18.859569: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+MNIST classification starts: 3.5729
+model load: 9.6386
+best model trained: 1.3705
+test done: 0.0121
+
+    score:0.1000
+    sparsity:0.4952
+    train_time:1.3705
+    test_time:0.0121
+Session is closed.
+MNIST classification starts: 14.5971
+model load: 0.5327
+best model trained: 1.3581
+test done: 0.0117
+
+    score:0.0333
+    sparsity:0.4992
+    train_time:1.3581
+    test_time:0.0117
+Session is closed.
+MNIST classification starts: 16.5021
+model load: 0.3989
+best model trained: 1.3661
+test done: 0.0149
+
+    score:0.2167
+    sparsity:0.5037
+    train_time:1.3661
+    test_time:0.0149
+Session is closed.
+MNIST classification starts: 18.2856
+model load: 0.4105
+best model trained: 1.3599
+test done: 0.0118
+
+    score:0.4167
+    sparsity:0.5065
+    train_time:1.3599
+    test_time:0.0118
+Session is closed.
+MNIST classification starts: 20.0704
+model load: 0.3995
+best model trained: 1.3607
+test done: 0.0146
+
+    score:0.7667
+    sparsity:0.5028
+    train_time:1.3607
+    test_time:0.0146
+Session is closed.
+MNIST classification starts: 21.8485
+model load: 0.4049
+best model trained: 1.3560
+test done: 0.0114
+
+    score:0.6833
+    sparsity:0.5021
+    train_time:1.3560
+    test_time:0.0114
+Session is closed.
+MNIST classification starts: 23.6234
+model load: 0.3982
+best model trained: 1.3457
+test done: 0.0112
+
+    score:0.8833
+    sparsity:0.5027
+    train_time:1.3457
+    test_time:0.0112
+Session is closed.
+MNIST classification starts: 25.3809
+model load: 0.3806
+best model trained: 1.3203
+test done: 0.0134
+
+    score:0.8333
+    sparsity:0.5048
+    train_time:1.3203
+    test_time:0.0134
+Session is closed.
+MNIST classification starts: 27.0980
+model load: 0.3789
+best model trained: 1.2793
+test done: 0.0106
+
+    score:0.8000
+    sparsity:0.4996
+    train_time:1.2793
+    test_time:0.0106
+Session is closed.
+MNIST classification starts: 28.7691
+model load: 0.3746
+best model trained: 1.3277
+test done: 0.0111
+
+    score:0.8500
+    sparsity:0.4956
+    train_time:1.3277
+    test_time:0.0111
+Session is closed.
+MNIST classification starts: 30.4869
+model load: 0.3670
+best model trained: 1.3554
+test done: 0.0115
+
+    score:0.1000
+    sparsity:1.0000
+    train_time:1.3554
+    test_time:0.0115
+Session is closed.
+MNIST classification starts: 32.2234
+model load: 0.3740
+best model trained: 1.4645
+test done: 0.0118
+
+    score:0.1500
+    sparsity:1.0000
+    train_time:1.4645
+    test_time:0.0118
+Session is closed.
+MNIST classification starts: 34.0766
+model load: 0.3739
+best model trained: 1.5583
+test done: 0.0119
+
+    score:0.1833
+    sparsity:1.0000
+    train_time:1.5583
+    test_time:0.0119
+Session is closed.
+MNIST classification starts: 36.0254
+model load: 0.3719
+best model trained: 1.3588
+test done: 0.0147
+
+    score:0.3333
+    sparsity:1.0000
+    train_time:1.3588
+    test_time:0.0147
+Session is closed.
+MNIST classification starts: 37.7740
+model load: 0.3781
+best model trained: 1.3565
+test done: 0.0116
+
+    score:0.6667
+    sparsity:1.0000
+    train_time:1.3565
+    test_time:0.0116
+Session is closed.
+MNIST classification starts: 39.5228
+model load: 0.3720
+best model trained: 1.3517
+test done: 0.0115
+
+    score:0.8333
+    sparsity:1.0000
+    train_time:1.3517
+    test_time:0.0115
+Session is closed.
+MNIST classification starts: 41.2607
+model load: 0.3715
+best model trained: 1.3520
+test done: 0.0117
+
+    score:0.8000
+    sparsity:1.0000
+    train_time:1.3520
+    test_time:0.0117
+Session is closed.
+MNIST classification starts: 42.9985
+model load: 0.3735
+best model trained: 1.3567
+test done: 0.0120
+
+    score:0.7500
+    sparsity:1.0000
+    train_time:1.3567
+    test_time:0.0120
+Session is closed.
+MNIST classification starts: 44.7432
+model load: 0.3720
+best model trained: 1.3628
+test done: 0.0120
+
+    score:0.8833
+    sparsity:1.0000
+    train_time:1.3628
+    test_time:0.0120
+Session is closed.
+MNIST classification starts: 46.4925
+model load: 0.3784
+best model trained: 1.3542
+test done: 0.0119
+
+    score:0.8500
+    sparsity:1.0000
+    train_time:1.3542
+    test_time:0.0119
+Session is closed.
