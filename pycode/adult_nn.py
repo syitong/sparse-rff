@@ -66,7 +66,7 @@ def main():
     feature = 'ReLU'
     mode = 'layer 2'
     m_max = 30162
-    for log_opt_rate in np.arange(0.,3.,0.5):
+    for log_opt_rate in np.arange(-2.,3.,0.5):
         opt_rate = 10**log_opt_rate
         score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=opt_rate)
@@ -76,7 +76,7 @@ def main():
     score_list = []
     mode = 'layer 2'
     feature = 'Gaussian'
-    for log_opt_rate in np.arange(0.,3.,0.5):
+    for log_opt_rate in np.arange(-2.,3.,0.5):
         opt_rate = 10**log_opt_rate
         score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=opt_rate)
