@@ -71,29 +71,43 @@ def tfRF2L_MNIST(m=1000,n_components=1000,
 
 def main():
     prefix = argv[1]
-    score_list = []
     feature = 'ReLU'
     mode = 'layer 2'
     m_max = 60000
-    # increment = 5000
-    # for m in range(1000,60001,increment):
-    for log_opt_rate in np.arange(-2.,3,0.5):
-        opt_rate = 10 ** log_opt_rate
-        score = tfRF2L_MNIST(m=m_max,n_components=500,
-        feature=feature,mode=mode,opt_rate=opt_rate)
-        score_list.append(score)
-    np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
-        str(prefix),mode),np.array(score_list))
-    score_list = []
+    # run with best opt rate
+    best_opt_rate = 10**1.0
+    score = tfRF2L_MNIST(m=m_max,n_components=500, #int(np.sqrt(m)),
+            feature=feature,mode=mode,opt_rate=best_opt_rate)
+    np.savetxt('result/best_mnist_{0:s}{2:s}{1:s}'.format(feature,
+        str(prefix),mode),np.array(score))
+
+    # select best opt rate
+    # score_list = []
+    # for log_opt_rate in np.arange(-2.,3,0.5):
+    #     opt_rate = 10 ** log_opt_rate
+    #     score = tfRF2L_MNIST(m=m_max,n_components=500,
+    #     feature=feature,mode=mode,opt_rate=opt_rate)
+    #     score_list.append(score)
+    # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
+    #     str(prefix),mode),np.array(score_list))
+    # score_list = []
+
     mode = 'layer 2'
     feature = 'Gaussian'
-    for log_opt_rate in np.arange(-2.,3,0.5):
-        opt_rate = 10 ** log_opt_rate
-        score = tfRF2L_MNIST(m=m_max,n_components=500,
-        feature=feature,mode=mode,opt_rate=opt_rate)
-        score_list.append(score)
-    np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
-        str(prefix),mode),np.array(score_list))
+    # run with best opt rate
+    best_opt_rate = 10**0.5
+    score = tfRF2L_MNIST(m=m_max,n_components=500, #int(np.sqrt(m)),
+            feature=feature,mode=mode,opt_rate=best_opt_rate)
+    np.savetxt('result/best_mnist_{0:s}{2:s}{1:s}'.format(feature,
+        str(prefix),mode),np.array(score))
+
+    # for log_opt_rate in np.arange(-2.,3,0.5):
+    #     opt_rate = 10 ** log_opt_rate
+    #     score = tfRF2L_MNIST(m=m_max,n_components=500,
+    #     feature=feature,mode=mode,opt_rate=opt_rate)
+    #     score_list.append(score)
+    # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
+    #     str(prefix),mode),np.array(score_list))
 
 if __name__ == '__main__':
     main()

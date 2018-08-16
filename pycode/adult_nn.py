@@ -37,7 +37,7 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
         'opt_method': 'sgd',
         'opt_rate': opt_rate,
         'batch_size': 50,
-        'n_iter': m * 5,
+        'n_iter': m,
         'bd': 100000
     }
 
