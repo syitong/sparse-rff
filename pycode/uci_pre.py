@@ -55,9 +55,9 @@ def proc_adult():
         f.write(str(labels))
     newdata = []
     labels = []
-    with open(RAW_DATA_PATH + 'adult.data.txt','r') as f:
+    with open(RAW_DATA_PATH + 'adult.test.txt','r') as f:
         for line in f:
-            row = line[:-1].split(', ')
+            row = line[:-2].split(', ')
             if '?' in row or row == ['']:
                 pass
             else:
