@@ -316,6 +316,7 @@ class tfRF2L:
                     loss=loss,
                     global_step=global_step_1,
                     )
+                clip = maxnorm_tensor(out_weights[0],bd)
             # initialize global variables in optimizer
             self._sess.run(tf.global_variables_initializer())
             if self.log:
@@ -334,7 +335,7 @@ class tfRF2L:
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
             if bd > 0:
-                self._sess.run(clip) 
+                self._sess.run(clip)
             self._total_iter += 1
 
     def get_params(self,deep=False):
