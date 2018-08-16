@@ -19,10 +19,10 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
     # set up timer and progress tracker
     mylog = log.log('log/tmp.log','Adult classification starts')
     rand_list = np.random.permutation(Xtrain.shape[0])
-    Xtr = Xtrain[rand_list[:int(m*0.9)]]
-    Ytr = Ytrain[rand_list[:int(m*0.9)]]
-    Xval = Xtrain[rand_list[int(m*0.9):]]
-    Yval = Ytrain[rand_list[int(m*0.9):]]
+    Xtr = Xtrain[rand_list[:int(m*1)]]
+    Ytr = Ytrain[rand_list[:int(m*1)]]
+    Xval = Xtrain[rand_list[int(m*1):]]
+    Yval = Ytrain[rand_list[int(m*1):]]
     # set up parameters
     params = {
         'feature': feature,
@@ -37,7 +37,7 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
         'opt_method': 'sgd',
         'opt_rate': opt_rate,
         'batch_size': 50,
-        'n_iter': m,
+        'n_iter': m * 5,
         'bd': 100000
     }
 
@@ -48,10 +48,12 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
     best_clf.fit(Xtr,Ytr,**fit_params)
     mylog.time_event('best model trained')
     train_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
-    Ypred,_,sparsity = best_clf.predict(Xval)
+    # Ypred,_,sparsity = best_clf.predict(Xval)
+    Ypred,_,sparsity = best_clf.predict(Xtest)
     mylog.time_event('test done')
     test_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
-    score = np.sum(Ypred == Yval) / len(Yval)
+    # score = np.sum(Ypred == Yval) / len(Yval)
+    score = np.sum(Ypred == Ytest) / len(Ytest)
 
     print('''
     score:{0:.4f}
@@ -62,27 +64,44 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
 
 def main():
     prefix = argv[1]
-    score_list = []
+    m_max = 30162
     feature = 'ReLU'
     mode = 'layer 2'
-    m_max = 30162
-    for log_opt_rate in np.arange(-2.,3.,0.5):
-        opt_rate = 10**log_opt_rate
-        score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
-            feature=feature,mode=mode,opt_rate=opt_rate)
-        score_list.append(score)
-    np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,
-        str(prefix),mode),np.array(score_list))
-    score_list = []
+    # run with best opt rate
+    best_opt_rate = 10**2.0
+    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+            feature=feature,mode=mode,opt_rate=best_opt_rate)
+    np.savetxt('result/best_adult_{0:s}{2:s}{1:s}'.format(feature,
+        str(prefix),mode),np.array(score))
+
+    # select best opt rate
+    #score_list = []
+    #for log_opt_rate in np.arange(-2.,3.,0.5):
+    #    opt_rate = 10**log_opt_rate
+    #    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    #        feature=feature,mode=mode,opt_rate=opt_rate)
+    #    score_list.append(score)
+    #np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,
+    #    str(prefix),mode),np.array(score_list))
+
     mode = 'layer 2'
     feature = 'Gaussian'
-    for log_opt_rate in np.arange(-2.,3.,0.5):
-        opt_rate = 10**log_opt_rate
-        score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
-            feature=feature,mode=mode,opt_rate=opt_rate)
-        score_list.append(score)
-    np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,
-        str(prefix),mode),np.array(score_list))
+    # run with best opt rate
+    best_opt_rate = 10**0.5
+    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+            feature=feature,mode=mode,opt_rate=best_opt_rate)
+    np.savetxt('result/best_adult_{0:s}{2:s}{1:s}'.format(feature,
+        str(prefix),mode),np.array(score))
+
+    # select best opt rate
+    #score_list = []
+    #for log_opt_rate in np.arange(-2.,3.,0.5):
+    #    opt_rate = 10**log_opt_rate
+    #    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    #        feature=feature,mode=mode,opt_rate=opt_rate)
+    #    score_list.append(score)
+    #np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,
+    #    str(prefix),mode),np.array(score_list))
 
 if __name__ == '__main__':
     main()
