@@ -10,11 +10,11 @@ def proc_adult():
             _,value = line[:-2].split(': ')
             var_list.append(value.split(', '))
         label_list = var_list.pop(0)
+    maxmin_list = [None] * len(var_list)
     data = []
     labels = []
     with open(RAW_DATA_PATH + 'adult.data.txt','r') as f:
         for line in f:
-            newrow = []
             row = line[:-1].split(', ')
             if '?' in row or row == ['']:
                 pass
@@ -22,19 +22,35 @@ def proc_adult():
                 labels.append(label_list.index(row.pop(-1)))
                 for idx,item in enumerate(row):
                     if var_list[idx] == ['continuous']:
-                        newrow.extend([float(item)])
+                        temp_value = float(item)
+                        if maxmin_list[idx] == None:
+                            maxmin_list[idx] = {
+                                'max': temp_value,
+                                'min': temp_value
+                            }
+                        elif maxmin_list[idx]['max'] < temp_value:
+                            maxmin_list[idx]['max'] = temp_value
+                        elif maxmin_list[idx]['min'] > temp_value:
+                            maxmin_list[idx]['min'] = temp_value
+                        row[idx] = temp_value
                     else:
-                        one_hot = [0] * len(var_list[idx])
-                        one_hot[var_list[idx].index(item)] = 1
-                        newrow.extend(one_hot)
-                data.append(newrow)
-    print(len(data))
-    print(len(labels))
-    Xtrain,Ytrain,Xtest,Ytest = split_train_test(data,labels,0.1)
-    print(len(Xtrain))
-    print(len(Ytrain))
-    print(len(Xtest))
-    print(len(Ytest))
+                        pass
+                data.append(row)
+    newdata = []
+    for row in data:
+        newrow = []
+        for idx,item in enumerate(row):
+            if var_list[idx] == ['continuous']:
+                newrow.append((item - maxmin_list[idx]['min']) /
+                    (maxmin_list[idx]['max'] - maxmin_list[idx]['min']))
+            else:
+                one_hot = [0] * len(var_list[idx])
+                one_hot[var_list[idx].index(item)] = 1
+                newrow.extend(one_hot)
+        newdata.append(newrow)
+
+    print(len(newdata),len(labels))
+    Xtrain,Ytrain,Xtest,Ytest = split_train_test(newdata,labels,0.1)
     with open(DATA_PATH+'adult-train-data.txt','w') as f:
         f.write(str(Xtrain))
     with open(DATA_PATH+'adult-train-label.txt','w') as f:
@@ -56,13 +72,33 @@ def split_train_test(data,labels,test_fraction):
 def proc_covtype():
     data = []
     labels = []
+    maxmin_list = []
     with open(RAW_DATA_PATH + 'covtype.data','r') as f:
         for line in f:
             row = line[:-1].split(',')
             labels.append(int(row.pop(-1)))
-            row = [float(item) for item in row]
+            for idx,item in enumerate(row):
+                temp_value = float(item)
+                if len(maxmin_list) <= idx:
+                    maxmin_list.append({
+                        'max': temp_value,
+                        'min': temp_value
+                    })
+                elif maxmin_list[idx]['max'] < temp_value:
+                    maxmin_list[idx]['max'] = temp_value
+                elif maxmin_list[idx]['min'] > temp_value:
+                    maxmin_list[idx]['min'] = temp_value
+                row[idx] = temp_value
             data.append(row)
-    Xtrain,Ytrain,Xtest,Ytest = split_train_test(data,labels,0.1)
+    print(maxmin_list)
+    newdata = []
+    for row in data:
+        newrow = []
+        for idx,item in enumerate(row):
+            newrow.append((item - maxmin_list[idx]['min']) /
+                (maxmin_list[idx]['max'] - maxmin_list[idx]['min']))
+        newdata.append(newrow)
+    Xtrain,Ytrain,Xtest,Ytest = split_train_test(newdata,labels,0.1)
     print(len(Xtrain))
     print(len(Ytrain))
     print(len(Xtest))
@@ -135,7 +171,5 @@ def read_data(filename):
 
 if __name__ == '__main__':
     # proc_adult()
-    # proc_covtype()
-    proc_kddcup()
-    X = read_data('kddcup99-test-data.txt')
-    print(len(X[0]))
+    proc_covtype()
+    # proc_kddcup()
