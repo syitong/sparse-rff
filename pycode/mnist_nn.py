@@ -19,10 +19,10 @@ def tfRF2L_MNIST(m=1000,n_components=1000,
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
     rand_list = np.random.permutation(Xtrain.shape[0])
-    Xtr = Xtrain[rand_list[:int(m*1)]]
-    Ytr = Ytrain[rand_list[:int(m*1)]]
-    Xval = Xtrain[rand_list[int(m*1):]]
-    Yval = Ytrain[rand_list[int(m*1):]]
+    Xtr = Xtrain[rand_list[:int(m*0.9)]]
+    Ytr = Ytrain[rand_list[:int(m*0.9)]]
+    Xval = Xtrain[rand_list[int(m*0.9):]]
+    Yval = Ytrain[rand_list[int(m*0.9):]]
 
     # set up parameters
     params = {
@@ -49,18 +49,18 @@ def tfRF2L_MNIST(m=1000,n_components=1000,
     best_clf.fit(Xtr,Ytr,**fit_params)
     mylog.time_event('best model trained')
     train_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
-    Ypred,_,sparsity = best_clf.predict(Xtest)
+    Ypred,_,sparsity = best_clf.predict(Xval)
     mylog.time_event('test done')
     test_time = mylog.progress['time'][-1] - mylog.progress['time'][-2]
-    C_matrix = confusion_matrix(Ytest,Ypred)
-    score = np.sum(Ypred == Ytest) / len(Ytest)
+    C_matrix = confusion_matrix(Yval,Ypred)
+    score = np.sum(Ypred == Yval) / len(Yval)
 
     # plot confusion matrix
-    fig = plt.figure()
-    plot_confusion_matrix(C_matrix,classes=range(10),normalize=True)
-    plt.savefig('image/tfRF2L_{2:s}{3:s}_m_{0:.2e}_N_{1:.2e}.eps'.format(m,
-        n_components,feature,mode))
-    plt.close(fig)
+    # fig = plt.figure()
+    # plot_confusion_matrix(C_matrix,classes=range(10),normalize=True)
+    # plt.savefig('image/tfRF2L_{2:s}{3:s}_m_{0:.2e}_N_{1:.2e}.eps'.format(m,
+    #     n_components,feature,mode))
+    # plt.close(fig)
 
     print('''
     score:{0:.4f}
@@ -74,23 +74,26 @@ def main():
     score_list = []
     feature = 'ReLU'
     mode = 'layer 2'
-    m_max = 60000
+    m_max = 600
     # increment = 5000
     # for m in range(1000,60001,increment):
-    # for log_opt_rate in np.arange(0.,2,0.5):
-        # opt_rate = 10 ** log_opt_rate
-    score = tfRF2L_MNIST(m=m_max,n_components=244,
-        feature=feature,mode=mode,opt_rate=5.)
-    score_list.append(score)
+    for log_opt_rate in np.arange(-2.,3,0.5):
+        opt_rate = 10 ** log_opt_rate
+        score = tfRF2L_MNIST(m=m_max,n_components=500,
+        feature=feature,mode=mode,opt_rate=opt_rate)
+        score_list.append(score)
     np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score_list))
-    # score_list = []
-    # mode = 'layer 2'
-    # feature = 'Gaussian'
-    # for m in range(1000,60001,increment):
-    #     score = tfRF2L_MNIST(m=m,n_components=int(np.sqrt(m)),feature=feature,mode=mode)
-    #     score_list.append(score)
-    # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,str(prefix),mode),np.array(score_list))
+    score_list = []
+    mode = 'layer 2'
+    feature = 'Gaussian'
+    for log_opt_rate in np.arange(-2.,3,0.5):
+        opt_rate = 10 ** log_opt_rate
+        score = tfRF2L_MNIST(m=m_max,n_components=500,
+        feature=feature,mode=mode,opt_rate=opt_rate)
+        score_list.append(score)
+    np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
+        str(prefix),mode),np.array(score_list))
 
 if __name__ == '__main__':
     main()
