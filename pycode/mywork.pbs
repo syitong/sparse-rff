@@ -26,4 +26,4 @@ if [ -n "$PBS_NODEFILE" ]; then cat $PBS_NODEFILE; fi
 if [ -n "$PBS_O_WORKDIR" ]; then cd $PBS_O_WORKDIR; fi
 
 #  Put your job commands here:
-python mnist_nn.py ${PBS_ARRAYID}
+python adult_nn.py ${PBS_ARRAYID}
