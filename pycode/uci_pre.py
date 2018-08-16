@@ -48,17 +48,34 @@ def proc_adult():
                 one_hot[var_list[idx].index(item)] = 1
                 newrow.extend(one_hot)
         newdata.append(newrow)
-
     print(len(newdata),len(labels))
-    Xtrain,Ytrain,Xtest,Ytest = split_train_test(newdata,labels,0.1)
     with open(DATA_PATH+'adult-train-data.txt','w') as f:
-        f.write(str(Xtrain))
+        f.write(str(newdata))
     with open(DATA_PATH+'adult-train-label.txt','w') as f:
-        f.write(str(Ytrain))
+        f.write(str(labels))
+    newdata = []
+    labels = []
+    with open(RAW_DATA_PATH + 'adult.data.txt','r') as f:
+        for line in f:
+            row = line[:-1].split(', ')
+            if '?' in row or row == ['']:
+                pass
+            else:
+                labels.append(label_list.index(row.pop(-1)))
+                newrow = []
+                for idx,item in enumerate(row):
+                    if var_list[idx] == ['continuous']:
+                        newrow.append((float(item) - maxmin_list[idx]['min']) /
+                            (maxmin_list[idx]['max'] - maxmin_list[idx]['min']))
+                    else:
+                        one_hot = [0] * len(var_list[idx])
+                        one_hot[var_list[idx].index(item)] = 1
+                        newrow.extend(one_hot)
+                newdata.append(newrow)
     with open(DATA_PATH+'adult-test-data.txt','w') as f:
-        f.write(str(Xtest))
+        f.write(str(newdata))
     with open(DATA_PATH+'adult-test-label.txt','w') as f:
-        f.write(str(Ytest))
+        f.write(str(labels))
 
 def split_train_test(data,labels,test_fraction):
     size = int(len(data) * test_fraction)
@@ -167,9 +184,10 @@ def proc_covtype():
 def read_data(filename):
     with open(DATA_PATH + filename,'r') as f:
         data = eval(f.read())
+    data = np.array(data)
     return data
 
 if __name__ == '__main__':
-    # proc_adult()
-    proc_covtype()
+    proc_adult()
+    # proc_covtype()
     # proc_kddcup()
