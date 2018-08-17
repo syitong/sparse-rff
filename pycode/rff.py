@@ -249,7 +249,6 @@ class tfRF2L:
 
     def predict(self,data):
         with self._graph.as_default():
-            feed_dict = {'features:0':data}
             if self._loss_fn == 'hinge loss':
                 logits = tf.get_collection('Probab')
                 if logits > 0:
@@ -265,12 +264,17 @@ class tfRF2L:
                     "indices": tf.argmax(input=logits,axis=1),
                     "probabilities": probab,
                     "feature_vec": f_vec}
-
-        results = self._sess.run(predictions,feed_dict=feed_dict)
-        classes = [self._classes[index] for index in results['indices']]
-        probabilities = results['probabilities']
-        feature_vec = results['feature_vec']
-        sparsity = np.count_nonzero(feature_vec)/feature_vec.shape[0] /feature_vec.shape[1]
+        classes = []
+        probabilities = []
+        sparsity = 0
+        for idx in range(len(data)):
+            feed_dict = {'features:0':data[idx].reshape(1,-1)}
+            results = self._sess.run(predictions,feed_dict=feed_dict)
+            classes.append(self._classes[results['indices'][0]])
+            probabilities.append(results['probabilities'][0])
+            feature_vec = results['feature_vec'][0]
+            sparsity += np.count_nonzero(feature_vec)/len(feature_vec)
+        sparsity = sparsity / len(data)
         return classes,probabilities,sparsity
 
     def score(self,data,labels):
