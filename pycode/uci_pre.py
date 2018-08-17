@@ -49,10 +49,12 @@ def proc_adult():
                 newrow.extend(one_hot)
         newdata.append(newrow)
     print(len(newdata),len(labels))
-    with open(DATA_PATH+'adult-train-data.txt','w') as f:
-        f.write(str(newdata))
-    with open(DATA_PATH+'adult-train-label.txt','w') as f:
-        f.write(str(labels))
+    np.save(DATA_PATH+'adult-train-data',np.array(newdata))
+    np.save(DATA_PATH+'adult-train-label',np.array(labels))
+    # with open(DATA_PATH+'adult-train-data.txt','w') as f:
+    #     f.write(str(newdata))
+    # with open(DATA_PATH+'adult-train-label.txt','w') as f:
+    #     f.write(str(labels))
     newdata = []
     labels = []
     with open(RAW_DATA_PATH + 'adult.test.txt','r') as f:
@@ -72,10 +74,12 @@ def proc_adult():
                         one_hot[var_list[idx].index(item)] = 1
                         newrow.extend(one_hot)
                 newdata.append(newrow)
-    with open(DATA_PATH+'adult-test-data.txt','w') as f:
-        f.write(str(newdata))
-    with open(DATA_PATH+'adult-test-label.txt','w') as f:
-        f.write(str(labels))
+    np.save(DATA_PATH+'adult-test-data',np.array(newdata))
+    np.save(DATA_PATH+'adult-test-label',np.array(labels))
+    # with open(DATA_PATH+'adult-test-data.txt','w') as f:
+    #     f.write(str(newdata))
+    # with open(DATA_PATH+'adult-test-label.txt','w') as f:
+    #     f.write(str(labels))
 
 def split_train_test(data,labels,test_fraction):
     size = int(len(data) * test_fraction)
@@ -120,14 +124,18 @@ def proc_covtype():
     print(len(Ytrain))
     print(len(Xtest))
     print(len(Ytest))
-    with open(DATA_PATH+'covtype-train-data.txt','w') as f:
-        f.write(str(Xtrain))
-    with open(DATA_PATH+'covtype-train-label.txt','w') as f:
-        f.write(str(Ytrain))
-    with open(DATA_PATH+'covtype-test-data.txt','w') as f:
-        f.write(str(Xtest))
-    with open(DATA_PATH+'covtype-test-label.txt','w') as f:
-        f.write(str(Ytest))
+    np.save(DATA_PATH+'covtype-train-data',np.array(Xtrain))
+    np.save(DATA_PATH+'covtype-train-label',np.array(Ytrain))
+    np.save(DATA_PATH+'covtype-test-data',np.array(Xtest))
+    np.save(DATA_PATH+'covtype-test-label',np.array(Ytest))
+    # with open(DATA_PATH+'covtype-train-data.txt','w') as f:
+    #     f.write(str(Xtrain))
+    # with open(DATA_PATH+'covtype-train-label.txt','w') as f:
+    #     f.write(str(Ytrain))
+    # with open(DATA_PATH+'covtype-test-data.txt','w') as f:
+    #     f.write(str(Xtest))
+    # with open(DATA_PATH+'covtype-test-label.txt','w') as f:
+    #     f.write(str(Ytest))
 
 # def proc_kddcup():
 #     data = []
@@ -182,12 +190,10 @@ def proc_covtype():
 #         f.write(str(Ytest))
 
 def read_data(filename):
-    with open(DATA_PATH + filename,'r') as f:
-        data = eval(f.read())
-    data = np.array(data)
+    data = np.load(DATA_PATH + filename)
     return data
 
 if __name__ == '__main__':
-    proc_adult()
-    # proc_covtype()
+    # proc_adult()
+    proc_covtype()
     # proc_kddcup()
