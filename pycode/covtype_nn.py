@@ -25,9 +25,10 @@ def covtype_nn(m=1000,n_components=1000,feature='ReLU',
         'n_old_features': len(Xtrain[0]),
         'n_components': n_components,
         'Lambda': np.float32(0.),
-        'Gamma': rff.gamma_est(Xtrain), # np.float32(0.1)
+        'Gamma': np.float32(0.27), # rff.gamma_est(Xtrain)
         'classes': [1,2,3,4,5,6,7]
     }
+    # print(rff.gamma_est(Xtrain))
     fit_params = {
         'mode': mode,
         'opt_method': 'sgd',
