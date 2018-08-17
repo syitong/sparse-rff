@@ -5,10 +5,12 @@ from sys import argv
 from uci_pre import read_data
 
 Xtrain = read_data('covtype-train-data.npy')
-Ytrain = read_data('covtype-train-label.npy')
+# Ytrain = read_data('covtype-train-label.npy')
+Ytrain = read_data('covtype-train-binary-label.npy')
 print(len(Ytrain))
 Xtest = read_data('covtype-test-data.npy')
-Ytest = read_data('covtype-test-label.npy')
+# Ytest = read_data('covtype-test-label.npy')
+Ytest = read_data('covtype-test-binary-label.npy')
 
 def covtype_nn(m=1000,n_components=1000,feature='ReLU',
     mode='layer 2',loss_fn='log loss',opt_rate=1.):
@@ -26,7 +28,8 @@ def covtype_nn(m=1000,n_components=1000,feature='ReLU',
         'n_components': n_components,
         'Lambda': np.float32(0.),
         'Gamma': np.float32(0.27), # rff.gamma_est(Xtrain)
-        'classes': [1,2,3,4,5,6,7]
+        'classes': [0,1]
+        # 'classes': [1,2,3,4,5,6,7]
     }
     # print(rff.gamma_est(Xtrain))
     fit_params = {
@@ -68,7 +71,7 @@ def main():
     best_opt_rate = 10**2.0
     score = covtype_nn(m=m_max,n_components=5000, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=best_opt_rate)
-    np.savetxt('result/best_covtype_{0:s}{2:s}{1:s}'.format(feature,
+    np.savetxt('result/best_covtype_b_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
 
     # select best opt rate
@@ -87,7 +90,7 @@ def main():
     best_opt_rate = 10**1.0
     score = covtype_nn(m=m_max,n_components=5000, #int(np.sqrt(m)),
         feature=feature,mode=mode,opt_rate=best_opt_rate)
-    np.savetxt('result/best_covtype_{0:s}{2:s}{1:s}'.format(feature,
+    np.savetxt('result/best_covtype_b_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
 
     # select best opt rate

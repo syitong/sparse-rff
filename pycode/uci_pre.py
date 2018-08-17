@@ -128,14 +128,14 @@ def proc_covtype():
     np.save(DATA_PATH+'covtype-train-label',np.array(Ytrain))
     np.save(DATA_PATH+'covtype-test-data',np.array(Xtest))
     np.save(DATA_PATH+'covtype-test-label',np.array(Ytest))
-    # with open(DATA_PATH+'covtype-train-data.txt','w') as f:
-    #     f.write(str(Xtrain))
-    # with open(DATA_PATH+'covtype-train-label.txt','w') as f:
-    #     f.write(str(Ytrain))
-    # with open(DATA_PATH+'covtype-test-data.txt','w') as f:
-    #     f.write(str(Xtest))
-    # with open(DATA_PATH+'covtype-test-label.txt','w') as f:
-    #     f.write(str(Ytest))
+
+def binary_covtype():
+    Ytr = np.load(DATA_PATH+'covtype-train-label.npy')
+    Ytil = (Ytr == 2)
+    np.save(DATA_PATH+'covtype-train-binary-label',Ytil)
+    Ytr = np.load(DATA_PATH+'covtype-test-label.npy')
+    Ytil = (Ytr == 2)
+    np.save(DATA_PATH+'covtype-test-binary-label',Ytil)
 
 # def proc_kddcup():
 #     data = []
@@ -195,5 +195,6 @@ def read_data(filename):
 
 if __name__ == '__main__':
     # proc_adult()
-    proc_covtype()
+    # proc_covtype()
+    binary_covtype()
     # proc_kddcup()
