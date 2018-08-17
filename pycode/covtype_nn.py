@@ -4,11 +4,11 @@ import log
 from sys import argv
 from uci_pre import read_data
 
-Xtrain = read_data('covtype-train-data.txt')
-Ytrain = read_data('covtype-train-label.txt')
+Xtrain = read_data('covtype-train-data.npy')
+Ytrain = read_data('covtype-train-label.npy')
 print(len(Ytrain))
-Xtest = read_data('covtype-test-data.txt')
-Ytest = read_data('covtype-test-label.txt')
+Xtest = read_data('covtype-test-data.npy')
+Ytest = read_data('covtype-test-label.npy')
 
 def covtype_nn(m=1000,n_components=1000,feature='ReLU',
     mode='layer 2',loss_fn='log loss',opt_rate=1.):
@@ -60,7 +60,7 @@ def covtype_nn(m=1000,n_components=1000,feature='ReLU',
 
 def main():
     prefix = argv[1]
-    m_max = 3062
+    m_max = 52291
     feature = 'ReLU'
     mode = 'layer 2'
     # run with best opt rate
@@ -74,7 +74,7 @@ def main():
     score_list = []
     for log_opt_rate in np.arange(-2.,3.,0.5):
         opt_rate = 10**log_opt_rate
-        score = covtype_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+        score = covtype_nn(m=m_max,n_components=5000, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=opt_rate)
         score_list.append(score)
     np.savetxt('result/covtype_{0:s}{2:s}{1:s}'.format(feature,

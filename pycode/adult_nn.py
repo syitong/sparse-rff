@@ -9,10 +9,10 @@ from sklearn.model_selection import cross_val_score
 from sys import argv
 from uci_pre import read_data
 
-Xtrain = read_data('adult-train-data.txt')
-Ytrain = read_data('adult-train-label.txt')
-Xtest = read_data('adult-test-data.txt')
-Ytest = read_data('adult-test-label.txt')
+Xtrain = read_data('adult-train-data.npy')
+Ytrain = read_data('adult-train-label.npy')
+Xtest = read_data('adult-test-data.npy')
+Ytest = read_data('adult-test-label.npy')
 
 def adult_nn(m=1000,n_components=1000,feature='ReLU',
     mode='layer 2',loss_fn='log loss',opt_rate=1.):
@@ -64,7 +64,7 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
 
 def main():
     prefix = argv[1]
-    m_max = 30162
+    m_max = 3016
     feature = 'ReLU'
     mode = 'layer 2'
     # run with best opt rate
