@@ -1,0 +1,26 @@
+nyx7012
+2018-08-16 20:54:52.857918: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 20:54:52.858002: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 20:54:52.858019: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 20:54:52.858034: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-16 20:54:52.858048: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+Adult classification starts: 13.2935
+model load: 6.8548
+best model trained: 35.7419
+test done: 0.1464
+
+    score:0.8368
+    sparsity:0.4945
+    train_time:35.7419
+    test_time:0.1464
+Session is closed.
+Adult classification starts: 56.0412
+model load: 0.0943
+best model trained: 36.6082
+test done: 0.1627
+
+    score:0.8382
+    sparsity:1.0000
+    train_time:36.6082
+    test_time:0.1627
+Session is closed.
