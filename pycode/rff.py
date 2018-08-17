@@ -247,7 +247,7 @@ class tfRF2L:
             self._train_writer.add_summary(summary)
         return 1
 
-    def predict(self,data):
+    def predict(self,data,batch_size):
         with self._graph.as_default():
             if self._loss_fn == 'hinge loss':
                 logits = tf.get_collection('Probab')
@@ -267,13 +267,18 @@ class tfRF2L:
         classes = []
         probabilities = []
         sparsity = 0
-        for idx in range(len(data)):
-            feed_dict = {'features:0':data[idx].reshape(1,-1)}
+        idx = 0
+        while idx < len(data):
+            t = idx + batch_size
+            batch = data[idx:t,:]
+            batch.reshape(len(batch),-1)
+            idx = t
+            feed_dict = {'features:0':batch}
             results = self._sess.run(predictions,feed_dict=feed_dict)
-            classes.append(self._classes[results['indices'][0]])
-            probabilities.append(results['probabilities'][0])
-            feature_vec = results['feature_vec'][0]
-            sparsity += np.count_nonzero(feature_vec)/len(feature_vec)
+            classes.extend([self._classes[index] for index in results['indices']])
+            probabilities.extend(results['probabilities'])
+            feature_vec = results['feature_vec']
+            sparsity += np.count_nonzero(feature_vec)/feature_vec.shape[1]
         sparsity = sparsity / len(data)
         return classes,probabilities,sparsity
 
