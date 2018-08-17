@@ -1,0 +1,27 @@
+nyx7013
+2018-08-17 10:09:43.126350: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-17 10:09:43.126396: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-17 10:09:43.126415: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-17 10:09:43.126432: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-17 10:09:43.126459: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+522911
+Covtype classification starts: 3.9327
+model load: 7.3786
+best model trained: 3903.5705
+test done: 4.2648
+
+    score:0.7711
+    sparsity:0.4974
+    train_time:3903.5705
+    test_time:4.2648
+Session is closed.
+Covtype classification starts: 3919.1630
+model load: 0.2584
+best model trained: 4280.5333
+test done: 5.3769
+
+    score:0.7666
+    sparsity:1.0000
+    train_time:4280.5333
+    test_time:5.3769
+Session is closed.
