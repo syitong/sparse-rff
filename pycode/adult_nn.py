@@ -64,7 +64,7 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
 
 def main():
     prefix = argv[1]
-    m_max = 3016
+    m_max = 30162
     feature = 'ReLU'
     mode = 'layer 2'
     # run with best opt rate
