@@ -298,7 +298,8 @@ class tfRF2L:
                     global_step=global_step_2,
                     var_list=out_weights
                 )
-                clip = maxnorm_tensor(out_weights[0],bd)
+                if self._Lambda == 0:
+                    clip_op = clip_by_maxnorm(out_weights[0],bd)
             if mode == 'layer 1':
                 train_op = optimizer.minimize(
                     loss=loss,
@@ -310,7 +311,8 @@ class tfRF2L:
                     loss=loss,
                     global_step=global_step_1,
                     )
-                clip = maxnorm_tensor(out_weights[0],bd)
+                if self._Lambda == 0:
+                    clip_op = clip_by_maxnorm(out_weights[0],bd)
             # initialize global variables in optimizer
             self._sess.run(tf.global_variables_initializer())
             if self.log:
@@ -328,8 +330,8 @@ class tfRF2L:
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
-            if bd > 0:
-                self._sess.run(clip)
+            if self._Lambda == 0:
+                self._sess.run(clip_op)
             self._total_iter += 1
 
     def get_params(self,deep=False):
@@ -471,9 +473,9 @@ def plot_circle(X,Y,ratio=1):
     plt.close(fig)
     return 1
 
-def maxnorm_tensor(t,c):
+def clip_by_maxnorm(t,c):
     cc = c*tf.ones(shape=tf.shape(t))
-    nt = tf.stack(tf.norm(t,ord=np.inf,axis=0),axis=0)
+    nt = tf.norm(t,ord=np.inf,axis=0)
     factor = tf.divide(tf.minimum(nt,cc),nt)
     t1 = tf.multiply(t,factor)
-    return t1
+    return tf.assign(t,t1)

@@ -70,8 +70,8 @@ def main():
     mode = 'layer 2'
     # run with best opt rate
     best_opt_rate = 10**2.0
-    score = covtype_nn(m=m_max,n_new_features=5000, #int(np.sqrt(m)),
-            feature=feature,mode=mode,opt_rate=best_opt_rate)
+    score = covtype_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
+            feature=feature,mode=mode,opt_rate=best_opt_rate,bd=1000)
     np.savetxt('result/best_covtype_b_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
 
@@ -89,8 +89,8 @@ def main():
     feature = 'Gaussian'
     # run with best opt rate
     best_opt_rate = 10**1.0
-    score = covtype_nn(m=m_max,n_new_features=5000, #int(np.sqrt(m)),
-        feature=feature,mode=mode,opt_rate=best_opt_rate)
+    score = covtype_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
+        feature=feature,mode=mode,opt_rate=best_opt_rate,bd=1000)
     np.savetxt('result/best_covtype_b_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
 
