@@ -1,26 +1,16 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import rff
+import time
 import tensorflow as tf
 
-X,Y = rff.unit_circle_ideal(0.1,0.9,300)
-Xtrain = X[:200]
-Ytrain = Y[:200]
-Xtest = X[200:]
-Ytest = Y[200:]
-n_old_features = 2
-n_components = 20
-Lambda = 0.0005
-batch_size = 1
-n_iter = 1000
-Gamma = rff.gamma_est(Xtrain) / 1
-classes = [-1,1]
-clf = rff.tfRF2L(n_old_features,n_components,
-    Lambda,Gamma,classes)
-accuracy = clf.score(Xtest,Ytest)
-print('accuracy={0:.3f}'.format(accuracy))
-clf.fit(Xtrain,Ytrain,'layer 2',batch_size,n_iter)
-# clf.fit(Xtrain,Ytrain,'layer 1',batch_size,n_iter)
-# clf.fit(Xtrain,Ytrain,'over all',batch_size,n_iter)
-accuracy = clf.score(Xtest,Ytest)
-print('accuracy={0:.3f}'.format(accuracy))
+def normalize_tensor():
+    with tf.Session() as sess:
+        a = np.random.randn(3,2)
+        a = tf.constant(a)
+        na = tf.stack(tf.norm(a,ord=np.inf,axis=0),axis=0)
+        a1 = tf.divide(a,na)
+        print(sess.run(a))
+        print(sess.run(na))
+        print(sess.run(a1))
+
+if __name__ == '__main__':
+    normalize_tensor()
