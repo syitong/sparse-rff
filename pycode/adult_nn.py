@@ -14,8 +14,8 @@ Ytrain = read_data('adult-train-label.npy')
 Xtest = read_data('adult-test-data.npy')
 Ytest = read_data('adult-test-label.npy')
 
-def adult_nn(m=1000,n_components=1000,feature='ReLU',
-    mode='layer 2',loss_fn='log loss',opt_rate=1.):
+def adult_nn(m=1000,n_new_features=1000,feature='ReLU',
+    mode='layer 2',loss_fn='log',opt_rate=1.):
     # set up timer and progress tracker
     mylog = log.log('log/tmp.log','Adult classification starts')
     rand_list = np.random.permutation(Xtrain.shape[0])
@@ -27,7 +27,7 @@ def adult_nn(m=1000,n_components=1000,feature='ReLU',
     params = {
         'feature': feature,
         'n_old_features': len(Xtrain[0]),
-        'n_components': n_components,
+        'n_new_features': n_new_features,
         'Lambda': np.float32(0.),
         'Gamma': np.float32(0.1), # rff.gamma_est(Xtrain)
         'classes': [0,1]
@@ -69,7 +69,7 @@ def main():
     mode = 'layer 2'
     # run with best opt rate
     best_opt_rate = 10**2.0
-    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    score = adult_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=best_opt_rate)
     np.savetxt('result/best_adult_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
@@ -78,7 +78,7 @@ def main():
     #score_list = []
     #for log_opt_rate in np.arange(-2.,3.,0.5):
     #    opt_rate = 10**log_opt_rate
-    #    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    #    score = adult_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
     #        feature=feature,mode=mode,opt_rate=opt_rate)
     #    score_list.append(score)
     #np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,
@@ -88,7 +88,7 @@ def main():
     feature = 'Gaussian'
     # run with best opt rate
     best_opt_rate = 10**0.5
-    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    score = adult_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=best_opt_rate)
     np.savetxt('result/best_adult_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
@@ -97,7 +97,7 @@ def main():
     #score_list = []
     #for log_opt_rate in np.arange(-2.,3.,0.5):
     #    opt_rate = 10**log_opt_rate
-    #    score = adult_nn(m=m_max,n_components=500, #int(np.sqrt(m)),
+    #    score = adult_nn(m=m_max,n_new_features=500, #int(np.sqrt(m)),
     #        feature=feature,mode=mode,opt_rate=opt_rate)
     #    score_list.append(score)
     #np.savetxt('result/adult_{0:s}{2:s}{1:s}'.format(feature,

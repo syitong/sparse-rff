@@ -10,7 +10,7 @@ from sklearn.metrics import confusion_matrix
 from sys import argv
 from libmnist import plot_confusion_matrix, get_train_test_data
 
-def tfRF2L_MNIST(m=1000,n_components=1000,
+def tfRF2L_MNIST(m=1000,n_new_features=1000,
     feature='ReLU',mode='layer 2',opt_rate=1.):
     # set up timer and progress tracker
     mylog = log.log('log/tmp.log','MNIST classification starts')
@@ -28,7 +28,7 @@ def tfRF2L_MNIST(m=1000,n_components=1000,
     params = {
         'feature': feature,
         'n_old_features': len(Xtrain[0]),
-        'n_components': n_components,
+        'n_new_features': n_new_features,
         'Lambda': np.float32(0.),
         'Gamma': np.float32(10.**(-3)),
         'classes': [0,1,2,3,4,5,6,7,8,9],
@@ -59,7 +59,7 @@ def tfRF2L_MNIST(m=1000,n_components=1000,
     # fig = plt.figure()
     # plot_confusion_matrix(C_matrix,classes=range(10),normalize=True)
     # plt.savefig('image/tfRF2L_{2:s}{3:s}_m_{0:.2e}_N_{1:.2e}.eps'.format(m,
-    #     n_components,feature,mode))
+    #     n_new_features,feature,mode))
     # plt.close(fig)
 
     print('''
@@ -76,7 +76,7 @@ def main():
     m_max = 60000
     # run with best opt rate
     best_opt_rate = 10**1.0
-    score = tfRF2L_MNIST(m=m_max,n_components=500, #int(np.sqrt(m)),
+    score = tfRF2L_MNIST(m=m_max,n_new_features=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=best_opt_rate)
     np.savetxt('result/best_mnist_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
@@ -85,7 +85,7 @@ def main():
     # score_list = []
     # for log_opt_rate in np.arange(-2.,3,0.5):
     #     opt_rate = 10 ** log_opt_rate
-    #     score = tfRF2L_MNIST(m=m_max,n_components=500,
+    #     score = tfRF2L_MNIST(m=m_max,n_new_features=500,
     #     feature=feature,mode=mode,opt_rate=opt_rate)
     #     score_list.append(score)
     # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,
@@ -96,14 +96,14 @@ def main():
     feature = 'Gaussian'
     # run with best opt rate
     best_opt_rate = 10**0.5
-    score = tfRF2L_MNIST(m=m_max,n_components=500, #int(np.sqrt(m)),
+    score = tfRF2L_MNIST(m=m_max,n_new_features=500, #int(np.sqrt(m)),
             feature=feature,mode=mode,opt_rate=best_opt_rate)
     np.savetxt('result/best_mnist_{0:s}{2:s}{1:s}'.format(feature,
         str(prefix),mode),np.array(score))
 
     # for log_opt_rate in np.arange(-2.,3,0.5):
     #     opt_rate = 10 ** log_opt_rate
-    #     score = tfRF2L_MNIST(m=m_max,n_components=500,
+    #     score = tfRF2L_MNIST(m=m_max,n_new_features=500,
     #     feature=feature,mode=mode,opt_rate=opt_rate)
     #     score_list.append(score)
     # np.savetxt('result/tfRF2L_{0:s}{2:s}{1:s}'.format(feature,

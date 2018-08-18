@@ -16,19 +16,19 @@ class optRBFSampler:
                  n_old_features,
                  feature_pool_size,
                  gamma=1,
-                 n_components=20):
+                 n_new_features=20):
         self.name = 'opt_rbf'
         self.pool = (np.random.randn(n_old_features,
                                      feature_pool_size)
                     * np.sqrt(gamma))
         self.feature_pool_size = feature_pool_size
         self.gamma = gamma
-        self.n_components = n_components
+        self.n_new_features = n_new_features
         Weight = np.ones(feature_pool_size)
         self.Weight = Weight
         self.Prob = Weight / np.sum(Weight)
         self.feature_list = np.random.choice(feature_pool_size,
-                                size=n_components,
+                                size=n_new_features,
                                 p=self.Prob)
         self.sampler = self.pool[:,self.feature_list]
 
@@ -52,7 +52,7 @@ class optRBFSampler:
         self.Weight = Weight
         self.Prob = Weight / np.sum(Weight)
         self.feature_list = np.random.choice(feature_pool_size,
-                                             size=self.n_components,
+                                             size=self.n_new_features,
                                              p=self.Prob)
         self.sampler = self.pool[:,self.feature_list]
 
@@ -65,42 +65,42 @@ class optRBFSampler:
         X_tilc = np.cos(X.dot(self.sampler))
         X_tils = np.sin(X.dot(self.sampler))
         X_til = np.concatenate((X_tilc,X_tils),axis=-1)
-        return X_til / np.sqrt(self.n_components)
+        return X_til / np.sqrt(self.n_new_features)
 
-class myReLUSampler:
-    """
-    The random nodes have the form
-    sqrt(gamma)*max(w dot x + b, 0). w and b are random Gaussian.
-    """
-    def __init__(self,n_old_features,gamma=1,n_components=20):
-        self.name = 'ReLU'
-        self.sampler = np.random.randn(n_old_features + 1,n_components)*np.sqrt(gamma)
-        self.gamma = gamma
-        self.n_components = n_components
-
-    def fit_transform(self, X):
-        """
-        It transforms one data vector a time
-        """
-        X_til = np.empty(self.n_components)
-        for idx in range(self.n_components):
-                X_til[idx] = max(X.dot(self.sampler[:-1,idx])+self.sampler[-1,idx],0)
-        return X_til / np.sqrt(self.n_components)
+# class myReLUSampler:
+#     """
+#     The random nodes have the form
+#     sqrt(gamma)*max(w dot x + b, 0). w and b are random Gaussian.
+#     """
+#     def __init__(self,n_old_features,gamma=1,n_new_features=20):
+#         self.name = 'ReLU'
+#         self.sampler = np.random.randn(n_old_features + 1,n_new_features)*np.sqrt(gamma)
+#         self.gamma = gamma
+#         self.n_new_features = n_new_features
+#
+#     def fit_transform(self, X):
+#         """
+#         It transforms one data vector a time
+#         """
+#         X_til = np.empty(self.n_new_features)
+#         for idx in range(self.n_new_features):
+#                 X_til[idx] = max(X.dot(self.sampler[:-1,idx])+self.sampler[-1,idx],0)
+#         return X_til / np.sqrt(self.n_new_features)
 
 class tfRF2L:
     """
-    This is a class constructing a 2-layer net with cos and sin nodes
-    in the hidden layer. The weights in the first layer is
-    initialized using random Gaussian features.
-    Layerwise training can be applied.
+    This is a class constructing a 2-layer net with Fourier or
+    ReLU nodes in the hidden layer. The weights in the first layer is
+    initialized using random Gaussian or random uniform features,
+    respectively. Layerwise training can be applied.
     """
     def __init__(self,feature,n_old_features,
-        n_components,Lambda,Gamma,classes,
-        loss_fn='log loss',log=False,initializer=None):
+        n_new_features,Lambda,Gamma,classes,
+        loss_fn='log',log=False,initializer=None):
         self._initializer = initializer
         self._feature = feature
         self._d = n_old_features
-        self._N = n_components
+        self._N = n_new_features
         self._Lambda = Lambda
         self._Gamma = Gamma
         self._classes = classes
@@ -113,38 +113,17 @@ class tfRF2L:
             raise ValueError
 
     @property
-    def feature(self):
-        return self._feature
-    @property
-    def d(self):
-        return self._d
-    @property
-    def N(self):
-        return self._N
-    @property
-    def Lambda(self):
-        return self._Lambda
-    @property
-    def Gamma(self):
-        return self._Gamma
-    @property
-    def classes(self):
-        return self._classes
-    @property
-    def loss_fn(self):
-        return self._loss_fn
-    @property
-    def total_iter(self):
-        return self._total_iter
+    def params(self):
+        return self.get_params()
 
     def _feature_layer(self,x,N):
-        if self._initializer == None:
-            k_initializer = tf.random_normal_initializer(stddev=np.sqrt(self.Gamma))
-            b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
-        else:
-            k_initializer = tf.constant_initializer(self._initializer,dtype=tf.float32)
-            b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
-        if self.feature == 'Gaussian':
+        if self._feature == 'Gaussian':
+            if self._initializer == None:
+                k_initializer = tf.random_normal_initializer(stddev=np.sqrt(self._Gamma))
+                b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
+            else:
+                k_initializer = tf.constant_initializer(self._initializer,dtype=tf.float32)
+                b_initializer = tf.random_uniform_initializer(minval=0.,maxval=np.pi)
             trans_layer = tf.layers.dense(inputs=x,units=N,
                 use_bias=True,
                 kernel_initializer=k_initializer,
@@ -155,10 +134,10 @@ class tfRF2L:
             RF_layer = tf.div(trans_layer,tf.sqrt(N*1.0))
             tf.add_to_collection('Hidden',RF_layer)
 
-        elif self.feature == 'ReLU':
-            k_initializer = np.random.randn(self._d+1,self.N)
+        elif self._feature == 'ReLU':
+            k_initializer = np.random.randn(self._d+1,self._N)
             # initialize by unit vectors
-            for idx in range(self.N):
+            for idx in range(self._N):
                 k_vec = k_initializer[:,idx].copy()
                 k_initializer[:,idx] = k_vec / np.linalg.norm(k_vec)
             b_initializer = tf.constant_initializer(k_initializer[-1,:],
@@ -194,26 +173,24 @@ class tfRF2L:
             y = tf.placeholder(dtype=tf.uint8,
                 shape=[None],name='labels')
 
-            with tf.name_scope('RF_layer'):
-                RF_layer = self._feature_layer(x,N)
+            RF_layer = self._feature_layer(x,N)
 
-            if self._loss_fn == 'hinge loss':
+            if self._loss_fn in ('hinge','squared'):
                 np_init = np.random.choice([-1,1],size=(N,1))
                 logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
-
                 if n_classes == 2:
                     logits = tf.layers.dense(inputs=RF_layer,
                         use_bias = False,
                         kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
                         kernel_initializer=logits_init,
                         units=1,name='Logits')
+                    logits = tf.reshape(logits,shape=[-1])
                 else:
-                    print("hinge loss only works for binary classificaiton.")
+                    print("hinge or squared loss only works for binary classificaiton.")
                     return 0
-            elif self._loss_fn == 'log loss':
+            elif self._loss_fn == 'log':
                 np_init = np.random.choice([-1,1],size=(N,n_classes))
                 logits_init = tf.constant_initializer(np_init,dtype=tf.float32)
-
                 logits = tf.layers.dense(inputs=RF_layer,
                     use_bias = False,
                     kernel_regularizer=tf.contrib.layers.l2_regularizer(scale=Lambda),
@@ -221,21 +198,24 @@ class tfRF2L:
                     units=n_classes,name='Logits')
                 probab = tf.nn.softmax(logits, name="softmax")
                 tf.add_to_collection("Probab",probab)
+
             tf.add_to_collection("Probab",logits)
             tf.summary.histogram('outer weights',
                 self._graph.get_tensor_by_name('Logits/kernel:0'))
 
-
-            # hinge loss only works for binary classification.
+            # hinge only works for binary classification.
             regularizer = tf.losses.get_regularization_loss(scope='Logits')
-            if self._loss_fn == 'hinge loss':
+            if self._loss_fn == 'hinge':
                 reg_loss = tf.losses.hinge_loss(labels=y,
                     logits=logits) + regularizer
-            elif self._loss_fn == 'log loss':
+            elif self._loss_fn == 'squared':
+                reg_loss = tf.losses.mean_squared_error(labels=y,
+                    predictions=logits) + regularizer
+            elif self._loss_fn == 'log':
                 onehot_labels = tf.one_hot(indices=y, depth=n_classes)
                 loss_log = tf.losses.softmax_cross_entropy(
                     onehot_labels=onehot_labels, logits=logits)
-                reg_loss = tf.reduce_mean(loss_log) + regularizer
+                reg_loss = loss_log + regularizer
             tf.add_to_collection('Loss',reg_loss)
 
             merged = tf.summary.merge_all()
@@ -249,17 +229,17 @@ class tfRF2L:
 
     def predict(self,data,batch_size):
         with self._graph.as_default():
-            if self._loss_fn == 'hinge loss':
-                logits = tf.get_collection('Probab')
-                if logits > 0:
-                    index = 1
-                else:
-                    index = 0
-                predictions = {"indices": index,
-                    "probabilities": None}
-            elif self._loss_fn == 'log loss':
-                logits,probab = tf.get_collection('Probab')
-                f_vec = tf.get_collection('Hidden')[0]
+            f_vec = tf.get_collection('Hidden')[0]
+            if self._loss_fn == 'hinge':
+                logits = tf.get_collection('Probab')[0]
+                predictions = {"indices": logits,
+                    "feature_vec": f_vec}
+            elif self._loss_fn == 'squared':
+                logits = tf.get_collection('Probab')[0]
+                predictions = {"indices": logits,
+                    "feature_vec": f_vec}
+            elif self._loss_fn == 'log':
+                probab,logits = tf.get_collection('Probab')
                 predictions = {
                     "indices": tf.argmax(input=logits,axis=1),
                     "probabilities": probab,
@@ -275,8 +255,13 @@ class tfRF2L:
             idx = t
             feed_dict = {'features:0':batch}
             results = self._sess.run(predictions,feed_dict=feed_dict)
-            classes.extend([self._classes[index] for index in results['indices']])
-            probabilities.extend(results['probabilities'])
+            if self._loss_fn == 'log':
+                classes.extend([self._classes[index] for index in results['indices']])
+                probabilities.extend(results['probabilities'])
+            elif self._loss_fn == 'hinge':
+                classes.extend([self._classes[index>0] for index in results['indices']])
+            elif self._loss_fn == 'squared':
+                classes.extend([self._classes[index>.5] for index in results['indices']])
             feature_vec = results['feature_vec']
             sparsity += np.count_nonzero(feature_vec)/feature_vec.shape[1]
         sparsity = sparsity / len(data)
@@ -351,7 +336,7 @@ class tfRF2L:
         params = {
             'feature': self._feature,
             'n_old_features': self._d,
-            'n_components': self._N,
+            'n_new_features': self._N,
             'Lambda': self._Lambda,
             'Gamma': self._Gamma,
             'classes': self._classes,
