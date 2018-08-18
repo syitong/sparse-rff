@@ -227,7 +227,7 @@ class tfRF2L:
             self._train_writer.add_summary(summary)
         return 1
 
-    def predict(self,data,batch_size):
+    def predict(self,data,batch_size=50):
         with self._graph.as_default():
             f_vec = tf.get_collection('Hidden')[0]
             if self._loss_fn == 'hinge':
