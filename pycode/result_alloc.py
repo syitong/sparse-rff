@@ -1,7 +1,7 @@
 import numpy as np
 
-dataset = 'mnist'
-filename = 'result/' + dataset + '_ReLU-'
+dataset = 'covtype'
+filename = 'result/' + dataset + '-'
 row = ['log(rate)\log(Gamma)']
 row.extend(np.arange(-6.,2,1))
 row.append('ReLU')
