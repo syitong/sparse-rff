@@ -96,5 +96,5 @@ def print_params(dataset):
     return F_gamma,F_rate,R_rate
 
 if __name__ == '__main__':
-    plot_params('covtype-bd')
+    plot_params('adult')
     # print_params('adult')
