@@ -6,6 +6,7 @@ from libmnist import get_train_test_data
 from multiprocessing import Pool
 from functools import partial
 from uci_pre import read_data
+from result_show import print_params
 
 def _validate(data,labels,folds,index,**params):
     kfolds_data = np.split(data,folds)
@@ -35,33 +36,6 @@ def validate(data,labels,val_size,folds=5,**params):
         score_list.append(f(idx))
     return sum(score_list) / folds
 
-def get_best_params(dataset):
-    with open('result/'+dataset+'-alloc','r') as f:
-        result = eval(f.read())
-
-    for row in result:
-        if type(row[0]) == str:
-            print('{:^20}'.format(row[0]),end='')
-        else:
-            print('{:^ 20}'.format(row[0]),end='')
-        for item in row[1:]:
-            if type(item) == str:
-                print('{:>7}'.format(item),end='')
-            else:
-                print('{:>7.2f}'.format(item),end='')
-        print('')
-
-    F_result = [row[1:-1] for row in result[1:]]
-    F_result = np.array(F_result)
-    x,y = np.unravel_index(np.argmax(F_result),
-        F_result.shape)
-    F_gamma = result[0][y+1]
-    F_rate = result[x+1][0]
-    R_result = np.array([row[-1] for row in result[1:]])
-    x = np.argmax(R_result)
-    R_rate = result[x+1][0]
-    return F_gamma,F_rate,R_rate
-
 def train_and_test(Xtr,Ytr,Xts,Yts,**params):
     modelparams = params['model']
     clf = librf.RF(**modelparams)
@@ -75,22 +49,22 @@ def train_and_test(Xtr,Ytr,Xts,Yts,**params):
     return score,sparsity,t2-t1,t3-t2
 
 def screen_params():
-    val_size = 50000 # 30000
+    val_size = 30000 # 50000
     folds = 5
     ############### MNIST data ##############
-    # Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+    Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
     ############### adult data ##############
     # Xtrain = read_data('adult-train-data.npy')
     # Ytrain = read_data('adult-train-label.npy')
     # Xtest = read_data('adult-test-data.npy')
     # Ytest = read_data('adult-test-label.npy')
     ############## covtype data #############
-    Xtrain = read_data('covtype-train-data.npy')
-    # Ytrain = read_data('covtype-train-binary-label.npy')
-    Xtest = read_data('covtype-test-data.npy')
-    # Ytest = read_data('covtype-test-binary-label.npy')
-    Ytrain = read_data('covtype-train-label.npy')
-    Ytest = read_data('covtype-test-label.npy')
+    # Xtrain = read_data('covtype-train-data.npy')
+    # # Ytrain = read_data('covtype-train-binary-label.npy')
+    # Xtest = read_data('covtype-test-data.npy')
+    # # Ytest = read_data('covtype-test-binary-label.npy')
+    # Ytrain = read_data('covtype-train-label.npy')
+    # Ytest = read_data('covtype-test-label.npy')
 
     Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
     rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
@@ -132,4 +106,4 @@ def screen_params():
         f.write(str(results))
 
 if __name__ == '__main__':
-    print(get_best_params('mnist'))
+    screen_params()
