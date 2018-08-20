@@ -68,7 +68,7 @@ def screen_params():
 
     Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
     rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-    classes = list(range(1,8)) # [0.,1.] # list(range(10))
+    classes = list(range(10)) # list(range(1,8)) # [0.,1.] # 
     loss_fn = 'log'
     dataset = 'mnist'
     N = 2000 # 10000
