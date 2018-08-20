@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib as mpl
-# mpl.use('Agg')
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 def plot_learning_rate():
@@ -48,7 +48,7 @@ def plot_learning_rate():
         plt.close(fig)
 
 def plot_params():
-    dataset = 'covtype-refine'
+    dataset = 'covtype-bd'
     with open('result/'+dataset+'-alloc','r') as f:
         result = eval(f.read())
     result_trim = [row[1:] for row in result[1:]]
@@ -68,5 +68,34 @@ def plot_params():
     plt.savefig('image/{}-gamma.eps'.format(dataset))
     plt.close(fig)
 
+def print_params(dataset):
+    with open('result/'+dataset+'-alloc','r') as f:
+        result = eval(f.read())
+    for row in result:
+        if type(row[0]) == str:
+            print('{:^20}'.format(row[0]),end='')
+        else:
+            print('{:^ 20}'.format(row[0]),end='')
+        for item in row[1:]:
+            if type(item) == str:
+                print('{:>7}'.format(item),end='')
+            else:
+                print('{:>7.2f}'.format(item),end='')
+        print('')
+    F_result = [row[1:-1] for row in result[1:]]
+    F_result = np.array(F_result)
+    x,y = np.unravel_index(np.argmax(F_result),
+        F_result.shape)
+    F_gamma = result[0][y+1]
+    F_rate = result[x+1][0]
+    R_result = np.array([row[-1] for row in result[1:]])
+    x = np.argmax(R_result)
+    R_rate = result[x+1][0]
+    print('best Gamma: ',F_gamma)
+    print('best rate for Fourier features: ',F_rate)
+    print('best rate for ReLU features: ',R_rate)
+    return F_gamma,F_rate,R_rate
+
 if __name__ == '__main__':
-    plot_params()
+    # plot_params()
+    print_params('covtype-refine')

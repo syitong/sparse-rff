@@ -16,5 +16,5 @@ for idx in range(10):
         row.append(item['score'])
     output.append(row)
 
-with open('result/'+dataset+'-refine-alloc','w') as f:
+with open('result/'+dataset+'-bd-alloc','w') as f:
     f.write(str(output))
