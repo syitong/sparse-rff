@@ -7,7 +7,7 @@
 #PBS -m abe
 
 # Change the number of cores (ppn=1), amount of memory, and walltime:
-#PBS -l procs=2,mem=16gb,walltime=06:00:00
+#PBS -l procs=2,mem=32gb,walltime=06:00:00
 #PBS -j oe
 #PBS -V
 #PBS -t 0-9
