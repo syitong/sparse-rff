@@ -90,9 +90,9 @@ def print_params(dataset):
     R_result = np.array([row[-1] for row in result[1:]])
     x = np.argmax(R_result)
     R_rate = result[x+1][0]
-    print('best Gamma: ',F_gamma)
-    print('best rate for Fourier features: ',F_rate)
-    print('best rate for ReLU features: ',R_rate)
+    print('best log(Gamma): ',F_gamma)
+    print('best log(rate) for Fourier features: ',F_rate)
+    print('best log(rate) for ReLU features: ',R_rate)
     return F_gamma,F_rate,R_rate
 
 if __name__ == '__main__':

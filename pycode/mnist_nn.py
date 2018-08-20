@@ -36,15 +36,26 @@ def validate(data,labels,val_size,folds=5,**params):
         score_list.append(f(idx))
     return sum(score_list) / folds
 
+def _train_and_test(Xtr,Ytr,Xts,Yts,**params):
+    modelparams = params['model']
+    clf = librf.RF(**modelparams)
+    fitparams = params['fit']
+    t1 = time.process_time()
+    clf.fit(Xtr,Ytr,**fitparams)
+    t2 = time.process_time()
+    Ypr,_,sparsity = clf.predict(Xts)
+    t3 = time.process_time()
+    score = sum(Ypr == Yts) / len(Yts)
+    return score,sparsity,t2-t1,t3-t2
+
 def train_and_test(dataset):
     if dataset == 'mnist':
         Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
         N = 2000 # 10000
         bd = 1000 # 100000
-        n_iter = 1000 # 5000
+        n_iter = 5000
         classes = list(range(10))
         loss_fn = 'log'
-        F_gamma,F_rate,R_rate = print_params(dataset)
     elif dataset == 'adult':
         Xtrain = read_data('adult-train-data.npy')
         Ytrain = read_data('adult-train-label.npy')
@@ -52,7 +63,7 @@ def train_and_test(dataset):
         Ytest = read_data('adult-test-label.npy')
         N = 2000 # 10000
         bd = 1000 # 100000
-        n_iter = 1000 # 5000
+        n_iter = 5000
         Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
@@ -66,17 +77,22 @@ def train_and_test(dataset):
         Ytest = read_data('covtype-test-label.npy')
         N = 10000
         bd = 100000
-        n_iter = 5000
+        n_iter = 10000
         Gamma_list = 10. ** np.arange(-2.,4,0.5)
         rate_list = 10. ** np.arange(0.8,2.8,0.2)
-        classes = [0.,1.] # list(range(1,8)) # list(range(10))
+        classes = list(range(1,8))
         loss_fn = 'log'
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
+    F_gamma,F_rate,R_rate = print_params(dataset)
+    F_gamma = 10. ** F_gamma
+    F_rate = 10. ** F_rate
+    R_rate = 10. ** R_rate
     prefix = argv[1]
     params = {}
     feature = 'Gaussian'
     params['model'] = {
+        'Gamma':F_gamma,
         'feature':feature,
         'n_old_features':len(Xtrain[0]),
         'n_new_features':N,
@@ -84,20 +100,31 @@ def train_and_test(dataset):
         'loss_fn':loss_fn
     }
     params['fit'] = {
-        'opt_rate':rate_list[int(prefix)],
+        'opt_rate':F_rate,
         'n_iter':n_iter,
         'bd':bd
     }
-    modelparams = params['model']
-    clf = librf.RF(**modelparams)
-    fitparams = params['fit']
-    t1 = time.process_time()
-    clf.fit(Xtr,Ytr,**fitparams)
-    t2 = time.process_time()
-    Ypr,_,sparsity = clf.predict(Xts)
-    t3 = time.process_time()
-    score = sum(Ypr == Yts) / len(Yts)
-    return score,sparsity,t2-t1,t3-t2
+    score1,sparsity1,traintime1,testtime1 = _train_and_test(Xtrain,
+        Ytrain,Xtest,Ytest,**params)
+    params['model']['feature'] = 'ReLU'
+    params['fit']['opt_rate'] = R_rate
+    score2,sparsity2,traintime2,testtime2 = _train_and_test(Xtrain,
+        Ytrain,Xtest,Ytest,**params)
+    output = [{
+            'feature':'Gaussian',
+            'accuracy':score1,
+            'sparsity':sparsity1,
+            'traintime':traintime1,
+            'testtime':testtime1
+        },{
+            'feature':'ReLU',
+            'accuracy':score2,
+            'sparsity':sparsity2,
+            'traintime':traintime2,
+            'testtime':testtime2
+        }]
+    with open('result/'+dataset+'-test-'+prefix,'w') as f:
+        f.write(str(output))
 
 def screen_params(dataset,val_size=30000,folds=5):
     if dataset == 'mnist':
@@ -167,4 +194,4 @@ def screen_params(dataset,val_size=30000,folds=5):
         f.write(str(results))
 
 if __name__ == '__main__':
-    screen_params()
+    train_and_test('mnist')
