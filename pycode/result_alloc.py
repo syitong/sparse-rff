@@ -1,10 +1,11 @@
 import numpy as np
 
-dataset = 'adult'
+dataset = 'mnist'
 filename = 'result/' + dataset + '_ReLU-'
-output = ['log(rate)\log(Gamma)']
-output.extend(np.arange(-6.,2,1))
-output.append('ReLU')
+row = ['log(rate)\log(Gamma)']
+row.extend(np.arange(-6.,2,1))
+row.append('ReLU')
+output = [row]
 log_rate = np.arange(-2.,3,0.5)
 for idx in range(10):
     row = []
