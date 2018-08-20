@@ -7,10 +7,10 @@
 #PBS -m abe
 
 # Change the number of cores (ppn=1), amount of memory, and walltime:
-#PBS -l procs=1,mem=16gb,walltime=06:00:00
+#PBS -l procs=5,mem=16gb,walltime=06:00:00
 #PBS -j oe
 #PBS -V
-#PBS -t 1-10
+#PBS -t 0-9
 
 # Change "example_flux" to the name of your Flux allocation:
 #PBS -A tewaria_fluxm
@@ -26,4 +26,4 @@ if [ -n "$PBS_NODEFILE" ]; then cat $PBS_NODEFILE; fi
 if [ -n "$PBS_O_WORKDIR" ]; then cd $PBS_O_WORKDIR; fi
 
 #  Put your job commands here:
-python covtype_nn.py ${PBS_ARRAYID}
+python mnist_nn.py ${PBS_ARRAYID}
