@@ -36,7 +36,58 @@ def validate(data,labels,val_size,folds=5,**params):
         score_list.append(f(idx))
     return sum(score_list) / folds
 
-def train_and_test(Xtr,Ytr,Xts,Yts,**params):
+def train_and_test(dataset):
+    if dataset == 'mnist':
+        Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+        N = 2000 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        classes = list(range(10))
+        loss_fn = 'log'
+        F_gamma,F_rate,R_rate = print_params(dataset)
+    elif dataset == 'adult':
+        Xtrain = read_data('adult-train-data.npy')
+        Ytrain = read_data('adult-train-label.npy')
+        Xtest = read_data('adult-test-data.npy')
+        Ytest = read_data('adult-test-label.npy')
+        N = 2000 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = [0.,1.]
+        loss_fn = 'hinge'
+    elif dataset == 'covtype':
+        Xtrain = read_data('covtype-train-data.npy')
+        # Ytrain = read_data('covtype-train-binary-label.npy')
+        Xtest = read_data('covtype-test-data.npy')
+        # Ytest = read_data('covtype-test-binary-label.npy')
+        Ytrain = read_data('covtype-train-label.npy')
+        Ytest = read_data('covtype-test-label.npy')
+        N = 10000
+        bd = 100000
+        n_iter = 5000
+        Gamma_list = 10. ** np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(0.8,2.8,0.2)
+        classes = [0.,1.] # list(range(1,8)) # list(range(10))
+        loss_fn = 'log'
+    Xtrain = np.array(Xtrain)
+    Ytrain = np.array(Ytrain)
+    prefix = argv[1]
+    params = {}
+    feature = 'Gaussian'
+    params['model'] = {
+        'feature':feature,
+        'n_old_features':len(Xtrain[0]),
+        'n_new_features':N,
+        'classes':classes,
+        'loss_fn':loss_fn
+    }
+    params['fit'] = {
+        'opt_rate':rate_list[int(prefix)],
+        'n_iter':n_iter,
+        'bd':bd
+    }
     modelparams = params['model']
     clf = librf.RF(**modelparams)
     fitparams = params['fit']
@@ -48,32 +99,42 @@ def train_and_test(Xtr,Ytr,Xts,Yts,**params):
     score = sum(Ypr == Yts) / len(Yts)
     return score,sparsity,t2-t1,t3-t2
 
-def screen_params():
-    val_size = 30000 # 50000
-    folds = 5
-    ############### MNIST data ##############
-    # Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
-    ############### adult data ##############
-    Xtrain = read_data('adult-train-data.npy')
-    Ytrain = read_data('adult-train-label.npy')
-    Xtest = read_data('adult-test-data.npy')
-    Ytest = read_data('adult-test-label.npy')
-    ############## covtype data #############
-    # Xtrain = read_data('covtype-train-data.npy')
-    # # Ytrain = read_data('covtype-train-binary-label.npy')
-    # Xtest = read_data('covtype-test-data.npy')
-    # # Ytest = read_data('covtype-test-binary-label.npy')
-    # Ytrain = read_data('covtype-train-label.npy')
-    # Ytest = read_data('covtype-test-label.npy')
-
-    Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-    rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-    classes = [0.,1.] # list(range(1,8)) # list(range(10))  
-    loss_fn = 'log'
-    dataset = 'adult'
-    N = 2000 # 10000
-    bd = 1000 # 100000
-    n_iter = 1000 # 5000
+def screen_params(dataset,val_size=30000,folds=5):
+    if dataset == 'mnist':
+        Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+        N = 2000 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = list(range(10))
+        loss_fn = 'log'
+    elif dataset == 'adult':
+        Xtrain = read_data('adult-train-data.npy')
+        Ytrain = read_data('adult-train-label.npy')
+        Xtest = read_data('adult-test-data.npy')
+        Ytest = read_data('adult-test-label.npy')
+        N = 2000 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = [0.,1.]
+        loss_fn = 'hinge'
+    elif dataset == 'covtype':
+        Xtrain = read_data('covtype-train-data.npy')
+        # Ytrain = read_data('covtype-train-binary-label.npy')
+        Xtest = read_data('covtype-test-data.npy')
+        # Ytest = read_data('covtype-test-binary-label.npy')
+        Ytrain = read_data('covtype-train-label.npy')
+        Ytest = read_data('covtype-test-label.npy')
+        N = 10000
+        bd = 100000
+        n_iter = 5000
+        Gamma_list = 10. ** np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(0.8,2.8,0.2)
+        classes = [0.,1.] # list(range(1,8)) # list(range(10))
+        loss_fn = 'log'
 
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
