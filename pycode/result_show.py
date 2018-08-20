@@ -47,8 +47,7 @@ def plot_learning_rate():
         plt.savefig('image/covtype_Fourier_vs_ReLU_{}.eps'.format(tag))
         plt.close(fig)
 
-def plot_params():
-    dataset = 'covtype-bd'
+def plot_params(dataset):
     with open('result/'+dataset+'-alloc','r') as f:
         result = eval(f.read())
     result_trim = [row[1:] for row in result[1:]]
@@ -64,7 +63,7 @@ def plot_params():
     plt.ylim((0,1.01))
     plt.plot(x_labels,F_result,'x--',label='Fourier')
     plt.plot(x_labels,R_result,':',label='ReLU')
-    plt.legend(loc=5)
+    plt.legend(loc=1)
     plt.savefig('image/{}-gamma.eps'.format(dataset))
     plt.close(fig)
 
@@ -97,5 +96,5 @@ def print_params(dataset):
     return F_gamma,F_rate,R_rate
 
 if __name__ == '__main__':
-    # plot_params()
-    print_params('covtype-refine')
+    plot_params('covtype-bd')
+    # print_params('adult')

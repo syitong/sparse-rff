@@ -1,13 +1,13 @@
 import numpy as np
 
-dataset = 'covtype'
-filename = 'result/' + dataset + '-'
+dataset = 'adult'
+filename = 'result/' + dataset + '_ReLU-'
 row = ['log(rate)\log(Gamma)']
-row.extend(np.arange(-2.,4,0.5))
+row.extend(np.arange(-6.,2,1))
 row.append('ReLU')
 output = [row]
-log_rate = np.arange(0.8,2.8,0.2)
-for idx in range(10):
+log_rate = np.arange(-2.,4,0.5)
+for idx,rate in enumerate(log_rate):
     row = []
     with open(filename + str(idx),'r') as f:
         result = eval(f.read())
@@ -16,5 +16,5 @@ for idx in range(10):
         row.append(item['score'])
     output.append(row)
 
-with open('result/'+dataset+'-bd-alloc','w') as f:
+with open('result/'+dataset+'-alloc','w') as f:
     f.write(str(output))
