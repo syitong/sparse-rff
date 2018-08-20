@@ -52,12 +52,12 @@ def screen_params():
     val_size = 30000 # 50000
     folds = 5
     ############### MNIST data ##############
-    Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+    # Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
     ############### adult data ##############
-    # Xtrain = read_data('adult-train-data.npy')
-    # Ytrain = read_data('adult-train-label.npy')
-    # Xtest = read_data('adult-test-data.npy')
-    # Ytest = read_data('adult-test-label.npy')
+    Xtrain = read_data('adult-train-data.npy')
+    Ytrain = read_data('adult-train-label.npy')
+    Xtest = read_data('adult-test-data.npy')
+    Ytest = read_data('adult-test-label.npy')
     ############## covtype data #############
     # Xtrain = read_data('covtype-train-data.npy')
     # # Ytrain = read_data('covtype-train-binary-label.npy')
@@ -68,9 +68,9 @@ def screen_params():
 
     Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
     rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-    classes = list(range(10)) # list(range(1,8)) # [0.,1.] # 
+    classes = [0.,1.] # list(range(1,8)) # list(range(10))  
     loss_fn = 'log'
-    dataset = 'mnist'
+    dataset = 'adult'
     N = 2000 # 10000
     bd = 1000 # 100000
     n_iter = 1000 # 5000
