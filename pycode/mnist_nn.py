@@ -34,11 +34,12 @@ def validate(data,labels,val_size,folds=5,**params):
     return sum(score_list) / folds
 
 def main():
-    val_size = 3000 # 30000
-    folds = 2 # 5
+    val_size = 30000
+    folds = 5
     Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
-    Gamma_list = [1.,2.] # 10. ** np.arange(-6.,2,1)
-    rate_list = [1.,10.] # 10. ** np.arange(-2.,3,0.5)
+    Gamma_list = 10. ** np.arange(-6.,2,1)
+    rate_list = 10. ** np.arange(-2.,3,0.5)
+    
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
     prefix = argv[1]
