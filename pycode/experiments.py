@@ -195,3 +195,5 @@ def screen_params(dataset,val_size=30000,folds=5):
 
 if __name__ == '__main__':
     train_and_test('mnist')
+    train_and_test('adult')
+    train_and_test('covtype')
