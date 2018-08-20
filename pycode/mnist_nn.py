@@ -4,6 +4,7 @@ from sys import argv
 from libmnist import get_train_test_data
 from multiprocessing import Pool
 from functools import partial
+from uci_pre import read_data
 
 def _validate(data,labels,folds,index,**params):
     kfolds_data = np.split(data,folds)
@@ -36,10 +37,17 @@ def validate(data,labels,val_size,folds=5,**params):
 def main():
     val_size = 30000
     folds = 5
-    Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+    # Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
+    Xtrain = read_data('adult-train-data.npy')
+    Ytrain = read_data('adult-train-label.npy')
+    Xtest = read_data('adult-test-data.npy')
+    Ytest = read_data('adult-test-label.npy')
     Gamma_list = 10. ** np.arange(-6.,2,1)
     rate_list = 10. ** np.arange(-2.,3,0.5)
-    
+    classes = [0.,1.] # list(range(10))
+    loss_fn = 'hinge'
+    dataset = 'adult'
+
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
     prefix = argv[1]
@@ -49,8 +57,8 @@ def main():
         'feature':feature,
         'n_old_features':len(Xtrain[0]),
         'n_new_features':2000,
-        'classes':list(range(10)),
-        'loss_fn':'log'
+        'classes':classes,
+        'loss_fn':loss_fn
     }
     params['fit'] = {
         'opt_rate':rate_list[int(prefix)],
@@ -66,8 +74,8 @@ def main():
     params['model']['feature'] = feature
     score = validate(Xtrain,Ytrain,val_size,folds,**params)
     results.append({'Gamma':'ReLU','score':score})
-    filename = 'result/mnist_{0:s}-{1:s}'.format(feature,
-        prefix)
+    filename = 'result/{2:s}_{0:s}-{1:s}'.format(feature,
+        prefix,dataset)
     with open(filename,'w') as f:
         f.write(str(results))
 
