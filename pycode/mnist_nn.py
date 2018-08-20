@@ -73,8 +73,8 @@ def main():
     }
     params['fit'] = {
         'opt_rate':rate_list[int(prefix)],
-        'n_iter':1000,
-        'bd':1000
+        'n_iter':5000,
+        'bd':100000
     }
     results = []
     for Gamma in Gamma_list:

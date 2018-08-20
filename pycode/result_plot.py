@@ -48,7 +48,7 @@ def plot_learning_rate():
         plt.close(fig)
 
 def plot_params():
-    dataset = 'covtype'
+    dataset = 'covtype-refine'
     with open('result/'+dataset+'-alloc','r') as f:
         result = eval(f.read())
     result_trim = [row[1:] for row in result[1:]]
