@@ -52,8 +52,8 @@ def main():
     Ytrain = read_data('covtype-train-label.npy')
     Ytest = read_data('covtype-test-label.npy')
 
-    Gamma_list = 10. ** np.arange(-4.,4,1) # np.arange(-6.,2,1)
-    rate_list = 10. ** np.arange(-2.,3,0.5)
+    Gamma_list = 10. ** np.arange(-2.,4,0.5) # np.arange(-6.,2,1)
+    rate_list = 10. ** np.arange(0.8,2.8,0.2) # np.arange(-2.,3,0.5)
     classes = list(range(1,8)) # [0.,1.] # list(range(10))
     loss_fn = 'log'
     dataset = 'covtype'
