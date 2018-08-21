@@ -1,7 +1,7 @@
 import numpy as np
 
 def screen_params_alloc(dataset):
-    filename = 'result/' + dataset + '_ReLU-'
+    filename = 'result/' + dataset + '-'
     row = ['log(rate)\log(Gamma)']
     row.extend(np.arange(-6.,2,1))
     row.append('ReLU')
@@ -16,7 +16,7 @@ def screen_params_alloc(dataset):
             row.append(item['score'])
         output.append(row)
 
-    with open('result/'+dataset+'-alloc','w') as f:
+    with open('result/'+dataset+'-adam-alloc','w') as f:
         f.write(str(output))
 
 def train_and_test_alloc(dataset):
@@ -43,4 +43,4 @@ def train_and_test_alloc(dataset):
         fw.write(str(alloc))
 
 if __name__ == '__main__':
-    train_and_test_alloc('adult')
+    screen_params_alloc('adult')
