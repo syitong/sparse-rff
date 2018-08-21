@@ -172,6 +172,7 @@ def screen_params(dataset,val_size=30000,folds=5):
         'loss_fn':loss_fn
     }
     params['fit'] = {
+        'opt_method':'adam',
         'opt_rate':rate_list[int(prefix)],
         'n_iter':n_iter,
         'bd':bd
@@ -192,4 +193,5 @@ def screen_params(dataset,val_size=30000,folds=5):
 if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
-    train_and_test('covtype')
+    # train_and_test('covtype')
+    screen_params('adult')
