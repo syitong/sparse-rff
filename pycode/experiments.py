@@ -194,4 +194,4 @@ if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
-    screen_params('adult')
+    screen_params('mnist')
