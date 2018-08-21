@@ -1,0 +1,502 @@
+nyx7015
+nyx7015
+2018-08-21 15:31:14.954515: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-21 15:31:14.954576: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-21 15:31:14.954602: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-21 15:31:14.954623: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-21 15:31:14.954645: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+iter: 1, loss: 6.5621
+iter: 101, loss: 1.3543
+iter: 201, loss: 2.0273
+iter: 301, loss: 2.2995
+iter: 401, loss: 1.2336
+iter: 501, loss: 1.7793
+iter: 601, loss: 1.4513
+iter: 701, loss: 1.1517
+iter: 801, loss: 0.8135
+iter: 901, loss: 1.0342
+Session is closed.
+iter: 1, loss: 6.2883
+iter: 101, loss: 0.9403
+iter: 201, loss: 2.4071
+iter: 301, loss: 0.8016
+iter: 401, loss: 2.6181
+iter: 501, loss: 0.8815
+iter: 601, loss: 0.5984
+iter: 701, loss: 0.6299
+iter: 801, loss: 1.6868
+iter: 901, loss: 0.6536
+Session is closed.
+iter: 1, loss: 5.7518
+iter: 101, loss: 2.1404
+iter: 201, loss: 2.4709
+iter: 301, loss: 1.3315
+iter: 401, loss: 0.6463
+iter: 501, loss: 2.5230
+iter: 601, loss: 1.1801
+iter: 701, loss: 0.9464
+iter: 801, loss: 0.5209
+iter: 901, loss: 4.2718
+Session is closed.
+iter: 1, loss: 6.4773
+iter: 101, loss: 0.4760
+iter: 201, loss: 2.0374
+iter: 301, loss: 0.8709
+iter: 401, loss: 2.6641
+iter: 501, loss: 1.8271
+iter: 601, loss: 1.4614
+iter: 701, loss: 2.0308
+iter: 801, loss: 1.9107
+iter: 901, loss: 0.8329
+Session is closed.
+iter: 1, loss: 8.3917
+iter: 101, loss: 0.6548
+iter: 201, loss: 0.7634
+iter: 301, loss: 1.3303
+iter: 401, loss: 1.6141
+iter: 501, loss: 1.6851
+iter: 601, loss: 2.4843
+iter: 701, loss: 1.7291
+iter: 801, loss: 0.6829
+iter: 901, loss: 0.4354
+Session is closed.
+iter: 1, loss: 7.1361
+iter: 101, loss: 1.0195
+iter: 201, loss: 1.3924
+iter: 301, loss: 3.8522
+iter: 401, loss: 0.4592
+iter: 501, loss: 1.6245
+iter: 601, loss: 2.9585
+iter: 701, loss: 0.5580
+iter: 801, loss: 1.1920
+iter: 901, loss: 0.7608
+Session is closed.
+iter: 1, loss: 8.0921
+iter: 101, loss: 1.3337
+iter: 201, loss: 0.9352
+iter: 301, loss: 2.2071
+iter: 401, loss: 1.1345
+iter: 501, loss: 1.2452
+iter: 601, loss: 3.1874
+iter: 701, loss: 1.0622
+iter: 801, loss: 0.5238
+iter: 901, loss: 1.1742
+Session is closed.
+iter: 1, loss: 6.6117
+iter: 101, loss: 1.3959
+iter: 201, loss: 1.0683
+iter: 301, loss: 1.7771
+iter: 401, loss: 0.8950
+iter: 501, loss: 1.0081
+iter: 601, loss: 0.4926
+iter: 701, loss: 0.8273
+iter: 801, loss: 1.0240
+iter: 901, loss: 0.5244
+Session is closed.
+iter: 1, loss: 20.2742
+iter: 101, loss: 2.6289
+iter: 201, loss: 1.6332
+iter: 301, loss: 0.8999
+iter: 401, loss: 3.1488
+iter: 501, loss: 0.5400
+iter: 601, loss: 1.5819
+iter: 701, loss: 1.5254
+iter: 801, loss: 3.5451
+iter: 901, loss: 0.7654
+Session is closed.
+iter: 1, loss: 6.7338
+iter: 101, loss: 0.8140
+iter: 201, loss: 1.0097
+iter: 301, loss: 2.2120
+iter: 401, loss: 0.6813
+iter: 501, loss: 1.8406
+iter: 601, loss: 1.3624
+iter: 701, loss: 2.2547
+iter: 801, loss: 0.5753
+iter: 901, loss: 1.9221
+Session is closed.
+iter: 1, loss: 7.9174
+iter: 101, loss: 1.0035
+iter: 201, loss: 0.5790
+iter: 301, loss: 0.4861
+iter: 401, loss: 0.7714
+iter: 501, loss: 0.3665
+iter: 601, loss: 0.5613
+iter: 701, loss: 0.4226
+iter: 801, loss: 0.4089
+iter: 901, loss: 1.3109
+Session is closed.
+iter: 1, loss: 7.2462
+iter: 101, loss: 1.0126
+iter: 201, loss: 0.7406
+iter: 301, loss: 0.6393
+iter: 401, loss: 0.8710
+iter: 501, loss: 0.4249
+iter: 601, loss: 0.7915
+iter: 701, loss: 0.5183
+iter: 801, loss: 1.0971
+iter: 901, loss: 0.5798
+Session is closed.
+iter: 1, loss: 7.0938
+iter: 101, loss: 1.0990
+iter: 201, loss: 0.5700
+iter: 301, loss: 0.4815
+iter: 401, loss: 0.4965
+iter: 501, loss: 0.4172
+iter: 601, loss: 0.7946
+iter: 701, loss: 0.4320
+iter: 801, loss: 0.4355
+iter: 901, loss: 0.5005
+Session is closed.
+iter: 1, loss: 6.5635
+iter: 101, loss: 1.1682
+iter: 201, loss: 1.3228
+iter: 301, loss: 0.7298
+iter: 401, loss: 0.6356
+iter: 501, loss: 0.8813
+iter: 601, loss: 0.4819
+iter: 701, loss: 0.3645
+iter: 801, loss: 0.5149
+iter: 901, loss: 0.4114
+Session is closed.
+iter: 1, loss: 8.1940
+iter: 101, loss: 0.5303
+iter: 201, loss: 0.7142
+iter: 301, loss: 0.4753
+iter: 401, loss: 1.4634
+iter: 501, loss: 0.5048
+iter: 601, loss: 0.8151
+iter: 701, loss: 0.5961
+iter: 801, loss: 0.6736
+iter: 901, loss: 0.4474
+Session is closed.
+iter: 1, loss: 7.6855
+iter: 101, loss: 0.6217
+iter: 201, loss: 2.3781
+iter: 301, loss: 0.5439
+iter: 401, loss: 0.4574
+iter: 501, loss: 0.4890
+iter: 601, loss: 0.5071
+iter: 701, loss: 0.5573
+iter: 801, loss: 0.3079
+iter: 901, loss: 0.9849
+Session is closed.
+iter: 1, loss: 6.9692
+iter: 101, loss: 0.6237
+iter: 201, loss: 0.8827
+iter: 301, loss: 0.4868
+iter: 401, loss: 0.5112
+iter: 501, loss: 0.4946
+iter: 601, loss: 0.3203
+iter: 701, loss: 0.5927
+iter: 801, loss: 0.5892
+iter: 901, loss: 0.4162
+Session is closed.
+iter: 1, loss: 7.8092
+iter: 101, loss: 0.5876
+iter: 201, loss: 1.2043
+iter: 301, loss: 0.5246
+iter: 401, loss: 0.8241
+iter: 501, loss: 0.4866
+iter: 601, loss: 0.6890
+iter: 701, loss: 0.5239
+iter: 801, loss: 0.3935
+iter: 901, loss: 0.4565
+Session is closed.
+iter: 1, loss: 7.9250
+iter: 101, loss: 0.4347
+iter: 201, loss: 0.4502
+iter: 301, loss: 0.4275
+iter: 401, loss: 0.4366
+iter: 501, loss: 0.4205
+iter: 601, loss: 0.5515
+iter: 701, loss: 0.4938
+iter: 801, loss: 0.4179
+iter: 901, loss: 1.2827
+Session is closed.
+iter: 1, loss: 7.4472
+iter: 101, loss: 0.4452
+iter: 201, loss: 1.0074
+iter: 301, loss: 0.4562
+iter: 401, loss: 0.3851
+iter: 501, loss: 0.5667
+iter: 601, loss: 0.4478
+iter: 701, loss: 0.4064
+iter: 801, loss: 0.5053
+iter: 901, loss: 0.5802
+Session is closed.
+iter: 1, loss: 7.0658
+iter: 101, loss: 0.5504
+iter: 201, loss: 0.3270
+iter: 301, loss: 0.8430
+iter: 401, loss: 0.5482
+iter: 501, loss: 0.7966
+iter: 601, loss: 0.4683
+iter: 701, loss: 0.7296
+iter: 801, loss: 0.4279
+iter: 901, loss: 0.4486
+Session is closed.
+iter: 1, loss: 7.4247
+iter: 101, loss: 0.4238
+iter: 201, loss: 0.5652
+iter: 301, loss: 0.6918
+iter: 401, loss: 0.3686
+iter: 501, loss: 0.4002
+iter: 601, loss: 0.7447
+iter: 701, loss: 0.6926
+iter: 801, loss: 0.6482
+iter: 901, loss: 0.9034
+Session is closed.
+iter: 1, loss: 6.9761
+iter: 101, loss: 0.6078
+iter: 201, loss: 0.6093
+iter: 301, loss: 0.6091
+iter: 401, loss: 0.3988
+iter: 501, loss: 0.3238
+iter: 601, loss: 0.4365
+iter: 701, loss: 0.4801
+iter: 801, loss: 1.4047
+iter: 901, loss: 0.4180
+Session is closed.
+iter: 1, loss: 5.2314
+iter: 101, loss: 0.4138
+iter: 201, loss: 0.9217
+iter: 301, loss: 0.5022
+iter: 401, loss: 0.5448
+iter: 501, loss: 0.3631
+iter: 601, loss: 0.5575
+iter: 701, loss: 0.5529
+iter: 801, loss: 0.3698
+iter: 901, loss: 0.9598
+Session is closed.
+iter: 1, loss: 9.6180
+iter: 101, loss: 0.4966
+iter: 201, loss: 0.5606
+iter: 301, loss: 0.4493
+iter: 401, loss: 0.4704
+iter: 501, loss: 0.5039
+iter: 601, loss: 0.3894
+iter: 701, loss: 0.6700
+iter: 801, loss: 0.5027
+iter: 901, loss: 0.2809
+Session is closed.
+iter: 1, loss: 4.9416
+iter: 101, loss: 0.6120
+iter: 201, loss: 0.3860
+iter: 301, loss: 0.4465
+iter: 401, loss: 0.4379
+iter: 501, loss: 0.4277
+iter: 601, loss: 0.5134
+iter: 701, loss: 0.4749
+iter: 801, loss: 0.3791
+iter: 901, loss: 0.5710
+Session is closed.
+iter: 1, loss: 5.0102
+iter: 101, loss: 0.4822
+iter: 201, loss: 0.7122
+iter: 301, loss: 0.6267
+iter: 401, loss: 0.6425
+iter: 501, loss: 0.3869
+iter: 601, loss: 0.3852
+iter: 701, loss: 0.6576
+iter: 801, loss: 0.6607
+iter: 901, loss: 0.8396
+Session is closed.
+iter: 1, loss: 5.5748
+iter: 101, loss: 0.7570
+iter: 201, loss: 0.4944
+iter: 301, loss: 0.4264
+iter: 401, loss: 0.4611
+iter: 501, loss: 0.4117
+iter: 601, loss: 0.4577
+iter: 701, loss: 0.6755
+iter: 801, loss: 0.6125
+iter: 901, loss: 0.5115
+Session is closed.
+iter: 1, loss: 6.1101
+iter: 101, loss: 0.4259
+iter: 201, loss: 0.5329
+iter: 301, loss: 0.4191
+iter: 401, loss: 0.4657
+iter: 501, loss: 0.3477
+iter: 601, loss: 0.9880
+iter: 701, loss: 0.5185
+iter: 801, loss: 0.2996
+iter: 901, loss: 0.4663
+Session is closed.
+iter: 1, loss: 5.0048
+iter: 101, loss: 0.7016
+iter: 201, loss: 0.6095
+iter: 301, loss: 0.5397
+iter: 401, loss: 0.7003
+iter: 501, loss: 0.4001
+iter: 601, loss: 0.5981
+iter: 701, loss: 0.4254
+iter: 801, loss: 0.3904
+iter: 901, loss: 0.7197
+Session is closed.
+iter: 1, loss: 0.6993
+iter: 101, loss: 0.7672
+iter: 201, loss: 0.7308
+iter: 301, loss: 0.6423
+iter: 401, loss: 0.6348
+iter: 501, loss: 0.5978
+iter: 601, loss: 0.6207
+iter: 701, loss: 0.6122
+iter: 801, loss: 0.5799
+iter: 901, loss: 0.5630
+Session is closed.
+iter: 1, loss: 0.6164
+iter: 101, loss: 0.7847
+iter: 201, loss: 0.6495
+iter: 301, loss: 0.8160
+iter: 401, loss: 0.7766
+iter: 501, loss: 0.6595
+iter: 601, loss: 0.7091
+iter: 701, loss: 0.6877
+iter: 801, loss: 0.7070
+iter: 901, loss: 0.5504
+Session is closed.
+iter: 1, loss: 0.6936
+iter: 101, loss: 0.7290
+iter: 201, loss: 0.5558
+iter: 301, loss: 0.7048
+iter: 401, loss: 0.7635
+iter: 501, loss: 0.5658
+iter: 601, loss: 0.5927
+iter: 701, loss: 0.6200
+iter: 801, loss: 0.5958
+iter: 901, loss: 0.7556
+Session is closed.
+iter: 1, loss: 0.8380
+iter: 101, loss: 0.6816
+iter: 201, loss: 0.5532
+iter: 301, loss: 0.6462
+iter: 401, loss: 0.6589
+iter: 501, loss: 0.6671
+iter: 601, loss: 0.5840
+iter: 701, loss: 0.7294
+iter: 801, loss: 0.7335
+iter: 901, loss: 0.6303
+Session is closed.
+iter: 1, loss: 0.8842
+iter: 101, loss: 0.6439
+iter: 201, loss: 0.5879
+iter: 301, loss: 0.6507
+iter: 401, loss: 0.6252
+iter: 501, loss: 0.7859
+iter: 601, loss: 0.4407
+iter: 701, loss: 0.7690
+iter: 801, loss: 0.6164
+iter: 901, loss: 0.7733
+Session is closed.
+iter: 1, loss: 0.9162
+iter: 101, loss: 0.9821
+iter: 201, loss: 0.8935
+iter: 301, loss: 1.2270
+iter: 401, loss: 1.2684
+iter: 501, loss: 1.3605
+iter: 601, loss: 1.2326
+iter: 701, loss: 1.0806
+iter: 801, loss: 0.8239
+iter: 901, loss: 0.8912
+Session is closed.
+iter: 1, loss: 1.0580
+iter: 101, loss: 0.9811
+iter: 201, loss: 0.9552
+iter: 301, loss: 1.1343
+iter: 401, loss: 1.1128
+iter: 501, loss: 1.2515
+iter: 601, loss: 0.8849
+iter: 701, loss: 1.0788
+iter: 801, loss: 0.8641
+iter: 901, loss: 1.0386
+Session is closed.
+iter: 1, loss: 1.0158
+iter: 101, loss: 1.0460
+iter: 201, loss: 1.0958
+iter: 301, loss: 0.8969
+iter: 401, loss: 0.9045
+iter: 501, loss: 1.2927
+iter: 601, loss: 1.0268
+iter: 701, loss: 1.1545
+iter: 801, loss: 1.0717
+iter: 901, loss: 0.9315
+Session is closed.
+iter: 1, loss: 0.9859
+iter: 101, loss: 0.9835
+iter: 201, loss: 0.8937
+iter: 301, loss: 1.2724
+iter: 401, loss: 1.0813
+iter: 501, loss: 1.3813
+iter: 601, loss: 1.1171
+iter: 701, loss: 0.9426
+iter: 801, loss: 1.2006
+iter: 901, loss: 1.2744
+Session is closed.
+iter: 1, loss: 1.1537
+iter: 101, loss: 1.1681
+iter: 201, loss: 1.3458
+iter: 301, loss: 1.1837
+iter: 401, loss: 0.9461
+iter: 501, loss: 1.2252
+iter: 601, loss: 1.1322
+iter: 701, loss: 1.0026
+iter: 801, loss: 0.9799
+iter: 901, loss: 1.0138
+Session is closed.
+iter: 1, loss: 1.9126
+iter: 101, loss: 0.3832
+iter: 201, loss: 0.3812
+iter: 301, loss: 0.3169
+iter: 401, loss: 0.3626
+iter: 501, loss: 0.4780
+iter: 601, loss: 0.4068
+iter: 701, loss: 0.4422
+iter: 801, loss: 0.3746
+iter: 901, loss: 0.3597
+Session is closed.
+iter: 1, loss: 1.6258
+iter: 101, loss: 0.4234
+iter: 201, loss: 0.4005
+iter: 301, loss: 0.4277
+iter: 401, loss: 0.4098
+iter: 501, loss: 0.2935
+iter: 601, loss: 0.4230
+iter: 701, loss: 0.5571
+iter: 801, loss: 0.4097
+iter: 901, loss: 0.2863
+Session is closed.
+iter: 1, loss: 1.4007
+iter: 101, loss: 0.3741
+iter: 201, loss: 0.5197
+iter: 301, loss: 0.4301
+iter: 401, loss: 0.4252
+iter: 501, loss: 0.3071
+iter: 601, loss: 0.3894
+iter: 701, loss: 0.4084
+iter: 801, loss: 0.3775
+iter: 901, loss: 0.3401
+Session is closed.
+iter: 1, loss: 1.5717
+iter: 101, loss: 0.2541
+iter: 201, loss: 0.3055
+iter: 301, loss: 0.3572
+iter: 401, loss: 0.3822
+iter: 501, loss: 0.4063
+iter: 601, loss: 0.5159
+iter: 701, loss: 0.3163
+iter: 801, loss: 0.4890
+iter: 901, loss: 0.3671
+Session is closed.
+iter: 1, loss: 1.5499
+iter: 101, loss: 0.3762
+iter: 201, loss: 0.3993
+iter: 301, loss: 0.3611
+iter: 401, loss: 0.2764
+iter: 501, loss: 0.4388
+iter: 601, loss: 0.3175
+iter: 701, loss: 0.3126
+iter: 801, loss: 0.4088
+iter: 901, loss: 0.3644
+Session is closed.
