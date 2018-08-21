@@ -1,0 +1,1 @@
+[{'feature': 'Gaussian', 'accuracy': 0.8376494023904383, 'traintime': 42.43450132399994, 'sparsity': 1.0, 'testtime': 0.9017981470000223}, {'feature': 'ReLU', 'accuracy': 0.8393094289508632, 'traintime': 37.07282607800005, 'sparsity': 0.49645849933598973, 'testtime': 0.81909093999991}]

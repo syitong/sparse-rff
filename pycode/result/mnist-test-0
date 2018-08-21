@@ -1,1 +1,1 @@
-[{'testtime': 4.416743006000004, 'feature': 'Gaussian', 'accuracy': 0.9293, 'sparsity': 1.0, 'traintime': 63.89078021799999}, {'testtime': 3.832143914999989, 'feature': 'ReLU', 'accuracy': 0.9463, 'sparsity': 0.5010384999999999, 'traintime': 63.35979607300001}]
+[{'feature': 'Gaussian', 'testtime': 2.8966430700000103, 'accuracy': 0.9467, 'traintime': 223.45989256299998, 'sparsity': 1.0}, {'feature': 'ReLU', 'testtime': 2.6903042490000075, 'accuracy': 0.9603, 'traintime': 216.33964287699996, 'sparsity': 0.5000205499999999}]
