@@ -95,6 +95,22 @@ def print_params(dataset):
     print('best log(rate) for ReLU features: ',R_rate)
     return F_gamma,F_rate,R_rate
 
+def _dict_print(dictx,loc=0):
+    for key,value in dictx.items():
+        print(' '*loc,end='')
+        print(key,end='')
+        if type(value) == dict:
+            print('')
+            _dict_print(value,loc+5)
+        else:
+            print(': {}'.format(value))
+    return 1
+
+def print_test_results(dataset):
+    with open('result/'+dataset+'_test-alloc','r') as f:
+        _dict_print(eval(f.read()))
+
 if __name__ == '__main__':
-    plot_params('adult')
+    # plot_params('adult')
     # print_params('adult')
+    print_test_results('covtype')
