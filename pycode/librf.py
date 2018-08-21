@@ -267,11 +267,11 @@ class RF:
             #         global_step=global_step_1,
             #         var_list=in_weights
             #     )
-            # elif mode == 'over all':
-            #     train_op = optimizer.minimize(
-            #         loss=loss,
-            #         global_step=global_step_1,
-            #         )
+            elif mode == 'over all':
+                train_op = optimizer.minimize(
+                    loss=loss,
+                    global_step=global_step_1,
+                    )
 
             # initialize global variables in optimizer
             self._sess.run(tf.global_variables_initializer())
@@ -283,13 +283,13 @@ class RF:
             feed_dict = {'features:0':data[rand_list,:],
                          'labels:0':indices[rand_list]}
             if idx % 100 == 1:
+                print('iter: {0:d}, loss: {1:.4f}'.format(
+                    idx, self._sess.run(loss,feed_dict)))
                 if self.log:
-                    print('iter: {0:d}, loss: {1:.4f}'.format(
-                        idx, self._sess.run(loss,feed_dict)))
                     summary = self._sess.run(merged)
                     self._train_writer.add_summary(summary,self._total_iter)
             self._sess.run(train_op,feed_dict)
-            if self._Lambda == 0:
+            if mode == 'layer 2' and self._Lambda == 0:
                 self._sess.run(clip_op)
             self._total_iter += 1
 

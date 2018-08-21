@@ -64,8 +64,6 @@ def train_and_test(dataset):
         N = 2000 # 10000
         bd = 1000 # 100000
         n_iter = 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
     elif dataset == 'covtype':
@@ -78,8 +76,6 @@ def train_and_test(dataset):
         N = 10000
         bd = 100000
         n_iter = 10000
-        Gamma_list = 10. ** np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(0.8,2.8,0.2)
         classes = list(range(1,8))
         loss_fn = 'log'
     Xtrain = np.array(Xtrain)
@@ -194,6 +190,6 @@ def screen_params(dataset,val_size=30000,folds=5):
         f.write(str(results))
 
 if __name__ == '__main__':
-    train_and_test('mnist')
-    train_and_test('adult')
+    # train_and_test('mnist')
+    # train_and_test('adult')
     train_and_test('covtype')

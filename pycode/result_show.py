@@ -112,5 +112,5 @@ def print_test_results(dataset):
 
 if __name__ == '__main__':
     # plot_params('adult')
-    # print_params('adult')
-    print_test_results('covtype')
+    print_params('covtype')
+    # print_test_results('covtype')
