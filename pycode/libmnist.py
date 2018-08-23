@@ -3,7 +3,7 @@ This library contains methods reading MNIST data and output confusion matrix.
 """
 import numpy as np
 import matplotlib as mpl
-mpl.use('Agg')
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import itertools

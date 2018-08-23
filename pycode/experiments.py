@@ -8,6 +8,7 @@ from multiprocessing import Pool
 from functools import partial
 from uci_pre import read_data
 from result_show import print_params
+from sklearn.svm import SVC
 
 def _validate(data,labels,folds,model_type,index,**params):
     kfolds_data = np.split(data,folds)
@@ -29,11 +30,11 @@ def validate(data,labels,val_size,model_type,folds=5,**params):
     X = data[rand_list[:val_size]]
     Y = labels[rand_list[:val_size]]
     f = partial(_validate,X,Y,folds,model_type,**params)
-    # with Pool() as p:
-    #     score_list = p.map(f,range(folds))
-    score_list = []
-    for idx in range(folds):
-        score_list.append(f(idx))
+    with Pool() as p:
+        score_list = p.map(f,range(folds))
+    # score_list = []
+    # for idx in range(folds):
+    #     score_list.append(f(idx))
     return sum(score_list) / folds
 
 def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,**params):
@@ -199,13 +200,10 @@ def screen_params_fnn_covtype(val_size=30000,folds=5):
     # Ytest = read_data('covtype-test-binary-label.npy')
     Ytrain = read_data('covtype-train-label.npy')
     Ytest = read_data('covtype-test-label.npy')
-    n_iter = 5000
     rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
     classes = list(range(1,8)) # list(range(10))
     loss_fn = 'log'
 
-    Xtrain = np.array(Xtrain)
-    Ytrain = np.array(Ytrain)
     prefix = argv[1]
     params = {}
     params['model'] = {
@@ -225,10 +223,78 @@ def screen_params_fnn_covtype(val_size=30000,folds=5):
     with open(filename,'w') as f:
         f.write(str(score))
 
+def screen_params_svm_covtype(val_size=30000,folds=5):
+    Xtrain = read_data('covtype-train-data.npy')
+    Ytrain = read_data('covtype-train-binary-label.npy')
+    Xtest = read_data('covtype-test-data.npy')
+    Ytest = read_data('covtype-test-binary-label.npy')
+    C_list = 10. ** np.arange(2.,6,1)
+    gamma = 10. ** 1.5
+    prefix = argv[1]
+    params = {}
+    params['model'] = {
+        'C':C_list[int(prefix)],
+        'gamma':gamma
+    }
+    params['fit'] = {}
+    model_type = SVC
+    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+    filename = 'result/covtype-svm-{0:s}'.format(prefix)
+    with open(filename,'w') as f:
+        f.write(str(score))
+
+def train_test_covtype_nn():
+    Xtrain = read_data('covtype-train-data.npy')
+    Ytrain = read_data('covtype-train-binary-label.npy')
+    Xtest = read_data('covtype-test-data.npy')
+    Ytest = read_data('covtype-test-binary-label.npy')
+    # Ytrain = read_data('covtype-train-label.npy')
+    # Ytest = read_data('covtype-test-label.npy')
+    rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
+    classes = [0.,1.] # list(range(1,8))
+    loss_fn = 'log'
+    modelparams = {
+        'dim':len(Xtrain[0]),
+        'width':50,
+        'depth':5,
+        'classes':classes,
+        'learn_rate':rate_list[0]
+    }
+    fitparams = {
+        'n_epoch':5,
+        'batch_size':100
+    }
+    model_type = libnn.fullnn
+    clf = model_type(**modelparams)
+    clf.fit(Xtrain,Ytrain,**fitparams)
+    score = clf.score(Xtest,Ytest)
+    print(score)
+
+def train_test_covtype_svm(val_size=30000,folds=5):
+    Xtrain = read_data('covtype-train-data.npy')
+    Ytrain = read_data('covtype-train-binary-label.npy')
+    Xtest = read_data('covtype-test-data.npy')
+    Ytest = read_data('covtype-test-binary-label.npy')
+    C_list = 10. ** np.arange(2.,6,1)
+    gamma = 10. ** 1.5
+    prefix = argv[1]
+    params = {}
+    params['model'] = {
+        'C':C_list[int(prefix)],
+        'gamma':gamma
+    }
+    params['fit'] = {}
+    model_type = SVC
+    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+    filename = 'result/covtype-svm-{0:s}'.format(prefix)
+    with open(filename,'w') as f:
+        f.write(str(score))
 
 if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
     # screen_params('covtype')
-    screen_params_fnn_covtype()
+    # screen_params_fnn_covtype()
+    # train_test_covtype_nn()
+    screen_params_svm_covtype()

@@ -78,8 +78,8 @@ class fullnn:
                 onehot_labels=onehot_labels,logits=logits
             )
             tf.add_to_collection('Loss',log_loss)
-            optimizer = tf.train.GradientDescentOptimizer(learning_rate=self._learn_rate)
-            # optimizer = tf.train.AdamOptimizer(learning_rate=0.01)
+            # optimizer = tf.train.GradientDescentOptimizer(learning_rate=self._learn_rate)
+            optimizer = tf.train.AdamOptimizer(learning_rate=self._learn_rate)
             train_op = optimizer.minimize(loss=log_loss,
                 global_step=global_step,name='Train_op')
             self._sess.run(tf.global_variables_initializer())

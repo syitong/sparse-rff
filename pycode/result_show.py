@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib as mpl
-mpl.use('Agg')
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 def plot_learning_rate():
@@ -112,5 +112,5 @@ def print_test_results(dataset):
 
 if __name__ == '__main__':
     # plot_params('adult')
-    print_params('covtype-adam')
-    # print_test_results('covtype')
+    # print_params('covtype')
+    print_test_results('covtype')
