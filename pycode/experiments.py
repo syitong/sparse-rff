@@ -160,6 +160,18 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(0.8,2.8,0.2) # np.arange(-3.,3,0.5) 
         classes = list(range(1,8)) # list(range(10))
         loss_fn = 'log'
+    elif dataset == 'checkboard':
+        Xtrain = read_data('checkboard-train-data.npy')
+        Ytrain = read_data('checkboard-train-label.npy')
+        Xtest = read_data('checkboard-test-data.npy')
+        Ytest = read_data('checkboard-test-label.npy')
+        N = 200 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = [0.,1.]
+        loss_fn = 'hinge'
 
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
@@ -274,7 +286,11 @@ if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
+<<<<<<< Updated upstream
     screen_params('covtype')
     # screen_params_fnn_covtype()
     # train_test_covtype_nn()
     # screen_params_svm_covtype()
+=======
+    screen_params('checkboard')
+>>>>>>> Stashed changes

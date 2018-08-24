@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 def unit_interval(leftend,rightend,samplesize):
     if min(leftend,rightend)<0 or max(leftend,rightend)>1:
@@ -75,6 +76,29 @@ def unit_circle_ideal(gap,label_prob,samplesize):
     Y = np.array(Y)
     return X,Y
 
+def check_board(samplesize,size=4):
+    data = np.random.rand(samplesize,2) * size - size / 2
+    labels = np.sum(data//1,axis=1) % 2
+    np.save('data/checkboard-train-data',data[:int(0.9*len(data))])
+    np.save('data/checkboard-train-label',labels[:int(0.9*len(data))])
+    np.save('data/checkboard-test-data',data[int(0.9*len(data)):])
+    np.save('data/checkboard-test-label',labels[int(0.9*len(data)):])
+
+def plot_check_board(samplesize=500,size=4):
+    X = np.load('data/checkboard-train-data.npy')[:samplesize]
+    Y = np.load('data/checkboard-train-label.npy')[:samplesize]
+    c = []
+    for idx in range(samplesize):
+        if Y[idx] == 0:
+            c.append('b')
+        else:
+            c.append('r')
+    fig = plt.figure()
+    plt.scatter(X[:,0],X[:,1],s=0.1,c=c)
+    plt.savefig('image/checkboard.eps')
+    plt.close(fig)
+    return 1
+
 def plot_interval(X,Y,ratio=1):
     m = int(len(X) * ratio)
     X = X[0:m]
@@ -109,3 +133,7 @@ def plot_circle(X,Y,ratio=1):
     plt.savefig('image/circle.eps')
     plt.close(fig)
     return 1
+
+if __name__ == '__main__':
+    # check_board(samplesize=100000)
+    plot_check_board()
