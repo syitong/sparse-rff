@@ -184,6 +184,18 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
+    elif dataset == 'square':
+        Xtrain = read_data('square-train-data.npy')
+        Ytrain = read_data('square-train-label.npy')
+        Xtest = read_data('square-test-data.npy')
+        Ytest = read_data('square-test-label.npy')
+        N = 200 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = [0.,1.]
+        loss_fn = 'hinge'
 
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
@@ -343,5 +355,5 @@ if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
-    screen_params('strips')
+    screen_params('square')
     # plot_clf_boundary()

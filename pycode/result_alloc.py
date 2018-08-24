@@ -3,10 +3,10 @@ import numpy as np
 def screen_params_alloc(dataset):
     filename = 'result/' + dataset + '-'
     row = ['log(rate)\log(Gamma)']
-    row.extend(np.arange(-2.,4,0.5))
+    row.extend(np.arange(-6.,2,1))
     row.append('ReLU')
     output = [row]
-    log_rate = np.arange(-3.,3,0.5)
+    log_rate = np.arange(-2.,4,0.5)
     for idx,rate in enumerate(log_rate):
         row = []
         with open(filename + str(idx),'r') as f:
@@ -16,7 +16,7 @@ def screen_params_alloc(dataset):
             row.append(item['score'])
         output.append(row)
 
-    with open('result/'+dataset+'-adam-alloc','w') as f:
+    with open('result/'+dataset+'-alloc','w') as f:
         f.write(str(output))
 
 def train_and_test_alloc(dataset):
@@ -43,4 +43,4 @@ def train_and_test_alloc(dataset):
         fw.write(str(alloc))
 
 if __name__ == '__main__':
-    screen_params_alloc('covtype')
+    screen_params_alloc('strips')
