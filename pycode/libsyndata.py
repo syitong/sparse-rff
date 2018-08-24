@@ -79,14 +79,25 @@ def unit_circle_ideal(gap,label_prob,samplesize):
 def check_board(samplesize,size=4):
     data = np.random.rand(samplesize,2) * size - size / 2
     labels = np.sum(data//1,axis=1) % 2
-    np.save('data/checkboard-train-data',data[:int(0.9*len(data))])
-    np.save('data/checkboard-train-label',labels[:int(0.9*len(data))])
-    np.save('data/checkboard-test-data',data[int(0.9*len(data)):])
-    np.save('data/checkboard-test-label',labels[int(0.9*len(data)):])
+    cut = int(0.9*len(data))
+    np.save('data/checkboard-train-data',data[:cut])
+    np.save('data/checkboard-train-label',labels[:cut])
+    np.save('data/checkboard-test-data',data[cut:])
+    np.save('data/checkboard-test-label',labels[cut:])
 
-def plot_check_board(samplesize=500,size=4):
-    X = np.load('data/checkboard-train-data.npy')[:samplesize]
-    Y = np.load('data/checkboard-train-label.npy')[:samplesize]
+def strips(samplesize,n_strip = 4):
+    data = np.random.rand(samplesize,2) * n_strip - n_strip / 2
+    labels = data[:,0] // 1 % 2
+    data[data[:,0] > 0,0] = data[data[:,0] > 0,0] / 10
+    cut = int(0.9*len(data))
+    np.save('data/strips-train-data',data[:cut])
+    np.save('data/strips-train-label',labels[:cut])
+    np.save('data/strips-test-data',data[cut:])
+    np.save('data/strips-test-label',labels[cut:])
+
+def plot_data(dataset,samplesize=500,size=4):
+    X = np.load('data/'+dataset+'-train-data.npy')[:samplesize]
+    Y = np.load('data/'+dataset+'-train-label.npy')[:samplesize]
     c = []
     for idx in range(samplesize):
         if Y[idx] == 0:
@@ -95,45 +106,11 @@ def plot_check_board(samplesize=500,size=4):
             c.append('r')
     fig = plt.figure()
     plt.scatter(X[:,0],X[:,1],s=0.1,c=c)
-    plt.savefig('image/checkboard.eps')
-    plt.close(fig)
-    return 1
-
-def plot_interval(X,Y,ratio=1):
-    m = int(len(X) * ratio)
-    X = X[0:m]
-    Y = Y[0:m]
-    c = list()
-    for idx in range(m):
-        if Y[idx]==1:
-            c.append('r')
-        else:
-            c.append('b')
-    fig = plt.figure()
-    plt.scatter(X,Y,c=c)
-    plt.savefig('image/interval.eps')
-    plt.close(fig)
-    return 1
-
-def plot_circle(X,Y,ratio=1):
-    m = int(len(X) * ratio)
-    A = np.array(X[0:m])
-    Y = Y[0:m]
-    c = list()
-    for idx in range(m):
-        if Y[idx]==1:
-            c.append('r')
-        else:
-            c.append('b')
-    fig = plt.figure()
-    plt.scatter(A[:,0],A[:,1],c=c)
-    circle = plt.Circle((0,0),1,fill=False)
-    plt.gcf().gca().add_artist(circle)
-    plt.axis('equal')
-    plt.savefig('image/circle.eps')
+    plt.savefig('image/'+dataset+'.eps')
     plt.close(fig)
     return 1
 
 if __name__ == '__main__':
     # check_board(samplesize=100000)
-    plot_check_board()
+    strips(100000)
+    plot_data('strips')

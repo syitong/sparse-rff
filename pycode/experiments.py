@@ -172,6 +172,18 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
+    elif dataset == 'strips':
+        Xtrain = read_data('strips-train-data.npy')
+        Ytrain = read_data('strips-train-label.npy')
+        Xtest = read_data('strips-test-data.npy')
+        Ytest = read_data('strips-test-label.npy')
+        N = 200 # 10000
+        bd = 1000 # 100000
+        n_iter = 1000 # 5000
+        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        classes = [0.,1.]
+        loss_fn = 'hinge'
 
     Xtrain = np.array(Xtrain)
     Ytrain = np.array(Ytrain)
@@ -193,10 +205,10 @@ def screen_params(dataset,val_size=30000,folds=5):
     }
     model_type = librf.RF
     results = []
-    # for Gamma in Gamma_list:
-    #     params['model']['Gamma'] = Gamma
-    #     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    #     results.append({'Gamma':Gamma,'score':score})
+    for Gamma in Gamma_list:
+        params['model']['Gamma'] = Gamma
+        score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+        results.append({'Gamma':Gamma,'score':score})
     feature = 'ReLU'
     params['model']['feature'] = feature
     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
@@ -282,8 +294,54 @@ def train_test_covtype_nn():
     score = clf.score(Xtest,Ytest)
     print(score)
 
+def plot_clf_boundary(samplesize=500):
+    import matplotlib.pyplot as plt
+    Xtrain = read_data('checkboard-train-data.npy')[:samplesize]
+    N = 200 # 10000
+    bd = 1000 # 100000
+    n_iter = 1000 # 5000
+    Gamma = 10.
+    classes = [0.,1.]
+    loss_fn = 'hinge'
+    params = {}
+    feature = 'Gaussian'
+    params['model'] = {
+        'feature':feature,
+        'n_old_features':len(Xtrain[0]),
+        'n_new_features':N,
+        'classes':classes,
+        'loss_fn':loss_fn
+    }
+    model_type = librf.RF
+    params['model']['Gamma'] = Gamma
+    clf = model_type(**params['model'])
+    Ypred,_,_ = clf.predict(Xtrain)
+    c = []
+    for idx in range(samplesize):
+        if Ypred[idx] == 0:
+            c.append('r')
+        else:
+            c.append('b')
+    fig = plt.figure()
+    plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
+    plt.show()
+    feature = 'ReLU'
+    params['model']['feature'] = feature
+    clf = model_type(**params['model'])
+    Ypred,_,_ = clf.predict(Xtrain)
+    c = []
+    for idx in range(samplesize):
+        if Ypred[idx] == 0:
+            c.append('r')
+        else:
+            c.append('b')
+    fig = plt.figure()
+    plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
+    plt.show()
+
 if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
-    screen_params('checkboard')
+    screen_params('strips')
+    # plot_clf_boundary()
