@@ -183,11 +183,11 @@ def screen_params(dataset,val_size=30000,folds=5):
     results = []
     for Gamma in Gamma_list:
         params['model']['Gamma'] = Gamma
-        score = validate(Xtrain,Ytrain,val_size,folds,model_type,**params)
+        score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
         results.append({'Gamma':Gamma,'score':score})
     feature = 'ReLU'
     params['model']['feature'] = feature
-    score = validate(Xtrain,Ytrain,val_size,folds,model_type,**params)
+    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
     results.append({'Gamma':'ReLU','score':score})
     filename = 'result/{1:s}-{0:s}'.format(prefix,dataset)
     with open(filename,'w') as f:
