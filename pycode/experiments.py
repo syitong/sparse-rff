@@ -30,11 +30,11 @@ def validate(data,labels,val_size,model_type,folds=5,**params):
     X = data[rand_list[:val_size]]
     Y = labels[rand_list[:val_size]]
     f = partial(_validate,X,Y,folds,model_type,**params)
-    with Pool() as p:
-        score_list = p.map(f,range(folds))
-    # score_list = []
-    # for idx in range(folds):
-    #     score_list.append(f(idx))
+    # with Pool() as p:
+    #     score_list = p.map(f,range(folds))
+    score_list = []
+    for idx in range(folds):
+        score_list.append(f(idx))
     return sum(score_list) / folds
 
 def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,**params):
@@ -157,7 +157,7 @@ def screen_params(dataset,val_size=30000,folds=5):
         bd = 100000
         n_iter = 5000
         Gamma_list = 10. ** np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
+        rate_list = 10. ** np.arange(0.8,2.8,0.2) # np.arange(-3.,3,0.5) 
         classes = list(range(1,8)) # list(range(10))
         loss_fn = 'log'
 
@@ -181,10 +181,10 @@ def screen_params(dataset,val_size=30000,folds=5):
     }
     model_type = librf.RF
     results = []
-    for Gamma in Gamma_list:
-        params['model']['Gamma'] = Gamma
-        score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-        results.append({'Gamma':Gamma,'score':score})
+    # for Gamma in Gamma_list:
+    #     params['model']['Gamma'] = Gamma
+    #     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+    #     results.append({'Gamma':Gamma,'score':score})
     feature = 'ReLU'
     params['model']['feature'] = feature
     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
@@ -269,26 +269,6 @@ def train_test_covtype_nn():
     clf.fit(Xtrain,Ytrain,**fitparams)
     score = clf.score(Xtest,Ytest)
     print(score)
-
-def train_test_covtype_svm(val_size=30000,folds=5):
-    Xtrain = read_data('covtype-train-data.npy')
-    Ytrain = read_data('covtype-train-binary-label.npy')
-    Xtest = read_data('covtype-test-data.npy')
-    Ytest = read_data('covtype-test-binary-label.npy')
-    C_list = 10. ** np.arange(2.,6,1)
-    gamma = 10. ** 1.5
-    prefix = argv[1]
-    params = {}
-    params['model'] = {
-        'C':C_list[int(prefix)],
-        'gamma':gamma
-    }
-    params['fit'] = {}
-    model_type = SVC
-    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    filename = 'result/covtype-svm-{0:s}'.format(prefix)
-    with open(filename,'w') as f:
-        f.write(str(score))
 
 if __name__ == '__main__':
     # train_and_test('mnist')
