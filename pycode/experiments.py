@@ -177,10 +177,10 @@ def screen_params(dataset,val_size=30000,folds=5):
         Ytrain = read_data('strips-train-label.npy')
         Xtest = read_data('strips-test-data.npy')
         Ytest = read_data('strips-test-label.npy')
-        N = 200 # 10000
+        N = 20 # 10000
         bd = 1000 # 100000
         n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
+        Gamma_list = 10. ** np.arange(-3.,5,1) # np.arange(-2.,4,0.5)
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
@@ -189,11 +189,11 @@ def screen_params(dataset,val_size=30000,folds=5):
         Ytrain = read_data('square-train-label.npy')
         Xtest = read_data('square-test-data.npy')
         Ytest = read_data('square-test-label.npy')
-        N = 200 # 10000
+        N = 20 # 10000
         bd = 1000 # 100000
         n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
+        Gamma_list = 10. ** np.arange(-3.,5,1) # np.arange(-2.,4,0.5)
+        rate_list = 10. ** np.arange(0.,6,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
 
