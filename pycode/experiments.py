@@ -177,7 +177,7 @@ def screen_params(dataset,val_size=30000,folds=5):
         Ytrain = read_data('strips-train-label.npy')
         Xtest = read_data('strips-test-data.npy')
         Ytest = read_data('strips-test-label.npy')
-        N = 20 # 10000
+        N = 50 # 10000
         bd = 1000 # 100000
         n_iter = 1000 # 5000
         Gamma_list = 10. ** np.arange(-3.,5,1) # np.arange(-2.,4,0.5)
