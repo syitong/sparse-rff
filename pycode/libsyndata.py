@@ -95,20 +95,20 @@ def strips(samplesize,n_strip = 4):
     np.save('data/strips-test-data',data[cut:])
     np.save('data/strips-test-label',labels[cut:])
 
-def square(samplesize):
-    data = np.random.rand(samplesize,2) * 4 - 2
+def square(samplesize,dim=2):
+    data = np.random.rand(samplesize,dim) - 0.5
     labels = []
     for point in data:
-        if np.abs(point[0]) < np.sqrt(2) and np.abs(point[1]) < np.sqrt(2):
+        if np.max(np.abs(point)) < 0.5 ** (1/dim) / 2:
             labels.append(0)
         else:
             labels.append(1)
     labels = np.array(labels)
     cut = int(0.9*len(data))
-    np.save('data/square-train-data',data[:cut])
-    np.save('data/square-train-label',labels[:cut])
-    np.save('data/square-test-data',data[cut:])
-    np.save('data/square-test-label',labels[cut:])
+    np.save('data/square{}-train-data'.format(dim),data[:cut])
+    np.save('data/square{}-train-label'.format(dim),labels[:cut])
+    np.save('data/square{}-test-data'.format(dim),data[cut:])
+    np.save('data/square{}-test-label'.format(dim),labels[cut:])
 
 def plot_data(dataset,samplesize=500,size=4):
     X = np.load('data/'+dataset+'-train-data.npy')[:samplesize]
@@ -127,5 +127,5 @@ def plot_data(dataset,samplesize=500,size=4):
 
 if __name__ == '__main__':
     # check_board(samplesize=100000)
-    square(100000)
-    plot_data('square')
+    square(100000,10)
+    # plot_data('square')
