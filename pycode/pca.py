@@ -3,9 +3,15 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from uci_pre import read_data
+from libmnist import get_train_test_data
+from result_show import print_params
 
-def pca(N,m,gamma):
-    X = read_data('strips-test-data.npy')[:m]
+def pca(dataset,N,m,gamma):
+    if dataset == 'mnist':
+        X,_,_,_ = get_train_test_data()
+        X = X[:m]
+    else:
+        X = read_data(dataset+'-test-data.npy')[:m]
     d = len(X[0])
     k_RFF = np.random.randn(d,N) * np.sqrt(gamma)
     b_RFF = np.random.rand(N) * np.pi
@@ -21,9 +27,11 @@ def pca(N,m,gamma):
     fig = plt.figure()
     plt.plot(s_RFF,label='Fourier')
     plt.plot(s_RRF,label='ReLU')
-    plt.legend(loc=4)
-    plt.savefig('image/pca.eps')
+    plt.legend(loc=1)
+    plt.savefig('image/pca-'+dataset+'.eps')
     plt.close(fig)
 
 if __name__ == '__main__':
-    pca(20,100,1000)
+    dataset = 'covtype'
+    F_gamma,F_rate,R_rate = print_params(dataset)
+    pca(dataset,500,3000,10**F_gamma)
