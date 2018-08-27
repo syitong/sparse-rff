@@ -184,14 +184,14 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
-    elif dataset == 'sine1':
-        Xtrain = read_data('sine1-train-data.npy')
-        Ytrain = read_data('sine1-train-label.npy')
-        Xtest = read_data('sine1-test-data.npy')
-        Ytest = read_data('sine1-test-label.npy')
-        N = 5 # 10000
-        bd = 1000 # 100000
-        n_iter = 1000 # 5000
+    elif dataset == 'sine1-10':
+        Xtrain = read_data('sine1-10-train-data.npy')
+        Ytrain = read_data('sine1-10-train-label.npy')
+        Xtest = read_data('sine1-10-test-data.npy')
+        Ytest = read_data('sine1-10-test-label.npy')
+        N = 20 # 5 
+        bd = 1000 
+        n_iter = 1000 
         Gamma_list = 10. ** np.arange(-5.,3,1) # np.arange(-2.,4,0.5)
         rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
@@ -355,5 +355,5 @@ if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
-    screen_params('sine1')
+    screen_params('sine1-10')
     # plot_clf_boundary()

@@ -112,8 +112,8 @@ def square(samplesize,dim=2):
     np.save('data/square{}-test-data'.format(dim),data[cut:])
     np.save('data/square{}-test-label'.format(dim),labels[cut:])
 
-def sine(samplesize,magnitude=1):
-    data = np.random.rand(samplesize,2)*2*np.pi - np.pi
+def sine(samplesize,magnitude=1,dim=2):
+    data = np.random.rand(samplesize,dim)*2*np.pi - np.pi
     labels = []
     for point in data:
         if np.sin(point[0])*magnitude < point[1]:
@@ -122,10 +122,10 @@ def sine(samplesize,magnitude=1):
             labels.append(1)
     labels = np.array(labels)
     cut = int(0.9*len(data))
-    np.save('data/sine{:d}-train-data'.format(magnitude),data[:cut])
-    np.save('data/sine{:d}-train-label'.format(magnitude),labels[:cut])
-    np.save('data/sine{:d}-test-data'.format(magnitude),data[cut:])
-    np.save('data/sine{:d}-test-label'.format(magnitude),labels[cut:])
+    np.save('data/sine{:d}-{:d}-train-data'.format(magnitude,dim),data[:cut])
+    np.save('data/sine{:d}-{:d}-train-label'.format(magnitude,dim),labels[:cut])
+    np.save('data/sine{:d}-{:d}-test-data'.format(magnitude,dim),data[cut:])
+    np.save('data/sine{:d}-{:d}-test-label'.format(magnitude,dim),labels[cut:])
     
 def plot_data(dataset,samplesize=500,size=4):
     X = np.load('data/'+dataset+'-train-data.npy')[:samplesize]
@@ -144,5 +144,5 @@ def plot_data(dataset,samplesize=500,size=4):
 
 if __name__ == '__main__':
     # check_board(samplesize=100000)
-    sine(100000,1)
-    plot_data('sine1')
+    sine(100000,1,10)
+    # plot_data('sine1')
