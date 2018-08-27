@@ -46,6 +46,7 @@ class optRBFSampler:
         Trace = s**2 / (s**2 + Lambda * X_pool_size * feature_pool_size)
         Weight = np.empty(feature_pool_size*2)
         for idx in range(feature_pool_size*2):
+        # V is actually V.T in standard notation
             Weight[idx] = V[:,idx].dot(Trace * V[:,idx])
         Weight = Weight[:feature_pool_size] + Weight[feature_pool_size:]
         self.Weight = Weight
@@ -65,6 +66,61 @@ class optRBFSampler:
         X_tils = np.sin(X.dot(self.sampler))
         X_til = np.concatenate((X_tilc,X_tils),axis=-1)
         return X_til / np.sqrt(self.n_new_features)
+
+class optReLUSampler:
+    """
+    The random nodes have the form
+    (1/sqrt(q(w)))ReLU(w dot x).
+    q(w) is the optimized density of features with respect to the initial
+    feature distribution determined by data distribution.
+    Without applying reweight method, this class provides a uniform sampling
+    of random features.
+    """
+    def __init__(self, n_old, n_pool, n_new=20):
+        self.name = 'opt_relu'
+        self.pool = np.random.randn(n_old + 1, n_pool)
+        self.pool = self.pool / np.linalg.norm(self.pool,axis=0)
+        self.n_pool = n_pool
+        self.n_new = n_new
+        self.Weight = np.ones(n_pool)
+        self.Prob = self.Weight / np.sum(self.Weight)
+        self.feature_list = np.random.choice(n_pool,
+                                size=n_new,
+                                p=self.Prob,
+                                replace=False)
+        self.sampler = self.pool[:,self.feature_list]
+
+    def reweight(self, X, n_Xpool=500):
+        ### calculate weight and resample the features from pool
+        m = len(X)
+        T = np.empty((n_Xpool,self.n_pool))
+        k = np.random.randint(m,size=n_Xpool)
+        Xpool = X[k,:]
+        Xpool = np.concatenate((Xpool,np.ones((n_Xpool,1))),axis=1)
+        T = np.maximum(0,Xpool.dot(self.pool))
+        U,s,V = np.linalg.svd(T, full_matrices=False)
+        # Trace = s**2 / (s**2 + s[int(len(s)/2)]**2)
+        Weight = np.empty(self.n_pool)
+        for idx in range(self.n_pool):
+            Weight[idx] = np.argmax(V[:,idx])
+        self.Weight = Weight
+        self.Prob = Weight / np.sum(Weight)
+        self.feature_list = np.random.choice(self.n_pool,
+                                             size=self.n_new,
+                                             p=self.Prob,
+                                             replace=False)
+        self.sampler = self.pool[:,self.feature_list]
+
+    def update(self, idx):
+        n = np.random.choice(self.pool.shape[1],p=self.Prob)
+        self.sampler[:,idx] = self.pool[:,n]
+        return 1
+
+    def fit_transform(self, X):
+        X = np.concatenate((X,np.ones((len(X),1))),axis=1)
+        X_til = np.maximum(0,X.dot(self.sampler))
+        # X_til = X_til / np.sqrt(self.Prob[self.feature_list])
+        return X_til / np.sqrt(self.n_new)
 
 class RF:
     """
