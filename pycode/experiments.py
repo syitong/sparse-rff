@@ -184,12 +184,12 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
-    elif dataset == 'square':
-        Xtrain = read_data('square10-train-data.npy')
-        Ytrain = read_data('square10-train-label.npy')
-        Xtest = read_data('square10-test-data.npy')
-        Ytest = read_data('square10-test-label.npy')
-        N = 20 # 10000
+    elif dataset == 'sine':
+        Xtrain = read_data('sine1-train-data.npy')
+        Ytrain = read_data('sine1-train-label.npy')
+        Xtest = read_data('sine1-test-data.npy')
+        Ytest = read_data('sine1-test-label.npy')
+        N = 5 # 10000
         bd = 1000 # 100000
         n_iter = 1000 # 5000
         Gamma_list = 10. ** np.arange(-3.,5,1) # np.arange(-2.,4,0.5)
@@ -217,10 +217,10 @@ def screen_params(dataset,val_size=30000,folds=5):
     }
     model_type = librf.RF
     results = []
-    # for Gamma in Gamma_list:
-    #     params['model']['Gamma'] = Gamma
-    #     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    #     results.append({'Gamma':Gamma,'score':score})
+    for Gamma in Gamma_list:
+        params['model']['Gamma'] = Gamma
+        score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+        results.append({'Gamma':Gamma,'score':score})
     feature = 'ReLU'
     params['model']['feature'] = feature
     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
@@ -355,5 +355,5 @@ if __name__ == '__main__':
     # train_and_test('mnist')
     # train_and_test('adult')
     # train_and_test('covtype')
-    screen_params('square')
+    screen_params('sine')
     # plot_clf_boundary()
