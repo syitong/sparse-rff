@@ -46,6 +46,6 @@ def pca(dataset,N,m,gamma):
     plt.close(fig)
 
 if __name__ == '__main__':
-    dataset = 'sine1'
+    dataset = 'sine1-10'
     F_gamma,F_rate,R_rate = print_params(dataset)
-    pca(dataset,5,500,10**F_gamma)
+    pca(dataset,20,500,10**F_gamma)
