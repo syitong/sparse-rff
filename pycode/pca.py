@@ -5,13 +5,24 @@ import matplotlib.pyplot as plt
 from uci_pre import read_data
 from libmnist import get_train_test_data
 from result_show import print_params
+from librf import optReLUSampler
+
+def unpickle(file):
+    import pickle
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo, encoding='bytes')
+    return dict
 
 def pca(dataset,N,m,gamma):
     if dataset == 'mnist':
-        X,_,_,_ = get_train_test_data()
-        X = X[:m]
+        Xtr,_,_,_ = get_train_test_data()
+        X = Xtr[:m]
+    elif dataset == 'cifar-10':
+        Xtr = unpickle('data/cifar-10/data_batch_1')[b'data']
+        X = Xtr[:m]
     else:
-        X = read_data(dataset+'-test-data.npy')[:m]
+        Xtr = read_data(dataset+'-test-data.npy')
+        X = Xtr[:m]
     d = len(X[0])
     k_RFF = np.random.randn(d,N) * np.sqrt(gamma)
     b_RFF = np.random.rand(N) * np.pi
@@ -24,14 +35,17 @@ def pca(dataset,N,m,gamma):
     s_RFF = s_RFF / np.max(s_RFF)
     _,s_RRF,_ = np.linalg.svd(X_RRF)
     s_RRF = s_RRF / np.max(s_RRF)
+    _,s_origin,_ = np.linalg.svd(X)
+    s_origin = s_origin / np.max(s_origin)
     fig = plt.figure()
-    plt.plot(s_RFF,label='Fourier')
-    plt.plot(s_RRF,label='ReLU')
+    plt.plot(np.log(s_RFF),label='Fourier')
+    plt.plot(np.log(s_RRF),label='ReLU')
+    # plt.plot(np.log(s_origin),label='original')
     plt.legend(loc=1)
-    plt.savefig('image/pca-'+dataset+'.eps')
+    plt.savefig('image/pca-'+dataset+'-reweight.eps')
     plt.close(fig)
 
 if __name__ == '__main__':
-    dataset = 'covtype'
+    dataset = 'mnist'
     F_gamma,F_rate,R_rate = print_params(dataset)
-    pca(dataset,500,3000,10**F_gamma)
+    pca(dataset,2000,3000,10.**(-2))
