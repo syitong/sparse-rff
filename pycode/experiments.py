@@ -193,7 +193,7 @@ def screen_params(dataset,val_size=30000,folds=5):
         bd = 1000 
         n_iter = 1000 
         Gamma_list = 10. ** np.arange(-5.,3,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
+        rate_list = 10. ** np.arange(0.,6,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
 
