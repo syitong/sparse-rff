@@ -43,4 +43,4 @@ def train_and_test_alloc(dataset):
         fw.write(str(alloc))
 
 if __name__ == '__main__':
-    screen_params_alloc('sine')
+    screen_params_alloc('sine1')
