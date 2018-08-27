@@ -184,7 +184,7 @@ def screen_params(dataset,val_size=30000,folds=5):
         rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
         classes = [0.,1.]
         loss_fn = 'hinge'
-    elif dataset == 'sine':
+    elif dataset == 'sine1':
         Xtrain = read_data('sine1-train-data.npy')
         Ytrain = read_data('sine1-train-label.npy')
         Xtest = read_data('sine1-test-data.npy')

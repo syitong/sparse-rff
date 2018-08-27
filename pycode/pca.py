@@ -35,17 +35,17 @@ def pca(dataset,N,m,gamma):
     s_RFF = s_RFF / np.max(s_RFF)
     _,s_RRF,_ = np.linalg.svd(X_RRF)
     s_RRF = s_RRF / np.max(s_RRF)
-    _,s_origin,_ = np.linalg.svd(X)
-    s_origin = s_origin / np.max(s_origin)
+    # _,s_origin,_ = np.linalg.svd(X)
+    # s_origin = s_origin / np.max(s_origin)
     fig = plt.figure()
-    plt.plot(np.log(s_RFF),label='Fourier')
-    plt.plot(np.log(s_RRF),label='ReLU')
+    plt.plot(s_RFF,label='Fourier')
+    plt.plot(s_RRF,label='ReLU')
     # plt.plot(np.log(s_origin),label='original')
     plt.legend(loc=1)
     plt.savefig('image/pca-'+dataset+'-reweight.eps')
     plt.close(fig)
 
 if __name__ == '__main__':
-    dataset = 'mnist'
+    dataset = 'sine1'
     F_gamma,F_rate,R_rate = print_params(dataset)
-    pca(dataset,2000,3000,10.**(-2))
+    pca(dataset,5,500,10**F_gamma)
