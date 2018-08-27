@@ -1,3 +1,5 @@
+import matplotlib as mlt
+mlt.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -76,7 +78,7 @@ def unit_circle_ideal(gap,label_prob,samplesize):
     Y = np.array(Y)
     return X,Y
 
-def check_board(samplesize,size=4):
+def check_board(samplesize,size=2):
     data = np.random.rand(samplesize,2) * size - size / 2
     labels = np.sum(data//1,axis=1) % 2
     cut = int(0.9*len(data))
@@ -110,6 +112,21 @@ def square(samplesize,dim=2):
     np.save('data/square{}-test-data'.format(dim),data[cut:])
     np.save('data/square{}-test-label'.format(dim),labels[cut:])
 
+def sine(samplesize,magnitude=1):
+    data = np.random.rand(samplesize,2)*2*np.pi - np.pi
+    labels = []
+    for point in data:
+        if np.sin(point[0])*magnitude < point[1]:
+            labels.append(0)
+        else:
+            labels.append(1)
+    labels = np.array(labels)
+    cut = int(0.9*len(data))
+    np.save('data/sine{:d}-train-data'.format(magnitude),data[:cut])
+    np.save('data/sine{:d}-train-label'.format(magnitude),labels[:cut])
+    np.save('data/sine{:d}-test-data'.format(magnitude),data[cut:])
+    np.save('data/sine{:d}-test-label'.format(magnitude),labels[cut:])
+    
 def plot_data(dataset,samplesize=500,size=4):
     X = np.load('data/'+dataset+'-train-data.npy')[:samplesize]
     Y = np.load('data/'+dataset+'-train-label.npy')[:samplesize]
@@ -127,5 +144,5 @@ def plot_data(dataset,samplesize=500,size=4):
 
 if __name__ == '__main__':
     # check_board(samplesize=100000)
-    square(100000,10)
-    # plot_data('square')
+    sine(100000,1)
+    plot_data('sine1')
