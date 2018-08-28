@@ -6,7 +6,7 @@ def screen_params_alloc(dataset):
     row.extend(np.arange(-5.,3,1))
     row.append('ReLU')
     output = [row]
-    log_rate = np.arange(-3.,3,0.5)
+    log_rate = np.arange(0.,6,0.5)
     for idx,rate in enumerate(log_rate):
         row = []
         with open(filename + str(idx),'r') as f:
