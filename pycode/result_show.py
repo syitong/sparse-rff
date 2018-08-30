@@ -109,4 +109,4 @@ def print_test_results(dataset,feature):
         _dict_print(eval(f.read()))
 
 if __name__ == '__main__':
-    print_params('sine1-10','ReLU')
+    print_params('sine1-10','Gaussian')
