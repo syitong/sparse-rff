@@ -1,13 +1,11 @@
 import numpy as np
 
-def screen_params_alloc(dataset):
-    filename = 'result/' + dataset + '-'
+def screen_params_alloc(dataset,feature,lograte,logGamma):
+    filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
     row = ['log(rate)\log(Gamma)']
-    row.extend(np.arange(-5.,3,1))
-    row.append('ReLU')
+    row.extend(logGamma)
     output = [row]
-    log_rate = np.arange(0.,6,0.5)
-    for idx,rate in enumerate(log_rate):
+    for idx,rate in enumerate(lograte):
         row = []
         with open(filename + str(idx),'r') as f:
             result = eval(f.read())
@@ -15,31 +13,25 @@ def screen_params_alloc(dataset):
         for item in result:
             row.append(item['score'])
         output.append(row)
-
     with open('result/'+dataset+'-alloc','w') as f:
         f.write(str(output))
 
-def train_and_test_alloc(dataset):
+def train_and_test_alloc(dataset,feature,trials):
+    filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
     tags = ['accuracy','sparsity','traintime','testtime']
-    alloc = {'Gaussian':{},
-        'ReLU':{}}
+    alloc = {}
     for idx in range(4):
         tag = tags[idx]
-        F_result = np.zeros(10)
-        R_result = np.zeros(10)
-        for prefix in range(10):
+        result = np.zeros(trials)
+        for prefix in range(trials):
             with open('result/'+dataset+'-test-'+str(prefix),'r') as fr:
-                dict1,dict2 = eval(fr.read())
-            F_result[prefix] = dict1[tag]
-            R_result[prefix] = dict2[tag]
-        F_mean = np.mean(F_result)
-        R_mean = np.mean(R_result)
-        F_std = np.std(F_result)
-        R_std = np.std(R_result)
-        alloc['Gaussian'][tag] = {'mean':F_mean,'std':F_std}
-        alloc['ReLU'][tag] = {'mean':R_mean,'std':R_std}
+                dict1 = eval(fr.read())
+            result[prefix] = dict1[tag]
+        mean = np.mean(result)
+        std = np.std(result)
+        alloc[tag] = {'mean':F_mean,'std':F_std}
 
-    with open('result/'+dataset+'_test-alloc','w') as fw:
+    with open(filename+'alloc','w') as fw:
         fw.write(str(alloc))
 
 if __name__ == '__main__':

@@ -92,6 +92,7 @@ def train_and_test(dataset,params):
         'feature': ,
         }
     '''
+    feature = params['feature']
     prefix = argv[1]
     if prefix == '0':
         # only write log file for trial 0
@@ -100,7 +101,7 @@ def train_and_test(dataset,params):
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
     Xtrain,Ytrain,Xtest,Ytest = read_data(dataset)
-    F_gamma,F_rate,R_rate = print_params(dataset)
+    logGamma,lograte = print_params(dataset,feature)
     model_params = {
         'n_old_features':len(Xtrain[0]),
         'n_new_features':params['N'],
@@ -111,21 +112,13 @@ def train_and_test(dataset,params):
         'n_epoch':params['n_epoch'],
         'bd':params['bd']
     }
-    feature = params['feature']
-    if  feature == 'Gaussian':
-        F_gamma = 10. ** F_gamma
-        rate = 10. ** F_rate
-        model_params['Gamma'] = F_gamma
-        model_params['feature'] = feature
-        fit_params['opt_rate'] = F_rate
-    elif feature == 'ReLU':
-        rate = 10. ** R_rate
-        fit_params['opt_rate'] = F_rate
+    model_params['Gamma'] = 10. ** logGamma
+    model_params['feature'] = feature
+    fit_params['opt_rate'] = 10. ** lograte
     model_type = librf.RF
     score1,sparsity1,traintime1,testtime1 = _train_and_test(Xtrain,
         Ytrain,Xtest,Ytest,model_type,model_params,fit_params)
     output = {
-            'feature':feature,
             'accuracy':score1,
             'sparsity':sparsity1,
             'traintime':traintime1,
@@ -190,7 +183,7 @@ def screen_params(dataset,params):
                 model_params, fit_params ,folds)
             results.append({'Gamma':Gamma,'score':score})
     logfile.save()
-    filename = 'result/{0:s}-{1:s}-{2:s}'.format(dataset,feature,prefix)
+    filename = 'result/{0:s}-{1:s}-screen-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
         f.write(str(results))
 

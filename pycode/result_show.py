@@ -67,8 +67,9 @@ def plot_params(dataset):
     plt.savefig('image/{}-gamma.eps'.format(dataset))
     plt.close(fig)
 
-def print_params(dataset):
-    with open('result/'+dataset+'-alloc','r') as f:
+def print_params(dataset,feature):
+    filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
+    with open(filename+'alloc','r') as f:
         result = eval(f.read())
     for row in result:
         if type(row[0]) == str:
@@ -81,19 +82,15 @@ def print_params(dataset):
             else:
                 print('{:>7.2f}'.format(item),end='')
         print('')
-    F_result = [row[1:-1] for row in result[1:]]
+    F_result = [row[1:] for row in result[1:]]
     F_result = np.array(F_result)
     x,y = np.unravel_index(np.argmax(F_result),
         F_result.shape)
-    F_gamma = result[0][y+1]
-    F_rate = result[x+1][0]
-    R_result = np.array([row[-1] for row in result[1:]])
-    x = np.argmax(R_result)
-    R_rate = result[x+1][0]
-    print('best log(Gamma): ',F_gamma)
-    print('best log(rate) for Fourier features: ',F_rate)
-    print('best log(rate) for ReLU features: ',R_rate)
-    return F_gamma,F_rate,R_rate
+    logGamma = result[0][y+1]
+    lograte = result[x+1][0]
+    print('best log(Gamma): ',logGamma)
+    print('best log(rate): ',lograte)
+    return logGamma,lograte
 
 def _dict_print(dictx,loc=0):
     for key,value in dictx.items():
@@ -106,8 +103,9 @@ def _dict_print(dictx,loc=0):
             print(': {}'.format(value))
     return 1
 
-def print_test_results(dataset):
-    with open('result/'+dataset+'_test-alloc','r') as f:
+def print_test_results(dataset,feature):
+    filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
+    with open(filename+'-alloc','r') as f:
         _dict_print(eval(f.read()))
 
 if __name__ == '__main__':
