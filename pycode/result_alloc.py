@@ -16,13 +16,17 @@ def screen_params_alloc(params):
     output = [row]
     for idx,rate in enumerate(lograte):
         row = []
-        with open(filename + str(idx),'r') as f:
-            result = eval(f.read())
-        row.append(log_rate[idx])
+        try:
+            with open(filename + str(idx),'r') as f:
+                result = eval(f.read())
+        except:
+            print('lograte list is not run out')
+            break
+        row.append(rate)
         for item in result:
             row.append(item['score'])
         output.append(row)
-    with open('result/'+dataset+'alloc','w') as f:
+    with open(filename+'alloc','w') as f:
         f.write(str(output))
 
 def train_and_test_alloc(params):

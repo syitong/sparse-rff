@@ -109,6 +109,4 @@ def print_test_results(dataset,feature):
         _dict_print(eval(f.read()))
 
 if __name__ == '__main__':
-    # plot_params('adult')
-    print_params('sine1-10')
-    # print_test_results('covtype')
+    print_params('sine1-10','ReLU')

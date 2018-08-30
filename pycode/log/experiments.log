@@ -1,0 +1,15 @@
+screen params
+2018-08-29 23:31:00.077814
+trials = 10
+loss_fn = hinge
+N = 10
+folds = 5
+classes = [0, 1]
+bd = 1000
+val_size = 3000
+lograte = [0.  0.5]
+n_epoch = 5
+dataset = sine1-10
+logGamma = [0.  0.5]
+feature = ReLU
+

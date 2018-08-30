@@ -107,6 +107,7 @@ def train_and_test(params):
         logfile.record(str(datatime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
+        logfile.save()
     Xtrain,Ytrain,Xtest,Ytest = read_data(dataset)
     logGamma,lograte = print_params(dataset,feature)
     model_params = {
@@ -131,7 +132,6 @@ def train_and_test(params):
             'traintime':traintime1,
             'testtime':testtime1
         }
-    logfile.save()
     filename = 'result/{0:s}-{1:s}-test-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
         f.write(str(output))
@@ -162,6 +162,7 @@ def screen_params(params):
         logfile.record(str(datetime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
+        logfile.save()
     Xtrain,Ytrain,_,_ = read_data(dataset)
     feature = params['feature']
     model_params = {
@@ -185,7 +186,6 @@ def screen_params(params):
         score = validate(Xtrain,Ytrain,val_size,model_type,
             model_params, fit_params, folds)
         results.append({'Gamma':Gamma,'score':score})
-    logfile.save()
     filename = 'result/{0:s}-{1:s}-screen-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
         f.write(str(results))
@@ -313,4 +313,5 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
+    params = read_params()
     screen_params(params)

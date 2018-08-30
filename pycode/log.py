@@ -38,3 +38,4 @@ class log:
             for msg in self._message:
                 logfile.write(msg)
                 logfile.write('\n')
+            logfile.write('\n')
