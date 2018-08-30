@@ -1,6 +1,15 @@
 import numpy as np
 
-def screen_params_alloc(dataset,feature,lograte,logGamma):
+def read_params(filename='params'):
+    with open(filename,'r') as f:
+        params = eval(f.read())
+    return params
+
+def screen_params_alloc(params):
+    dataset = params['dataset']
+    feature = params['feature']
+    lograte = params['lograte']
+    logGamma = params['logGamma']
     filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
     row = ['log(rate)\log(Gamma)']
     row.extend(logGamma)
@@ -16,7 +25,10 @@ def screen_params_alloc(dataset,feature,lograte,logGamma):
     with open('result/'+dataset+'alloc','w') as f:
         f.write(str(output))
 
-def train_and_test_alloc(dataset,feature,trials):
+def train_and_test_alloc(params):
+    dataset = params['dataset']
+    feature = params['feature']
+    trials = params['trials']
     filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
     tags = ['accuracy','sparsity','traintime','testtime']
     alloc = {}
@@ -35,4 +47,5 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(alloc))
 
 if __name__ == '__main__':
-    screen_params_alloc('sine1-10','ReLU')
+    params = read_params()
+    screen_params_alloc(params)

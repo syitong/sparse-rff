@@ -13,6 +13,11 @@ from result_show import print_params
 from sklearn.svm import SVC
 DATA_PATH = 'data/'
 
+def read_params(filename='params'):
+    with open(filename,'r') as f:
+        params = eval(f.read())
+    return params
+
 def _read_data(filename):
     data = np.load(DATA_PATH + filename)
     return data
@@ -141,8 +146,8 @@ def screen_params(params):
         'classes': ,
         'loss_fn': ,
         'feature': ,
-        'Gamma_list': ,
-        'rate_list': ,
+        'logGamma': ,
+        'lograte': ,
         'val_size': ,
         'folds': ,
         }
@@ -169,23 +174,17 @@ def screen_params(params):
     fit_params = {
         'opt_method':'sgd',
         'n_epoch':params['n_epoch'],
-        'opt_rate':params['rate_list'][int(prefix)],
+        'opt_rate':10.**params['lograte'][int(prefix)],
         'bd':params['bd']
     }
     model_type = librf.RF
     results = []
-    if feature == 'Gaussian':
-        for Gamma in params['Gamma_list']:
-            model_params['Gamma'] = Gamma
-            score = validate(Xtrain,Ytrain,val_size,model_type,
-                model_params, fit_params, folds)
-            results.append({'Gamma':Gamma,'score':score})
-    elif feature == 'ReLU':
-        for Gamma in params['Gamma_list']:
-            model_params['Gamma'] = Gamma
-            score = validate(Xtrain,Ytrain,val_size,model_type,
-                model_params, fit_params ,folds)
-            results.append({'Gamma':Gamma,'score':score})
+    Gamma_list = 10. ** params['logGamma']
+    for Gamma in Gamma_list:
+        model_params['Gamma'] = Gamma
+        score = validate(Xtrain,Ytrain,val_size,model_type,
+            model_params, fit_params, folds)
+        results.append({'Gamma':Gamma,'score':score})
     logfile.save()
     filename = 'result/{0:s}-{1:s}-screen-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
@@ -314,17 +313,4 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
-    params = {
-        'dataset': 'sine-1-10',
-        'N': 10,
-        'bd': 1000,
-        'n_epoch': 5,
-        'classes': [0,1],
-        'loss_fn': 'hinge',
-        'feature': 'ReLU',
-        'Gamma_list': 10. ** np.arange(0.,1,0.5),
-        'rate_list': 10. ** np.arange(0.,1,0.5),
-        'val_size': 3000,
-        'folds': 5,
-        }
     screen_params(params)

@@ -169,7 +169,7 @@ class RF:
             k_initializer = k_initializer / np.linalg.norm(k_initializer,axis=0)
             # use gamma to adjust the direction of the weights
             b_initializer = tf.constant_initializer(k_initializer[-1,:] /
-                np.sqrt(self._Gamma, dtype=tf.float32)
+                np.sqrt(self._Gamma), dtype=tf.float32)
             k_initializer = tf.constant_initializer(k_initializer[:-1,:],
                 dtype=tf.float32)
             activation_node = tf.nn.relu
