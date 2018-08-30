@@ -156,7 +156,6 @@ class RF:
         d = self._d
         if self._feature == 'Gaussian':
             if self._initializer == None:
-                # Gamma is only required by random Fourier for Gaussian kernel
                 k_initializer = tf.random_normal_initializer(stddev =
                     np.sqrt(self._Gamma))
             else:
@@ -167,10 +166,10 @@ class RF:
             activation_node = tf.cos
         elif self._feature == 'ReLU':
             k_initializer = np.random.randn(d+1,N)
-            # initialize (w_i,b_i) by vectors uniform over unit sphere
             k_initializer = k_initializer / np.linalg.norm(k_initializer,axis=0)
-            b_initializer = tf.constant_initializer(k_initializer[-1,:],
-                dtype=tf.float32)
+            # use gamma to adjust the direction of the weights
+            b_initializer = tf.constant_initializer(k_initializer[-1,:] /
+                np.sqrt(self._Gamma, dtype=tf.float32)
             k_initializer = tf.constant_initializer(k_initializer[:-1,:],
                 dtype=tf.float32)
             activation_node = tf.nn.relu

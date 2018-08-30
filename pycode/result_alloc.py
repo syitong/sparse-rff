@@ -13,7 +13,7 @@ def screen_params_alloc(dataset,feature,lograte,logGamma):
         for item in result:
             row.append(item['score'])
         output.append(row)
-    with open('result/'+dataset+'-alloc','w') as f:
+    with open('result/'+dataset+'alloc','w') as f:
         f.write(str(output))
 
 def train_and_test_alloc(dataset,feature,trials):
@@ -35,4 +35,4 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(alloc))
 
 if __name__ == '__main__':
-    screen_params_alloc('sine1-10')
+    screen_params_alloc('sine1-10','ReLU')
