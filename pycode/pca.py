@@ -2,27 +2,14 @@ import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
-from uci_pre import read_data
-from libmnist import get_train_test_data
+from experiments import read_data
 from result_show import print_params
 from librf import optReLUSampler
 
-def unpickle(file):
-    import pickle
-    with open(file, 'rb') as fo:
-        dict = pickle.load(fo, encoding='bytes')
-    return dict
 
 def pca(dataset,N,m,gamma):
-    if dataset == 'mnist':
-        Xtr,_,_,_ = get_train_test_data()
-        X = Xtr[:m]
-    elif dataset == 'cifar-10':
-        Xtr = unpickle('data/cifar-10/data_batch_1')[b'data']
-        X = Xtr[:m]
-    else:
-        Xtr = read_data(dataset+'-test-data.npy')
-        X = Xtr[:m]
+    X_tr = read_data(dataset)[0]
+    X = Xtr[:m]
     d = len(X[0])
     k_RFF = np.random.randn(d,N) * np.sqrt(gamma)
     b_RFF = np.random.rand(N) * np.pi

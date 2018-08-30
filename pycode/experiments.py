@@ -2,34 +2,67 @@ import numpy as np
 import librf
 import libnn
 import time
+from datetime import datetime
+from log import log
 from sys import argv
+from sklearn.preprocessing import StandardScaler
 from libmnist import get_train_test_data
 from multiprocessing import Pool
 from functools import partial
-from uci_pre import read_data
 from result_show import print_params
 from sklearn.svm import SVC
 
-def _validate(data,labels,folds,model_type,index,**params):
+def _read_data(filename):
+    data = np.load(DATA_PATH + filename)
+    return data
+
+def _unpickle(file):
+    import pickle
+    with open(file, 'rb') as fo:
+        dict = pickle.load(fo, encoding='bytes')
+    return dict
+
+def read_data(dataset):
+    if dataset == 'mnist':
+        Xtr,Ytr,Xts,Yts = get_train_test_data()
+    elif:
+        Xtr = _read_data(dataset+'-train-data.npy')
+        Ytr = _read_data(dataset+'-train-binary-label.npy')
+        Xts = _read_data(dataset+'-test-data.npy')
+        Yts = _read_data(dataset+'-test-binary-label.npy')
+    elif dataset == 'cifar':
+        X = []
+        Y = []
+        for idx in range(1): # set to 5 for the complete data set
+            X.append(unpickle('data/cifar-10/data_batch_'+idx)[b'data'])
+            Y.append(unpickle('data/cifar-10/data_batch_'+idx)[b'labels'])
+        Xtr = np.concatenate(X,axis=0)
+        Ytr = np.concatenate(Y,axis=0)
+        Xts = unpickle('data/cifar-10/test_batch')[b'data'])
+        Yts = unpickle('data/cifar-10/test_batch')[b'labels'])
+    scaler = StandardScaler().fit(Xtr)
+    Xtr = scaler.transform(Xtr)
+    Xts = scaler.transform(Xts)
+    return Xtr,Ytr,Xts,Yts
+
+def _validate(data,labels,folds,model_type,index,model_params,fit_params):
     kfolds_data = np.split(data,folds)
     kfolds_labels = np.split(labels,folds)
     Xts = kfolds_data.pop(index)
     Yts = kfolds_labels.pop(index)
     Xtr = np.concatenate(kfolds_data)
     Ytr = np.concatenate(kfolds_labels)
-    modelparams = params['model']
-    clf = model_type(**modelparams)
-    fitparams = params['fit']
-    clf.fit(Xtr,Ytr,**fitparams)
+    clf = model_type(**model_params)
+    clf.fit(Xtr,Ytr,**fit_params)
     score = clf.score(Xts,Yts)
     return score
 
-def validate(data,labels,val_size,model_type,folds=5,**params):
+def validate(data,labels,val_size,model_type,model_params,fit_params,folds=5):
     # set up timer and progress tracker
     rand_list = np.random.permutation(len(data))
     X = data[rand_list[:val_size]]
     Y = labels[rand_list[:val_size]]
-    f = partial(_validate,X,Y,folds,model_type,**params)
+    f = partial(_validate,X,Y,folds,model_type,model_params,fit_params)
     # with Pool() as p:
     #     score_list = p.map(f,range(folds))
     score_list = []
@@ -37,195 +70,122 @@ def validate(data,labels,val_size,model_type,folds=5,**params):
         score_list.append(f(idx))
     return sum(score_list) / folds
 
-def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,**params):
-    modelparams = params['model']
-    clf = model_type(**modelparams)
-    fitparams = params['fit']
+def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,model_params,fit_params):
+    clf = model_type(**model_params)
     t1 = time.process_time()
-    clf.fit(Xtr,Ytr,**fitparams)
+    clf.fit(Xtr,Ytr,**fit_params)
     t2 = time.process_time()
     Ypr,_,sparsity = clf.predict(Xts)
     t3 = time.process_time()
     score = sum(Ypr == Yts) / len(Yts)
     return score,sparsity,t2-t1,t3-t2
 
-def train_and_test(dataset):
-    if dataset == 'mnist':
-        Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
-        N = 2000 # 10000
-        bd = 1000 # 100000
-        n_iter = 5000
-        classes = list(range(10))
-        loss_fn = 'log'
-    elif dataset == 'adult':
-        Xtrain = read_data('adult-train-data.npy')
-        Ytrain = read_data('adult-train-label.npy')
-        Xtest = read_data('adult-test-data.npy')
-        Ytest = read_data('adult-test-label.npy')
-        N = 2000 # 10000
-        bd = 1000 # 100000
-        n_iter = 5000
-        classes = [0.,1.]
-        loss_fn = 'hinge'
-    elif dataset == 'covtype':
-        Xtrain = read_data('covtype-train-data.npy')
-        # Ytrain = read_data('covtype-train-binary-label.npy')
-        Xtest = read_data('covtype-test-data.npy')
-        # Ytest = read_data('covtype-test-binary-label.npy')
-        Ytrain = read_data('covtype-train-label.npy')
-        Ytest = read_data('covtype-test-label.npy')
-        N = 10000
-        bd = 100000
-        n_iter = 10000
-        classes = list(range(1,8))
-        loss_fn = 'log'
-    Xtrain = np.array(Xtrain)
-    Ytrain = np.array(Ytrain)
-    F_gamma,F_rate,R_rate = print_params(dataset)
-    F_gamma = 10. ** F_gamma
-    F_rate = 10. ** F_rate
-    R_rate = 10. ** R_rate
+def train_and_test(dataset,params):
+    '''
+    params = {
+        'N': ,
+        'bd': ,
+        'n_iter': ,
+        'classes': ,
+        'loss_fn': ,
+        'feature': ,
+        }
+    '''
     prefix = argv[1]
-    params = {}
-    feature = 'Gaussian'
-    params['model'] = {
-        'Gamma':F_gamma,
-        'feature':feature,
+    if prefix == '0':
+        # only write log file for trial 0
+        logfile = log('log/train-n-test.log',dataset)
+        logfile.record(str(datatime.now()))
+        for key,val in params.items():
+            logfile.record('{0} = {1}'.format(key,val))
+    Xtrain,Ytrain,Xtest,Ytest = read_data(dataset)
+    F_gamma,F_rate,R_rate = print_params(dataset)
+    model_params = {
         'n_old_features':len(Xtrain[0]),
-        'n_new_features':N,
-        'classes':classes,
-        'loss_fn':loss_fn
+        'n_new_features':params['N'],
+        'classes':params['classes'],
+        'loss_fn':params['loss_fn']
     }
-    params['fit'] = {
-        'opt_rate':F_rate,
-        'n_iter':n_iter,
-        'bd':bd
+    fit_params = {
+        'n_iter':params['n_iter'],
+        'bd':params['bd']
     }
+    feature = params['feature']
+    if  feature == 'Gaussian':
+        F_gamma = 10. ** F_gamma
+        rate = 10. ** F_rate
+        model_params['Gamma'] = F_gamma
+        model_params['feature'] = feature
+        fit_params['opt_rate'] = F_rate
+    elif feature == 'ReLU':
+        rate = 10. ** R_rate
+        fit_params['opt_rate'] = F_rate
     model_type = librf.RF
     score1,sparsity1,traintime1,testtime1 = _train_and_test(Xtrain,
-        Ytrain,Xtest,Ytest,model_type,**params)
-    params['model']['feature'] = 'ReLU'
-    params['fit']['opt_rate'] = R_rate
-    score2,sparsity2,traintime2,testtime2 = _train_and_test(Xtrain,
-        Ytrain,Xtest,Ytest,model_type,**params)
-    output = [{
-            'feature':'Gaussian',
+        Ytrain,Xtest,Ytest,model_type,model_params,fit_params)
+    output = {
+            'feature':feature,
             'accuracy':score1,
             'sparsity':sparsity1,
             'traintime':traintime1,
             'testtime':testtime1
-        },{
-            'feature':'ReLU',
-            'accuracy':score2,
-            'sparsity':sparsity2,
-            'traintime':traintime2,
-            'testtime':testtime2
-        }]
+        }
     with open('result/'+dataset+'-test-'+prefix,'w') as f:
         f.write(str(output))
 
-def screen_params(dataset,val_size=30000,folds=5):
-    if dataset == 'mnist':
-        Xtrain,Ytrain,Xtest,Ytest = get_train_test_data()
-        N = 2000 # 10000
-        bd = 1000 # 100000
-        n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-        classes = list(range(10))
-        loss_fn = 'log'
-    elif dataset == 'adult':
-        Xtrain = read_data('adult-train-data.npy')
-        Ytrain = read_data('adult-train-label.npy')
-        Xtest = read_data('adult-test-data.npy')
-        Ytest = read_data('adult-test-label.npy')
-        N = 2000 # 10000
-        bd = 1000 # 100000
-        n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-        classes = [0.,1.]
-        loss_fn = 'hinge'
-    elif dataset == 'covtype':
-        Xtrain = read_data('covtype-train-data.npy')
-        # Ytrain = read_data('covtype-train-binary-label.npy')
-        Xtest = read_data('covtype-test-data.npy')
-        # Ytest = read_data('covtype-test-binary-label.npy')
-        Ytrain = read_data('covtype-train-label.npy')
-        Ytest = read_data('covtype-test-label.npy')
-        N = 10000
-        bd = 100000
-        n_iter = 5000
-        Gamma_list = 10. ** np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(0.8,2.8,0.2) # np.arange(-3.,3,0.5)
-        classes = list(range(1,8)) # list(range(10))
-        loss_fn = 'log'
-    elif dataset == 'checkboard':
-        Xtrain = read_data('checkboard-train-data.npy')
-        Ytrain = read_data('checkboard-train-label.npy')
-        Xtest = read_data('checkboard-test-data.npy')
-        Ytest = read_data('checkboard-test-label.npy')
-        N = 200 # 10000
-        bd = 1000 # 100000
-        n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-6.,2,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-        classes = [0.,1.]
-        loss_fn = 'hinge'
-    elif dataset == 'strips':
-        Xtrain = read_data('strips-train-data.npy')
-        Ytrain = read_data('strips-train-label.npy')
-        Xtest = read_data('strips-test-data.npy')
-        Ytest = read_data('strips-test-label.npy')
-        N = 50 # 10000
-        bd = 1000 # 100000
-        n_iter = 1000 # 5000
-        Gamma_list = 10. ** np.arange(-3.,5,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(-2.,4,0.5) # np.arange(0.8,2.8,0.2)
-        classes = [0.,1.]
-        loss_fn = 'hinge'
-    elif dataset == 'sine1-10':
-        Xtrain = read_data('sine1-10-train-data.npy')
-        Ytrain = read_data('sine1-10-train-label.npy')
-        Xtest = read_data('sine1-10-test-data.npy')
-        Ytest = read_data('sine1-10-test-label.npy')
-        N = 20 # 5 
-        bd = 1000 
-        n_iter = 1000 
-        Gamma_list = 10. ** np.arange(-5.,3,1) # np.arange(-2.,4,0.5)
-        rate_list = 10. ** np.arange(0.,6,0.5) # np.arange(0.8,2.8,0.2)
-        classes = [0.,1.]
-        loss_fn = 'hinge'
-
-    Xtrain = np.array(Xtrain)
-    Ytrain = np.array(Ytrain)
+def screen_params(dataset,params):
+    '''
+    params = {
+        'N': ,
+        'bd': ,
+        'n_iter': ,
+        'classes': ,
+        'loss_fn': ,
+        'feature': ,
+        'Gamma_list': ,
+        'rate_list': ,
+        'val_size': ,
+        'folds': ,
+        }
+    '''
     prefix = argv[1]
-    params = {}
-    feature = 'Gaussian'
-    params['model'] = {
-        'feature':feature,
+    val_size params['val_size']
+    if prefix == '0':
+        # only write log file for trial 0
+        logfile = log('log/train-n-test.log',dataset)
+        logfile.record(str(datatime.now()))
+        for key,val in params.items():
+            logfile.record('{0} = {1}'.format(key,val))
+    Xtrain,Ytrain,_,_ = read_data(dataset)
+    feature = params['feature']
+    model_params = {
         'n_old_features':len(Xtrain[0]),
-        'n_new_features':N,
-        'classes':classes,
-        'loss_fn':loss_fn
+        'n_new_features':params['N'],
+        'classes':params['classes'],
+        'loss_fn':params['loss_fn'],
+        'feature':feature,
     }
-    params['fit'] = {
+    fit_params = {
         'opt_method':'sgd',
-        'opt_rate':rate_list[int(prefix)],
-        'n_iter':n_iter,
-        'bd':bd
+        'n_iter':params['n_iter'],
+        'opt_rate':params['rate_list'][int(prefix)],
+        'bd':params['bd']
     }
     model_type = librf.RF
     results = []
-    for Gamma in Gamma_list:
-        params['model']['Gamma'] = Gamma
-        score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-        results.append({'Gamma':Gamma,'score':score})
-    feature = 'ReLU'
-    params['model']['feature'] = feature
-    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    results.append({'Gamma':'ReLU','score':score})
-    filename = 'result/{1:s}-{0:s}'.format(prefix,dataset)
+    if feature == 'Gaussian':
+        for Gamma in params['Gamma_list']:
+            model_params['Gamma'] = Gamma
+            score = validate(Xtrain,Ytrain,val_size,model_type,
+                model_params, fit_params, folds)
+            results.append({'Gamma':Gamma,'score':score})
+    elif feature == 'ReLU':
+        for Gamma in params['Gamma_list']:
+            model_params['Gamma'] = Gamma
+            score = validate(Xtrain,Ytrain,val_size,model_type,
+                model_params, fit_params ,folds)
+            results.append({'Gamma':Gamma,'score':score})
+    filename = 'result/{0:s}-{1:s}-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
         f.write(str(results))
 
@@ -259,97 +219,97 @@ def screen_params_fnn_covtype(val_size=30000,folds=5):
     with open(filename,'w') as f:
         f.write(str(score))
 
-def screen_params_svm_covtype(val_size=30000,folds=5):
-    Xtrain = read_data('covtype-train-data.npy')
-    Ytrain = read_data('covtype-train-binary-label.npy')
-    Xtest = read_data('covtype-test-data.npy')
-    Ytest = read_data('covtype-test-binary-label.npy')
-    C_list = 10. ** np.arange(2.,6,1)
-    gamma = 10. ** 1.5
-    prefix = argv[1]
-    params = {}
-    params['model'] = {
-        'C':C_list[int(prefix)],
-        'gamma':gamma
-    }
-    params['fit'] = {}
-    model_type = SVC
-    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    filename = 'result/covtype-svm-{0:s}'.format(prefix)
-    with open(filename,'w') as f:
-        f.write(str(score))
-
-def train_test_covtype_nn():
-    Xtrain = read_data('covtype-train-data.npy')
-    Ytrain = read_data('covtype-train-binary-label.npy')
-    Xtest = read_data('covtype-test-data.npy')
-    Ytest = read_data('covtype-test-binary-label.npy')
-    # Ytrain = read_data('covtype-train-label.npy')
-    # Ytest = read_data('covtype-test-label.npy')
-    rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
-    classes = [0.,1.] # list(range(1,8))
-    loss_fn = 'log'
-    modelparams = {
-        'dim':len(Xtrain[0]),
-        'width':50,
-        'depth':5,
-        'classes':classes,
-        'learn_rate':rate_list[0]
-    }
-    fitparams = {
-        'n_epoch':5,
-        'batch_size':100
-    }
-    model_type = libnn.fullnn
-    clf = model_type(**modelparams)
-    clf.fit(Xtrain,Ytrain,**fitparams)
-    score = clf.score(Xtest,Ytest)
-    print(score)
-
-def plot_clf_boundary(samplesize=500):
-    import matplotlib.pyplot as plt
-    Xtrain = read_data('checkboard-train-data.npy')[:samplesize]
-    N = 200 # 10000
-    bd = 1000 # 100000
-    n_iter = 1000 # 5000
-    Gamma = 10.
-    classes = [0.,1.]
-    loss_fn = 'hinge'
-    params = {}
-    feature = 'Gaussian'
-    params['model'] = {
-        'feature':feature,
-        'n_old_features':len(Xtrain[0]),
-        'n_new_features':N,
-        'classes':classes,
-        'loss_fn':loss_fn
-    }
-    model_type = librf.RF
-    params['model']['Gamma'] = Gamma
-    clf = model_type(**params['model'])
-    Ypred,_,_ = clf.predict(Xtrain)
-    c = []
-    for idx in range(samplesize):
-        if Ypred[idx] == 0:
-            c.append('r')
-        else:
-            c.append('b')
-    fig = plt.figure()
-    plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
-    plt.show()
-    feature = 'ReLU'
-    params['model']['feature'] = feature
-    clf = model_type(**params['model'])
-    Ypred,_,_ = clf.predict(Xtrain)
-    c = []
-    for idx in range(samplesize):
-        if Ypred[idx] == 0:
-            c.append('r')
-        else:
-            c.append('b')
-    fig = plt.figure()
-    plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
-    plt.show()
+# def screen_params_svm_covtype(val_size=30000,folds=5):
+#     Xtrain = read_data('covtype-train-data.npy')
+#     Ytrain = read_data('covtype-train-binary-label.npy')
+#     Xtest = read_data('covtype-test-data.npy')
+#     Ytest = read_data('covtype-test-binary-label.npy')
+#     C_list = 10. ** np.arange(2.,6,1)
+#     gamma = 10. ** 1.5
+#     prefix = argv[1]
+#     params = {}
+#     params['model'] = {
+#         'C':C_list[int(prefix)],
+#         'gamma':gamma
+#     }
+#     params['fit'] = {}
+#     model_type = SVC
+#     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+#     filename = 'result/covtype-svm-{0:s}'.format(prefix)
+#     with open(filename,'w') as f:
+#         f.write(str(score))
+# 
+# def train_test_covtype_nn():
+#     Xtrain = read_data('covtype-train-data.npy')
+#     Ytrain = read_data('covtype-train-binary-label.npy')
+#     Xtest = read_data('covtype-test-data.npy')
+#     Ytest = read_data('covtype-test-binary-label.npy')
+#     # Ytrain = read_data('covtype-train-label.npy')
+#     # Ytest = read_data('covtype-test-label.npy')
+#     rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
+#     classes = [0.,1.] # list(range(1,8))
+#     loss_fn = 'log'
+#     modelparams = {
+#         'dim':len(Xtrain[0]),
+#         'width':50,
+#         'depth':5,
+#         'classes':classes,
+#         'learn_rate':rate_list[0]
+#     }
+#     fitparams = {
+#         'n_epoch':5,
+#         'batch_size':100
+#     }
+#     model_type = libnn.fullnn
+#     clf = model_type(**modelparams)
+#     clf.fit(Xtrain,Ytrain,**fitparams)
+#     score = clf.score(Xtest,Ytest)
+#     print(score)
+# 
+# def plot_clf_boundary(samplesize=500):
+#     import matplotlib.pyplot as plt
+#     Xtrain = read_data('checkboard-train-data.npy')[:samplesize]
+#     N = 200 # 10000
+#     bd = 1000 # 100000
+#     n_iter = 1000 # 5000
+#     Gamma = 10.
+#     classes = [0.,1.]
+#     loss_fn = 'hinge'
+#     params = {}
+#     feature = 'Gaussian'
+#     params['model'] = {
+#         'feature':feature,
+#         'n_old_features':len(Xtrain[0]),
+#         'n_new_features':N,
+#         'classes':classes,
+#         'loss_fn':loss_fn
+#     }
+#     model_type = librf.RF
+#     params['model']['Gamma'] = Gamma
+#     clf = model_type(**params['model'])
+#     Ypred,_,_ = clf.predict(Xtrain)
+#     c = []
+#     for idx in range(samplesize):
+#         if Ypred[idx] == 0:
+#             c.append('r')
+#         else:
+#             c.append('b')
+#     fig = plt.figure()
+#     plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
+#     plt.show()
+#     feature = 'ReLU'
+#     params['model']['feature'] = feature
+#     clf = model_type(**params['model'])
+#     Ypred,_,_ = clf.predict(Xtrain)
+#     c = []
+#     for idx in range(samplesize):
+#         if Ypred[idx] == 0:
+#             c.append('r')
+#         else:
+#             c.append('b')
+#     fig = plt.figure()
+#     plt.scatter(Xtrain[:,0],Xtrain[:,1],s=0.5,c=c)
+#     plt.show()
 
 if __name__ == '__main__':
     # train_and_test('mnist')

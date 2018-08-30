@@ -6,7 +6,7 @@ class log:
     and write it into a log file.
     """
     def __init__(self,filepath,init_message):
-        self._message = ''
+        self._message = []
         self._filepath = filepath
         self._progress = {'task':[init_message],'time':[time.process_time()]}
         print(self._progress['task'][-1]
@@ -24,13 +24,15 @@ class log:
                               - self._progress['time'][-2]))
 
     def record(self,message):
-        self._message = message
+        self._message.append(message)
 
     def save(self):
         progress = self._progress
-        with open(self._filepath,'w') as logfile:
+        with open(self._filepath,'a') as logfile:
             for idx in range(1,len(progress['task'])):
-                logfile.write(progress['task'][idx]
-                              + ': {:.4f}\n'.format(progress['time'][idx]
-                                                    - progress['time'][idx - 1]))
-            logfile.write(self._message)
+                timegap = progress['time'][idx] - progress['time'][idx - 1]
+                logfile.write(progress['task'][idx] + ': {:.4f}\n'.format(
+                    timegap))
+            for msg in self._message:
+                logfile.write(msg)
+                logfile.write('\n')

@@ -189,10 +189,6 @@ def binary_covtype():
 #     with open(DATA_PATH+'kddcup99-test-label.txt','w') as f:
 #         f.write(str(Ytest))
 
-def read_data(filename):
-    data = np.load(DATA_PATH + filename)
-    return data
-
 if __name__ == '__main__':
     # proc_adult()
     # proc_covtype()
