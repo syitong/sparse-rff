@@ -189,36 +189,36 @@ def screen_params(dataset,params):
     with open(filename,'w') as f:
         f.write(str(results))
 
-def screen_params_fnn_covtype(val_size=30000,folds=5):
-    Xtrain = read_data('covtype-train-data.npy')
-    # Ytrain = read_data('covtype-train-binary-label.npy')
-    Xtest = read_data('covtype-test-data.npy')
-    # Ytest = read_data('covtype-test-binary-label.npy')
-    Ytrain = read_data('covtype-train-label.npy')
-    Ytest = read_data('covtype-test-label.npy')
-    rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
-    classes = list(range(1,8)) # list(range(10))
-    loss_fn = 'log'
-
-    prefix = argv[1]
-    params = {}
-    params['model'] = {
-        'dim':len(Xtrain[0]),
-        'width':20,
-        'depth':4,
-        'classes':classes,
-        'learn_rate':rate_list[int(prefix)]
-    }
-    params['fit'] = {
-        'n_epoch':3,
-        'batch_size':100
-    }
-    model_type = libnn.fullnn
-    score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
-    filename = 'result/covtype-nn-{0:s}'.format(prefix)
-    with open(filename,'w') as f:
-        f.write(str(score))
-
+# def screen_params_fnn_covtype(val_size=30000,folds=5):
+#     Xtrain = read_data('covtype-train-data.npy')
+#     # Ytrain = read_data('covtype-train-binary-label.npy')
+#     Xtest = read_data('covtype-test-data.npy')
+#     # Ytest = read_data('covtype-test-binary-label.npy')
+#     Ytrain = read_data('covtype-train-label.npy')
+#     Ytest = read_data('covtype-test-label.npy')
+#     rate_list = 10. ** np.arange(-3.,3,0.5) # np.arange(0.8,2.8,0.2)
+#     classes = list(range(1,8)) # list(range(10))
+#     loss_fn = 'log'
+# 
+#     prefix = argv[1]
+#     params = {}
+#     params['model'] = {
+#         'dim':len(Xtrain[0]),
+#         'width':20,
+#         'depth':4,
+#         'classes':classes,
+#         'learn_rate':rate_list[int(prefix)]
+#     }
+#     params['fit'] = {
+#         'n_epoch':3,
+#         'batch_size':100
+#     }
+#     model_type = libnn.fullnn
+#     score = validate(Xtrain,Ytrain,val_size,model_type,folds,**params)
+#     filename = 'result/covtype-nn-{0:s}'.format(prefix)
+#     with open(filename,'w') as f:
+#         f.write(str(score))
+# 
 # def screen_params_svm_covtype(val_size=30000,folds=5):
 #     Xtrain = read_data('covtype-train-data.npy')
 #     Ytrain = read_data('covtype-train-binary-label.npy')
@@ -312,8 +312,16 @@ def screen_params_fnn_covtype(val_size=30000,folds=5):
 #     plt.show()
 
 if __name__ == '__main__':
-    # train_and_test('mnist')
-    # train_and_test('adult')
-    # train_and_test('covtype')
+    params = {
+        'N': 10,
+        'bd': 1000,
+        'n_iter': ,
+        'classes': ,
+        'loss_fn': ,
+        'feature': ,
+        'Gamma_list': ,
+        'rate_list': ,
+        'val_size': ,
+        'folds': ,
+        }
     screen_params('sine1-10')
-    # plot_clf_boundary()

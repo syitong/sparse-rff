@@ -292,7 +292,7 @@ class RF:
 
     def fit(self,data,labels,mode='layer 2',
         opt_method='sgd',opt_rate=10.,
-        batch_size=200,n_iter=1000,bd=100):
+        batch_size=200,n_epoch=5,bd=100):
         indices = [self._classes.index(label) for label in labels]
         indices = np.array(indices)
         with self._graph.as_default():
@@ -334,20 +334,22 @@ class RF:
         if self.log:
             self._train_writer = tf.summary.FileWriter('tmp',
                 tf.get_default_graph())
-        for idx in range(n_iter):
-            rand_list = np.random.randint(len(data),size=batch_size)
-            feed_dict = {'features:0':data[rand_list,:],
-                         'labels:0':indices[rand_list]}
-            if idx % 100 == 1:
-                print('iter: {0:d}, loss: {1:.4f}'.format(
-                    idx, self._sess.run(loss,feed_dict)))
-                if self.log:
-                    summary = self._sess.run(merged)
-                    self._train_writer.add_summary(summary,self._total_iter)
-            self._sess.run(train_op,feed_dict)
-            if mode == 'layer 2' and self._Lambda == 0:
-                self._sess.run(clip_op)
-            self._total_iter += 1
+        for idx in range(n_epoch):
+            rand_indices = np.random.permutation(len(data)) - 1
+            for jdx in range(len(data)//batch_size):
+                batch_indices = rand_indices[jdx*batch_size:(jdx+1)*batch_size]
+                feed_dict = {'features:0':data[batch_indices,:],
+                             'labels:0':indices[batch_indices]}
+                if jdx % 100 == 1:
+                    print('epoch: {2:d}, iter: {0:d}, loss: {1:.4f}'.format(
+                        jdx, self._sess.run(loss,feed_dict),idx))
+                    if self.log:
+                        summary = self._sess.run(merged)
+                        self._train_writer.add_summary(summary,self._total_iter)
+                self._sess.run(train_op,feed_dict)
+                if mode == 'layer 2' and self._Lambda == 0:
+                    self._sess.run(clip_op)
+                self._total_iter += 1
 
     def get_params(self,deep=False):
         params = {
