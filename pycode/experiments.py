@@ -81,9 +81,10 @@ def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,model_params,fit_params):
     score = sum(Ypr == Yts) / len(Yts)
     return score,sparsity,t2-t1,t3-t2
 
-def train_and_test(dataset,params):
+def train_and_test(params):
     '''
     params = {
+        'dataset': ,
         'N': ,
         'bd': ,
         'n_epoch': ,
@@ -92,11 +93,12 @@ def train_and_test(dataset,params):
         'feature': ,
         }
     '''
+    dataset = params['dataset']
     feature = params['feature']
     prefix = argv[1]
     if prefix == '0':
         # only write log file for trial 0
-        logfile = log('log/train-n-test.log',dataset)
+        logfile = log('log/experiments.log','train and test')
         logfile.record(str(datatime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
@@ -129,9 +131,10 @@ def train_and_test(dataset,params):
     with open(filename,'w') as f:
         f.write(str(output))
 
-def screen_params(dataset,params):
+def screen_params(params):
     '''
     params = {
+        'dataset': ,
         'N': ,
         'bd': ,
         'n_epoch': ,
@@ -144,12 +147,13 @@ def screen_params(dataset,params):
         'folds': ,
         }
     '''
+    dataset = params['dataset']
     prefix = argv[1]
     val_size = params['val_size']
     folds = params['folds']
     if prefix == '0':
         # only write log file for trial 0
-        logfile = log('log/train-n-test.log',dataset)
+        logfile = log('log/experiments.log','screen params')
         logfile.record(str(datetime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
@@ -311,6 +315,7 @@ def screen_params(dataset,params):
 
 if __name__ == '__main__':
     params = {
+        'dataset': 'sine-1-10',
         'N': 10,
         'bd': 1000,
         'n_epoch': 5,
@@ -322,4 +327,4 @@ if __name__ == '__main__':
         'val_size': 3000,
         'folds': 5,
         }
-    screen_params('sine1-10',params)
+    screen_params(params)
