@@ -29,6 +29,8 @@ class log:
     def save(self):
         progress = self._progress
         with open(self._filepath,'a') as logfile:
+            logfile.write(progress['task'][0])
+            logfile.write('\n')
             for idx in range(1,len(progress['task'])):
                 timegap = progress['time'][idx] - progress['time'][idx - 1]
                 logfile.write(progress['task'][idx] + ': {:.4f}\n'.format(

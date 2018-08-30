@@ -11,6 +11,7 @@ from multiprocessing import Pool
 from functools import partial
 from result_show import print_params
 from sklearn.svm import SVC
+DATA_PATH = 'data/'
 
 def _read_data(filename):
     data = np.load(DATA_PATH + filename)
@@ -25,11 +26,6 @@ def _unpickle(file):
 def read_data(dataset):
     if dataset == 'mnist':
         Xtr,Ytr,Xts,Yts = get_train_test_data()
-    elif:
-        Xtr = _read_data(dataset+'-train-data.npy')
-        Ytr = _read_data(dataset+'-train-binary-label.npy')
-        Xts = _read_data(dataset+'-test-data.npy')
-        Yts = _read_data(dataset+'-test-binary-label.npy')
     elif dataset == 'cifar':
         X = []
         Y = []
@@ -38,14 +34,19 @@ def read_data(dataset):
             Y.append(unpickle('data/cifar-10/data_batch_'+idx)[b'labels'])
         Xtr = np.concatenate(X,axis=0)
         Ytr = np.concatenate(Y,axis=0)
-        Xts = unpickle('data/cifar-10/test_batch')[b'data'])
-        Yts = unpickle('data/cifar-10/test_batch')[b'labels'])
+        Xts = unpickle('data/cifar-10/test_batch')[b'data']
+        Yts = unpickle('data/cifar-10/test_batch')[b'labels']
+    else:
+        Xtr = _read_data(dataset+'-train-data.npy')
+        Ytr = _read_data(dataset+'-train-label.npy')
+        Xts = _read_data(dataset+'-test-data.npy')
+        Yts = _read_data(dataset+'-test-label.npy')
     scaler = StandardScaler().fit(Xtr)
     Xtr = scaler.transform(Xtr)
     Xts = scaler.transform(Xts)
     return Xtr,Ytr,Xts,Yts
 
-def _validate(data,labels,folds,model_type,index,model_params,fit_params):
+def _validate(data,labels,folds,model_type,model_params,fit_params,index):
     kfolds_data = np.split(data,folds)
     kfolds_labels = np.split(labels,folds)
     Xts = kfolds_data.pop(index)
@@ -85,7 +86,7 @@ def train_and_test(dataset,params):
     params = {
         'N': ,
         'bd': ,
-        'n_iter': ,
+        'n_epoch': ,
         'classes': ,
         'loss_fn': ,
         'feature': ,
@@ -107,7 +108,7 @@ def train_and_test(dataset,params):
         'loss_fn':params['loss_fn']
     }
     fit_params = {
-        'n_iter':params['n_iter'],
+        'n_epoch':params['n_epoch'],
         'bd':params['bd']
     }
     feature = params['feature']
@@ -130,7 +131,9 @@ def train_and_test(dataset,params):
             'traintime':traintime1,
             'testtime':testtime1
         }
-    with open('result/'+dataset+'-test-'+prefix,'w') as f:
+    logfile.save()
+    filename = 'result/{0:s}-{1:s}-test-{2:s}'.format(dataset,feature,prefix)
+    with open(filename,'w') as f:
         f.write(str(output))
 
 def screen_params(dataset,params):
@@ -138,7 +141,7 @@ def screen_params(dataset,params):
     params = {
         'N': ,
         'bd': ,
-        'n_iter': ,
+        'n_epoch': ,
         'classes': ,
         'loss_fn': ,
         'feature': ,
@@ -149,11 +152,12 @@ def screen_params(dataset,params):
         }
     '''
     prefix = argv[1]
-    val_size params['val_size']
+    val_size = params['val_size']
+    folds = params['folds']
     if prefix == '0':
         # only write log file for trial 0
         logfile = log('log/train-n-test.log',dataset)
-        logfile.record(str(datatime.now()))
+        logfile.record(str(datetime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
     Xtrain,Ytrain,_,_ = read_data(dataset)
@@ -167,7 +171,7 @@ def screen_params(dataset,params):
     }
     fit_params = {
         'opt_method':'sgd',
-        'n_iter':params['n_iter'],
+        'n_epoch':params['n_epoch'],
         'opt_rate':params['rate_list'][int(prefix)],
         'bd':params['bd']
     }
@@ -185,6 +189,7 @@ def screen_params(dataset,params):
             score = validate(Xtrain,Ytrain,val_size,model_type,
                 model_params, fit_params ,folds)
             results.append({'Gamma':Gamma,'score':score})
+    logfile.save()
     filename = 'result/{0:s}-{1:s}-{2:s}'.format(dataset,feature,prefix)
     with open(filename,'w') as f:
         f.write(str(results))
@@ -271,7 +276,7 @@ def screen_params(dataset,params):
 #     Xtrain = read_data('checkboard-train-data.npy')[:samplesize]
 #     N = 200 # 10000
 #     bd = 1000 # 100000
-#     n_iter = 1000 # 5000
+#     n_epoch = 5 
 #     Gamma = 10.
 #     classes = [0.,1.]
 #     loss_fn = 'hinge'
@@ -315,13 +320,13 @@ if __name__ == '__main__':
     params = {
         'N': 10,
         'bd': 1000,
-        'n_iter': ,
-        'classes': ,
-        'loss_fn': ,
-        'feature': ,
-        'Gamma_list': ,
-        'rate_list': ,
-        'val_size': ,
-        'folds': ,
+        'n_epoch': 5,
+        'classes': [0,1],
+        'loss_fn': 'hinge',
+        'feature': 'ReLU',
+        'Gamma_list': 10. ** np.arange(0.,1,0.5),
+        'rate_list': 10. ** np.arange(0.,1,0.5),
+        'val_size': 3000,
+        'folds': 5,
         }
-    screen_params('sine1-10')
+    screen_params('sine1-10',params)

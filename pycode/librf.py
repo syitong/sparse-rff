@@ -340,7 +340,7 @@ class RF:
                 batch_indices = rand_indices[jdx*batch_size:(jdx+1)*batch_size]
                 feed_dict = {'features:0':data[batch_indices,:],
                              'labels:0':indices[batch_indices]}
-                if jdx % 100 == 1:
+                if jdx % 10 == 1:
                     print('epoch: {2:d}, iter: {0:d}, loss: {1:.4f}'.format(
                         jdx, self._sess.run(loss,feed_dict),idx))
                     if self.log:
