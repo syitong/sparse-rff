@@ -5,9 +5,9 @@
     'n_epoch': 5,
     'classes': [0,1],
     'loss_fn': 'hinge',
-    'feature': 'ReLU',
-    'logGamma': np.arange(0.,1,0.5),
-    'lograte': np.arange(0.,1,0.5),
+    'feature': 'Gaussian',
+    'logGamma': np.arange(-5.,2,0.5),
+    'lograte': np.arange(-3.,3,0.5),
     'val_size': 3000,
     'folds': 5,
     'trials': 10
