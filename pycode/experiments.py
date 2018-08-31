@@ -315,5 +315,6 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
-    params = read_params()
-    screen_params(params)
+    # params = read_params()
+    # screen_params(params)
+    train_and_test('sine1-10','ReLU')

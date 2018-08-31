@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import array
 import matplotlib as mpl
 # mpl.use('Agg')
 import matplotlib.pyplot as plt
@@ -70,7 +71,7 @@ def plot_params(dataset):
 def print_params(dataset,feature):
     filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
     with open(filename+'alloc','r') as f:
-        result,params = eval(f.read())
+        result, params = eval(f.read())
     for row in result:
         if type(row[0]) == str:
             print('{:^20}'.format(row[0]),end='')
@@ -112,4 +113,4 @@ def print_test_results(dataset,feature):
     _dict_print(params)
 
 if __name__ == '__main__':
-    print_params('covtype','Gaussian')
+    print_params('mnist','ReLU')
