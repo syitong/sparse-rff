@@ -1,0 +1,1 @@
+[{'accuracy': 0.7676976299891568, 'traintime': 110.951824273, 'sparsity': 0.5005815476497831, 'testtime': 2.3775632030000082}, 'covtype', {'feature': 'ReLU', 'Gamma': 316.22776601683796, 'classes': [1, 2, 3, 4, 5, 6, 7], 'n_new_features': 2000, 'n_old_features': 54, 'loss_fn': 'log'}, {'bd': 100000, 'n_epoch': 5, 'opt_rate': 31.622776601683793}]

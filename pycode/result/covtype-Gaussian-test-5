@@ -1,0 +1,1 @@
+[{'sparsity': 1.0, 'testtime': 2.659620079999968, 'accuracy': 0.8158207259771777, 'traintime': 126.198008103}, 'covtype', {'loss_fn': 'log', 'Gamma': 0.31622776601683794, 'n_new_features': 2000, 'classes': [1, 2, 3, 4, 5, 6, 7], 'n_old_features': 54, 'feature': 'Gaussian'}, {'opt_rate': 100.0, 'n_epoch': 5, 'bd': 100000}]
