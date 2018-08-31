@@ -30,10 +30,7 @@ def screen_params_alloc(params):
     with open(filename+'alloc','w') as f:
         f.write(str(finalop))
 
-def train_and_test_alloc(params):
-    dataset = params['dataset']
-    feature = params['feature']
-    trials = params['trials']
+def train_and_test_alloc(dataset,feature,trials):
     filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
     tags = ['accuracy','sparsity','traintime','testtime']
     alloc = {}
@@ -41,16 +38,17 @@ def train_and_test_alloc(params):
         tag = tags[idx]
         result = np.zeros(trials)
         for prefix in range(trials):
-            with open('result/'+dataset+'-test-'+str(prefix),'r') as fr:
-                dict1 = eval(fr.read())
+            with open(filename+str(prefix),'r') as fr:
+                dict1,_,model_params,fit_params = eval(fr.read())
             result[prefix] = dict1[tag]
         mean = np.mean(result)
         std = np.std(result)
-        alloc[tag] = {'mean':F_mean,'std':F_std}
-    finalop = [output,params]
+        alloc[tag] = {'mean':mean,'std':std}
+    finalop = [alloc,dataset,model_params,fit_params]
     with open(filename+'alloc','w') as fw:
         fw.write(str(finalop))
 
 if __name__ == '__main__':
-    params = read_params()
-    screen_params_alloc(params)
+    # params = read_params()
+    # screen_params_alloc(params)
+    train_and_test_alloc('sine1-10','ReLU',1)

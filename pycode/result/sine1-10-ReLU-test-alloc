@@ -1,0 +1,1 @@
+[{'accuracy': {'std': 0.0, 'mean': 0.8546}, 'traintime': {'std': 0.0, 'mean': 4.565378885}, 'sparsity': {'std': 0.0, 'mean': 0.48227999999999993}, 'testtime': {'std': 0.0, 'mean': 0.2034591670000001}}, 'sine1-10', {'n_new_features': 10, 'n_old_features': 10, 'classes': [0, 1], 'Gamma': 10.0, 'feature': 'ReLU', 'loss_fn': 'hinge'}, {'bd': 1000, 'n_epoch': 5, 'opt_rate': 10.0}]

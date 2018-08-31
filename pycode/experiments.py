@@ -119,7 +119,7 @@ def train_and_test(dataset,feature,params='auto'):
         # only write log file for trial 0
         logfile = log('log/experiments.log','train and test')
         logfile.record(str(datetime.now()))
-        logfile.record('{0} = {1]'.format('dataset',dataset))
+        logfile.record('{0} = {1}'.format('dataset',dataset))
         for key,val in model_params.items():
             logfile.record('{0} = {1}'.format(key,val))
         for key,val in fit_params.items():
@@ -135,8 +135,9 @@ def train_and_test(dataset,feature,params='auto'):
             'testtime':testtime1
         }
     filename = 'result/{0:s}-{1:s}-test-{2:s}'.format(dataset,feature,prefix)
+    finalop = [output,dataset,model_params,fit_params]
     with open(filename,'w') as f:
-        f.write(str(output))
+        f.write(str(finalop))
 
 def screen_params(params):
     '''
