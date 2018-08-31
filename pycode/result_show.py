@@ -115,4 +115,4 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    print_test_results('sine1-10','ReLU')
+    print_params('checkboard','Gaussian')

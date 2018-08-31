@@ -51,4 +51,3 @@ def train_and_test_alloc(dataset,feature,trials):
 if __name__ == '__main__':
     # params = read_params()
     # screen_params_alloc(params)
-    train_and_test_alloc('sine1-10','ReLU',1)
