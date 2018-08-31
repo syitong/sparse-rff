@@ -109,4 +109,4 @@ def print_test_results(dataset,feature):
         _dict_print(eval(f.read()))
 
 if __name__ == '__main__':
-    print_params('checkboard','Gaussian')
+    print_params('checkboard','ReLU')
