@@ -223,3 +223,183 @@ loss_fn = hinge
 n_epoch = 5
 logGamma = [0.  0.2 0.4 0.6 0.8 1.  1.2 1.4 1.6 1.8 2.  2.2 2.4 2.6]
 
+screen params
+2018-08-31 00:25:27.092733
+classes = [0, 1]
+trials = 10
+dataset = adult
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+feature = ReLU
+N = 2000
+n_epoch = 5
+loss_fn = hinge
+val_size = 30000
+folds = 5
+bd = 100000
+
+screen params
+2018-08-31 10:24:28.285920
+folds = 5
+feature = ReLU
+N = 2000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+n_epoch = 5
+val_size = 30000
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+bd = 100000
+classes = [0, 1]
+trials = 10
+loss_fn = hinge
+dataset = adult
+
+screen params
+2018-08-31 10:31:59.690806
+n_epoch = 5
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+classes = [0, 1]
+loss_fn = hinge
+folds = 5
+val_size = 30000
+bd = 100000
+N = 2000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+dataset = adult
+trials = 10
+feature = Guassian
+
+screen params
+2018-08-31 11:02:02.097940
+loss_fn = hinge
+feature = Guassian
+trials = 10
+bd = 100000
+dataset = adult
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+n_epoch = 5
+val_size = 30000
+classes = [0, 1]
+N = 2000
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+folds = 5
+
+screen params
+2018-08-31 11:09:46.781876
+bd = 100000
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+val_size = 30000
+trials = 10
+folds = 5
+feature = Gaussian
+N = 2000
+classes = [0, 1]
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+n_epoch = 5
+loss_fn = hinge
+dataset = adult
+
+screen params
+2018-08-31 11:20:05.090894
+bd = 100000
+n_epoch = 5
+trials = 10
+folds = 5
+N = 2000
+dataset = mnist
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [0, 1]
+loss_fn = hinge
+val_size = 30000
+feature = Gaussian
+
+screen params
+2018-08-31 11:28:30.935834
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+val_size = 30000
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+dataset = mnist
+folds = 5
+bd = 100000
+loss_fn = log
+N = 2000
+trials = 10
+n_epoch = 5
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+feature = Gaussian
+
+screen params
+2018-08-31 11:58:56.083021
+n_epoch = 5
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+bd = 100000
+val_size = 30000
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+trials = 10
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+N = 2000
+feature = ReLU
+loss_fn = log
+dataset = mnist
+folds = 5
+
+screen params
+2018-08-31 13:13:28.867570
+loss_fn = log
+feature = ReLU
+trials = 10
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+N = 2000
+val_size = 30000
+dataset = covtype
+n_epoch = 5
+bd = 100000
+folds = 5
+classes = [0, 1, 2, 3, 4, 5, 6]
+
+screen params
+2018-08-31 13:27:12.871055
+val_size = 30000
+dataset = covtype
+feature = ReLU
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+loss_fn = log
+trials = 10
+N = 2000
+folds = 5
+bd = 100000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [1, 2, 3, 4, 5, 6, 7]
+n_epoch = 5
+
+screen params
+2018-08-31 14:03:57.371060
+bd = 100000
+classes = [1, 2, 3, 4, 5, 6, 7]
+feature = ReLU
+N = 2000
+n_epoch = 5
+dataset = covtype
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+val_size = 30000
+logGamma = [-2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5]
+loss_fn = log
+trials = 10
+folds = 5
+
+screen params
+2018-08-31 14:16:10.021854
+N = 2000
+classes = [1, 2, 3, 4, 5, 6, 7]
+val_size = 30000
+dataset = covtype
+trials = 10
+n_epoch = 5
+feature = Gaussian
+folds = 5
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+loss_fn = log
+logGamma = [-2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5]
+bd = 100000
+
