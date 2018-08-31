@@ -1,0 +1,1 @@
+[{'accuracy': 0.9517, 'sparsity': 1.0, 'traintime': 1.5762636190000006, 'testtime': 0.10241345300000049}, 'sine1', {'Gamma': 1.0, 'classes': [0, 1], 'n_new_features': 10, 'n_old_features': 2, 'feature': 'Gaussian', 'loss_fn': 'hinge'}, {'n_epoch': 5, 'bd': 1000, 'opt_rate': 10.0}]

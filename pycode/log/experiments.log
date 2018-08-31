@@ -442,3 +442,133 @@ n_epoch = 5
 bd = 1000
 opt_rate = 10.0
 
+train and test
+2018-08-31 16:58:32.425797
+dataset = sine1-10
+Gamma = 10.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 10
+feature = ReLU
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 10.0
+
+train and test
+2018-08-31 16:58:43.393860
+dataset = sine1-10
+Gamma = 0.1
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 10
+feature = Gaussian
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 3.1622776601683795
+
+train and test
+2018-08-31 16:58:45.283789
+dataset = sine1
+Gamma = 3.1622776601683795
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = ReLU
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 316.22776601683796
+
+train and test
+2018-08-31 16:58:47.039532
+dataset = sine1
+Gamma = 1.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = Gaussian
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 10.0
+
+train and test
+2018-08-31 16:58:48.896651
+dataset = strips
+Gamma = 1.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = ReLU
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 10.0
+
+train and test
+2018-08-31 16:58:50.676970
+dataset = strips
+Gamma = 1.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = Gaussian
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 10.0
+
+train and test
+2018-08-31 16:58:52.542029
+dataset = square
+Gamma = 3.1622776601683795
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = ReLU
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 10.0
+
+train and test
+2018-08-31 16:58:54.484512
+dataset = square
+Gamma = 1.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = Gaussian
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 100.0
+
+train and test
+2018-08-31 16:58:56.444071
+dataset = checkboard
+Gamma = 158.48931924611142
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = ReLU
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 31.622776601683793
+
+train and test
+2018-08-31 16:58:58.193859
+dataset = checkboard
+Gamma = 10.0
+classes = [0, 1]
+n_new_features = 10
+n_old_features = 2
+feature = Gaussian
+loss_fn = hinge
+n_epoch = 5
+bd = 1000
+opt_rate = 31.622776601683793
+

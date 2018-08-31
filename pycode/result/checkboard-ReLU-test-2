@@ -1,0 +1,1 @@
+[{'sparsity': 0.51003, 'testtime': 0.09683641399999843, 'traintime': 1.5448548670000015, 'accuracy': 0.5681}, 'checkboard', {'Gamma': 158.48931924611142, 'n_new_features': 10, 'classes': [0, 1], 'feature': 'ReLU', 'loss_fn': 'hinge', 'n_old_features': 2}, {'opt_rate': 31.622776601683793, 'bd': 1000, 'n_epoch': 5}]

@@ -1,0 +1,1 @@
+[{'accuracy': 0.673, 'testtime': 0.09369542900000027, 'traintime': 1.5243103040000001, 'sparsity': 1.0}, 'strips', {'loss_fn': 'hinge', 'n_old_features': 2, 'n_new_features': 10, 'classes': [0, 1], 'feature': 'Gaussian', 'Gamma': 1.0}, {'bd': 1000, 'n_epoch': 5, 'opt_rate': 10.0}]

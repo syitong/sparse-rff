@@ -1,0 +1,1 @@
+[{'accuracy': 0.7061, 'traintime': 1.5841029790000007, 'testtime': 0.09604244100000159, 'sparsity': 0.38449000000000005}, 'strips', {'n_new_features': 10, 'feature': 'ReLU', 'classes': [0, 1], 'Gamma': 1.0, 'loss_fn': 'hinge', 'n_old_features': 2}, {'opt_rate': 10.0, 'n_epoch': 5, 'bd': 1000}]

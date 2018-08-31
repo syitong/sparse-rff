@@ -1,0 +1,1 @@
+[{'traintime': 1.5911849710000006, 'accuracy': 0.6362, 'sparsity': 1.0, 'testtime': 0.09985579599999994}, 'checkboard', {'feature': 'Gaussian', 'loss_fn': 'hinge', 'n_new_features': 10, 'classes': [0, 1], 'n_old_features': 2, 'Gamma': 10.0}, {'bd': 1000, 'n_epoch': 5, 'opt_rate': 31.622776601683793}]
