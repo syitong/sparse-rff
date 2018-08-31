@@ -318,5 +318,7 @@ def screen_params(params):
 if __name__ == '__main__':
     # params = read_params()
     # screen_params(params)
-    train_and_test('covtype','ReLU')
-    train_and_test('covtype','Gaussian')
+    train_and_test('adult','ReLU')
+    train_and_test('adult','Gaussian')
+    train_and_test('mnist','ReLU')
+    train_and_test('mnist','Gaussian')
