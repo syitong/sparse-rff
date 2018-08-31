@@ -86,7 +86,7 @@ def _train_and_test(Xtr,Ytr,Xts,Yts,model_type,model_params,fit_params):
     score = sum(Ypr == Yts) / len(Yts)
     return score,sparsity,t2-t1,t3-t2
 
-def train_and_test(params):
+def train_and_test(dataset,feature,params='auto'):
     '''
     params = {
         'dataset': ,
@@ -98,18 +98,10 @@ def train_and_test(params):
         'feature': ,
         }
     '''
-    dataset = params['dataset']
-    feature = params['feature']
     prefix = argv[1]
-    if prefix == '0':
-        # only write log file for trial 0
-        logfile = log('log/experiments.log','train and test')
-        logfile.record(str(datetime.now()))
-        for key,val in params.items():
-            logfile.record('{0} = {1}'.format(key,val))
-        logfile.save()
+    if params == 'auto':
+        logGamma,lograte,params = print_params(dataset,feature)
     Xtrain,Ytrain,Xtest,Ytest = read_data(dataset)
-    logGamma,lograte = print_params(dataset,feature)
     model_params = {
         'n_old_features':len(Xtrain[0]),
         'n_new_features':params['N'],
@@ -123,6 +115,16 @@ def train_and_test(params):
     model_params['Gamma'] = 10. ** logGamma
     model_params['feature'] = feature
     fit_params['opt_rate'] = 10. ** lograte
+    if prefix == '0':
+        # only write log file for trial 0
+        logfile = log('log/experiments.log','train and test')
+        logfile.record(str(datetime.now()))
+        logfile.record('{0} = {1]'.format('dataset',dataset)
+        for key,val in model_params.items():
+            logfile.record('{0} = {1}'.format(key,val))
+        for key,val in fit_params.items():
+            logfile.record('{0} = {1}'.format(key,val))
+        logfile.save()
     model_type = librf.RF
     score1,sparsity1,traintime1,testtime1 = _train_and_test(Xtrain,
         Ytrain,Xtest,Ytest,model_type,model_params,fit_params)

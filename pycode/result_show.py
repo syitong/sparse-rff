@@ -70,7 +70,7 @@ def plot_params(dataset):
 def print_params(dataset,feature):
     filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
     with open(filename+'alloc','r') as f:
-        result = eval(f.read())
+        result,params = eval(f.read())
     for row in result:
         if type(row[0]) == str:
             print('{:^20}'.format(row[0]),end='')
@@ -90,7 +90,8 @@ def print_params(dataset,feature):
     lograte = result[x+1][0]
     print('best log(Gamma): ',logGamma)
     print('best log(rate): ',lograte)
-    return logGamma,lograte
+    _dict_print(params)
+    return logGamma,lograte,params
 
 def _dict_print(dictx,loc=0):
     for key,value in dictx.items():
@@ -106,7 +107,9 @@ def _dict_print(dictx,loc=0):
 def print_test_results(dataset,feature):
     filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
     with open(filename+'-alloc','r') as f:
-        _dict_print(eval(f.read()))
+        result,params = eval(f.read())
+    _dict_print(result)
+    _dict_print(params)
 
 if __name__ == '__main__':
     print_params('covtype','Gaussian')

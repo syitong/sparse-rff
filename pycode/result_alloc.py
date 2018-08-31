@@ -26,8 +26,9 @@ def screen_params_alloc(params):
         for item in result:
             row.append(item['score'])
         output.append(row)
+    finalop = [output,params]
     with open(filename+'alloc','w') as f:
-        f.write(str(output))
+        f.write(str(finalop))
 
 def train_and_test_alloc(params):
     dataset = params['dataset']
@@ -46,9 +47,9 @@ def train_and_test_alloc(params):
         mean = np.mean(result)
         std = np.std(result)
         alloc[tag] = {'mean':F_mean,'std':F_std}
-
+    finalop = [output,params]
     with open(filename+'alloc','w') as fw:
-        fw.write(str(alloc))
+        fw.write(str(finalop))
 
 if __name__ == '__main__':
     params = read_params()
