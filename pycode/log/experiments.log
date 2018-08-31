@@ -43,3 +43,153 @@ trials = 10
 logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
 classes = [0, 1]
 
+screen params
+2018-08-30 17:54:10.535625
+dataset = strips
+N = 10
+folds = 5
+feature = ReLU
+classes = [0, 1]
+loss_fn = hinge
+bd = 1000
+val_size = 3000
+trials = 10
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+n_epoch = 5
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+
+screen params
+2018-08-30 22:24:55.499193
+n_epoch = 5
+bd = 1000
+trials = 10
+folds = 5
+val_size = 3000
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+dataset = strips
+N = 10
+classes = [0, 1]
+feature = Gaussian
+loss_fn = hinge
+
+screen params
+2018-08-30 22:39:15.376912
+feature = Gaussian
+bd = 1000
+loss_fn = hinge
+val_size = 3000
+N = 10
+trials = 10
+folds = 5
+classes = [0, 1]
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+dataset = sine1
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+n_epoch = 5
+
+screen params
+2018-08-30 22:46:23.467080
+trials = 10
+loss_fn = hinge
+folds = 5
+feature = ReLU
+bd = 1000
+classes = [0, 1]
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+n_epoch = 5
+N = 10
+dataset = sine1
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+val_size = 3000
+
+screen params
+2018-08-30 23:01:56.994511
+n_epoch = 5
+folds = 5
+dataset = square
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+val_size = 3000
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+classes = [0, 1]
+bd = 1000
+feature = ReLU
+N = 10
+trials = 10
+loss_fn = hinge
+
+screen params
+2018-08-30 23:10:00.899329
+n_epoch = 5
+dataset = square
+classes = [0, 1]
+N = 10
+folds = 5
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+bd = 1000
+feature = Gaussian
+trials = 10
+val_size = 3000
+loss_fn = hinge
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+
+screen params
+2018-08-30 23:19:06.471000
+bd = 1000
+n_epoch = 5
+val_size = 3000
+dataset = checkboard
+loss_fn = hinge
+feature = Gaussian
+trials = 10
+N = 10
+folds = 5
+classes = [0, 1]
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+
+screen params
+2018-08-30 23:29:28.323052
+bd = 1000
+logGamma = [-5.  -4.5 -4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+N = 10
+val_size = 3000
+loss_fn = hinge
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+folds = 5
+n_epoch = 5
+dataset = checkboard
+classes = [0, 1]
+trials = 10
+feature = ReLU
+
+screen params
+2018-08-30 23:37:45.247363
+logGamma = [1.  1.2 1.4 1.6 1.8 2.  2.2 2.4 2.6 2.8 3.  3.2 3.4 3.6 3.8]
+dataset = checkboard
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+bd = 1000
+loss_fn = hinge
+trials = 10
+folds = 5
+classes = [0, 1]
+val_size = 3000
+n_epoch = 5
+feature = ReLU
+N = 10
+
+screen params
+2018-08-30 23:47:16.018211
+dataset = checkboard
+n_epoch = 5
+val_size = 3000
+N = 10
+bd = 1000
+logGamma = [1.  1.2 1.4 1.6 1.8 2.  2.2 2.4 2.6 2.8 3.  3.2 3.4 3.6 3.8]
+loss_fn = hinge
+trials = 10
+feature = Gaussian
+lograte = [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+folds = 5
+classes = [0, 1]
+

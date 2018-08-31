@@ -1,0 +1,832 @@
+nyx7013
+nyx7013
+2018-08-30 23:47:16.406990: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-30 23:47:16.407029: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-30 23:47:16.407047: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-30 23:47:16.407062: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-08-30 23:47:16.407077: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+epoch: 0, iter: 1, loss: 1.0468
+epoch: 0, iter: 11, loss: 0.8739
+epoch: 1, iter: 1, loss: 0.7852
+epoch: 1, iter: 11, loss: 0.9363
+epoch: 2, iter: 1, loss: 0.8246
+epoch: 2, iter: 11, loss: 0.8502
+epoch: 3, iter: 1, loss: 0.8150
+epoch: 3, iter: 11, loss: 0.8371
+epoch: 4, iter: 1, loss: 0.7444
+epoch: 4, iter: 11, loss: 0.7876
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0812
+epoch: 0, iter: 11, loss: 0.8650
+epoch: 1, iter: 1, loss: 0.8784
+epoch: 1, iter: 11, loss: 0.8003
+epoch: 2, iter: 1, loss: 0.7777
+epoch: 2, iter: 11, loss: 0.8157
+epoch: 3, iter: 1, loss: 0.7505
+epoch: 3, iter: 11, loss: 0.7667
+epoch: 4, iter: 1, loss: 0.7168
+epoch: 4, iter: 11, loss: 0.7196
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0204
+epoch: 0, iter: 11, loss: 0.9153
+epoch: 1, iter: 1, loss: 0.8814
+epoch: 1, iter: 11, loss: 0.8515
+epoch: 2, iter: 1, loss: 0.8691
+epoch: 2, iter: 11, loss: 0.8087
+epoch: 3, iter: 1, loss: 0.8168
+epoch: 3, iter: 11, loss: 0.8055
+epoch: 4, iter: 1, loss: 0.7890
+epoch: 4, iter: 11, loss: 0.7928
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9659
+epoch: 0, iter: 11, loss: 0.7081
+epoch: 1, iter: 1, loss: 0.7077
+epoch: 1, iter: 11, loss: 0.6029
+epoch: 2, iter: 1, loss: 0.5972
+epoch: 2, iter: 11, loss: 0.6714
+epoch: 3, iter: 1, loss: 0.6216
+epoch: 3, iter: 11, loss: 0.6383
+epoch: 4, iter: 1, loss: 0.6043
+epoch: 4, iter: 11, loss: 0.7297
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9472
+epoch: 0, iter: 11, loss: 0.8086
+epoch: 1, iter: 1, loss: 0.7597
+epoch: 1, iter: 11, loss: 0.8168
+epoch: 2, iter: 1, loss: 0.7282
+epoch: 2, iter: 11, loss: 0.7111
+epoch: 3, iter: 1, loss: 0.7620
+epoch: 3, iter: 11, loss: 0.7212
+epoch: 4, iter: 1, loss: 0.7526
+epoch: 4, iter: 11, loss: 0.7102
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9797
+epoch: 0, iter: 11, loss: 0.9197
+epoch: 1, iter: 1, loss: 1.0254
+epoch: 1, iter: 11, loss: 0.9350
+epoch: 2, iter: 1, loss: 0.9424
+epoch: 2, iter: 11, loss: 0.9233
+epoch: 3, iter: 1, loss: 0.9920
+epoch: 3, iter: 11, loss: 0.9483
+epoch: 4, iter: 1, loss: 0.9484
+epoch: 4, iter: 11, loss: 0.9260
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0555
+epoch: 0, iter: 11, loss: 0.9721
+epoch: 1, iter: 1, loss: 0.9282
+epoch: 1, iter: 11, loss: 0.9490
+epoch: 2, iter: 1, loss: 0.9113
+epoch: 2, iter: 11, loss: 0.9568
+epoch: 3, iter: 1, loss: 0.8599
+epoch: 3, iter: 11, loss: 0.9868
+epoch: 4, iter: 1, loss: 0.9951
+epoch: 4, iter: 11, loss: 0.8935
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9501
+epoch: 0, iter: 11, loss: 0.8096
+epoch: 1, iter: 1, loss: 0.6607
+epoch: 1, iter: 11, loss: 0.7183
+epoch: 2, iter: 1, loss: 0.7476
+epoch: 2, iter: 11, loss: 0.6994
+epoch: 3, iter: 1, loss: 0.6444
+epoch: 3, iter: 11, loss: 0.6986
+epoch: 4, iter: 1, loss: 0.7597
+epoch: 4, iter: 11, loss: 0.6477
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9184
+epoch: 0, iter: 11, loss: 0.7608
+epoch: 1, iter: 1, loss: 0.7544
+epoch: 1, iter: 11, loss: 0.5977
+epoch: 2, iter: 1, loss: 0.6478
+epoch: 2, iter: 11, loss: 0.6799
+epoch: 3, iter: 1, loss: 0.5276
+epoch: 3, iter: 11, loss: 0.6261
+epoch: 4, iter: 1, loss: 0.6204
+epoch: 4, iter: 11, loss: 0.7708
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0373
+epoch: 0, iter: 11, loss: 1.0124
+epoch: 1, iter: 1, loss: 0.9306
+epoch: 1, iter: 11, loss: 0.9457
+epoch: 2, iter: 1, loss: 0.9127
+epoch: 2, iter: 11, loss: 0.8953
+epoch: 3, iter: 1, loss: 0.8965
+epoch: 3, iter: 11, loss: 0.9036
+epoch: 4, iter: 1, loss: 0.8148
+epoch: 4, iter: 11, loss: 0.9227
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0326
+epoch: 0, iter: 11, loss: 0.7499
+epoch: 1, iter: 1, loss: 0.8169
+epoch: 1, iter: 11, loss: 0.7751
+epoch: 2, iter: 1, loss: 0.7053
+epoch: 2, iter: 11, loss: 0.7060
+epoch: 3, iter: 1, loss: 0.7869
+epoch: 3, iter: 11, loss: 0.6723
+epoch: 4, iter: 1, loss: 0.7807
+epoch: 4, iter: 11, loss: 0.7136
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0223
+epoch: 0, iter: 11, loss: 0.9778
+epoch: 1, iter: 1, loss: 0.8883
+epoch: 1, iter: 11, loss: 1.0504
+epoch: 2, iter: 1, loss: 1.0220
+epoch: 2, iter: 11, loss: 1.0244
+epoch: 3, iter: 1, loss: 1.0015
+epoch: 3, iter: 11, loss: 1.0142
+epoch: 4, iter: 1, loss: 0.9640
+epoch: 4, iter: 11, loss: 0.9835
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0530
+epoch: 0, iter: 11, loss: 0.9197
+epoch: 1, iter: 1, loss: 0.9272
+epoch: 1, iter: 11, loss: 0.9826
+epoch: 2, iter: 1, loss: 0.9176
+epoch: 2, iter: 11, loss: 0.9165
+epoch: 3, iter: 1, loss: 0.9320
+epoch: 3, iter: 11, loss: 0.9182
+epoch: 4, iter: 1, loss: 0.9593
+epoch: 4, iter: 11, loss: 0.9703
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9953
+epoch: 0, iter: 11, loss: 0.9148
+epoch: 1, iter: 1, loss: 0.8906
+epoch: 1, iter: 11, loss: 0.8681
+epoch: 2, iter: 1, loss: 0.8443
+epoch: 2, iter: 11, loss: 0.8461
+epoch: 3, iter: 1, loss: 0.8399
+epoch: 3, iter: 11, loss: 0.8778
+epoch: 4, iter: 1, loss: 0.8902
+epoch: 4, iter: 11, loss: 0.8727
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9378
+epoch: 0, iter: 11, loss: 0.5670
+epoch: 1, iter: 1, loss: 0.5246
+epoch: 1, iter: 11, loss: 0.4822
+epoch: 2, iter: 1, loss: 0.6038
+epoch: 2, iter: 11, loss: 0.5895
+epoch: 3, iter: 1, loss: 0.4345
+epoch: 3, iter: 11, loss: 0.5808
+epoch: 4, iter: 1, loss: 0.5091
+epoch: 4, iter: 11, loss: 0.5916
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0713
+epoch: 0, iter: 11, loss: 0.9678
+epoch: 1, iter: 1, loss: 0.9385
+epoch: 1, iter: 11, loss: 0.8678
+epoch: 2, iter: 1, loss: 0.8960
+epoch: 2, iter: 11, loss: 0.9854
+epoch: 3, iter: 1, loss: 0.7980
+epoch: 3, iter: 11, loss: 0.8609
+epoch: 4, iter: 1, loss: 0.8998
+epoch: 4, iter: 11, loss: 0.8183
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1949
+epoch: 0, iter: 11, loss: 0.7006
+epoch: 1, iter: 1, loss: 0.6595
+epoch: 1, iter: 11, loss: 0.6555
+epoch: 2, iter: 1, loss: 0.5735
+epoch: 2, iter: 11, loss: 0.5983
+epoch: 3, iter: 1, loss: 0.5413
+epoch: 3, iter: 11, loss: 0.5453
+epoch: 4, iter: 1, loss: 0.6099
+epoch: 4, iter: 11, loss: 0.5909
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0188
+epoch: 0, iter: 11, loss: 1.0024
+epoch: 1, iter: 1, loss: 1.0426
+epoch: 1, iter: 11, loss: 0.9738
+epoch: 2, iter: 1, loss: 0.9346
+epoch: 2, iter: 11, loss: 1.0365
+epoch: 3, iter: 1, loss: 0.9612
+epoch: 3, iter: 11, loss: 0.9655
+epoch: 4, iter: 1, loss: 1.0412
+epoch: 4, iter: 11, loss: 0.9411
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0285
+epoch: 0, iter: 11, loss: 0.9535
+epoch: 1, iter: 1, loss: 0.9480
+epoch: 1, iter: 11, loss: 0.9233
+epoch: 2, iter: 1, loss: 0.9635
+epoch: 2, iter: 11, loss: 0.8849
+epoch: 3, iter: 1, loss: 0.8671
+epoch: 3, iter: 11, loss: 0.9310
+epoch: 4, iter: 1, loss: 0.8298
+epoch: 4, iter: 11, loss: 0.8999
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1412
+epoch: 0, iter: 11, loss: 0.6972
+epoch: 1, iter: 1, loss: 0.6310
+epoch: 1, iter: 11, loss: 0.6141
+epoch: 2, iter: 1, loss: 0.5340
+epoch: 2, iter: 11, loss: 0.6372
+epoch: 3, iter: 1, loss: 0.5898
+epoch: 3, iter: 11, loss: 0.4739
+epoch: 4, iter: 1, loss: 0.5550
+epoch: 4, iter: 11, loss: 0.5960
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9823
+epoch: 0, iter: 11, loss: 0.9784
+epoch: 1, iter: 1, loss: 1.0454
+epoch: 1, iter: 11, loss: 0.9460
+epoch: 2, iter: 1, loss: 0.9394
+epoch: 2, iter: 11, loss: 0.9226
+epoch: 3, iter: 1, loss: 1.0013
+epoch: 3, iter: 11, loss: 0.9432
+epoch: 4, iter: 1, loss: 0.9186
+epoch: 4, iter: 11, loss: 0.9346
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0854
+epoch: 0, iter: 11, loss: 1.0611
+epoch: 1, iter: 1, loss: 0.9272
+epoch: 1, iter: 11, loss: 0.9637
+epoch: 2, iter: 1, loss: 0.9146
+epoch: 2, iter: 11, loss: 0.9447
+epoch: 3, iter: 1, loss: 0.9029
+epoch: 3, iter: 11, loss: 0.8597
+epoch: 4, iter: 1, loss: 0.9324
+epoch: 4, iter: 11, loss: 0.9020
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0549
+epoch: 0, iter: 11, loss: 0.7084
+epoch: 1, iter: 1, loss: 0.6962
+epoch: 1, iter: 11, loss: 0.6670
+epoch: 2, iter: 1, loss: 0.6403
+epoch: 2, iter: 11, loss: 0.6204
+epoch: 3, iter: 1, loss: 0.5906
+epoch: 3, iter: 11, loss: 0.6032
+epoch: 4, iter: 1, loss: 0.5909
+epoch: 4, iter: 11, loss: 0.6273
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1065
+epoch: 0, iter: 11, loss: 1.0518
+epoch: 1, iter: 1, loss: 1.0502
+epoch: 1, iter: 11, loss: 0.9602
+epoch: 2, iter: 1, loss: 0.9404
+epoch: 2, iter: 11, loss: 0.9585
+epoch: 3, iter: 1, loss: 0.9537
+epoch: 3, iter: 11, loss: 0.9373
+epoch: 4, iter: 1, loss: 0.9242
+epoch: 4, iter: 11, loss: 0.9581
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0168
+epoch: 0, iter: 11, loss: 1.0147
+epoch: 1, iter: 1, loss: 1.0372
+epoch: 1, iter: 11, loss: 0.9658
+epoch: 2, iter: 1, loss: 0.9875
+epoch: 2, iter: 11, loss: 1.0209
+epoch: 3, iter: 1, loss: 1.0192
+epoch: 3, iter: 11, loss: 0.9652
+epoch: 4, iter: 1, loss: 0.9338
+epoch: 4, iter: 11, loss: 1.0075
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9781
+epoch: 0, iter: 11, loss: 0.9503
+epoch: 1, iter: 1, loss: 0.9662
+epoch: 1, iter: 11, loss: 1.0435
+epoch: 2, iter: 1, loss: 0.9838
+epoch: 2, iter: 11, loss: 0.9768
+epoch: 3, iter: 1, loss: 0.9465
+epoch: 3, iter: 11, loss: 0.9690
+epoch: 4, iter: 1, loss: 0.9521
+epoch: 4, iter: 11, loss: 0.9149
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9898
+epoch: 0, iter: 11, loss: 1.0242
+epoch: 1, iter: 1, loss: 0.9532
+epoch: 1, iter: 11, loss: 1.0114
+epoch: 2, iter: 1, loss: 0.9726
+epoch: 2, iter: 11, loss: 0.9385
+epoch: 3, iter: 1, loss: 0.9530
+epoch: 3, iter: 11, loss: 1.0235
+epoch: 4, iter: 1, loss: 0.9860
+epoch: 4, iter: 11, loss: 0.9820
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9801
+epoch: 0, iter: 11, loss: 0.9954
+epoch: 1, iter: 1, loss: 1.0197
+epoch: 1, iter: 11, loss: 0.9866
+epoch: 2, iter: 1, loss: 0.9409
+epoch: 2, iter: 11, loss: 0.8932
+epoch: 3, iter: 1, loss: 0.8995
+epoch: 3, iter: 11, loss: 0.9065
+epoch: 4, iter: 1, loss: 0.9183
+epoch: 4, iter: 11, loss: 0.9381
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0118
+epoch: 0, iter: 11, loss: 0.7849
+epoch: 1, iter: 1, loss: 0.7797
+epoch: 1, iter: 11, loss: 0.7716
+epoch: 2, iter: 1, loss: 0.6928
+epoch: 2, iter: 11, loss: 0.6373
+epoch: 3, iter: 1, loss: 0.6803
+epoch: 3, iter: 11, loss: 0.6196
+epoch: 4, iter: 1, loss: 0.7077
+epoch: 4, iter: 11, loss: 0.7502
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0793
+epoch: 0, iter: 11, loss: 0.9767
+epoch: 1, iter: 1, loss: 1.0640
+epoch: 1, iter: 11, loss: 0.9850
+epoch: 2, iter: 1, loss: 1.0400
+epoch: 2, iter: 11, loss: 0.9920
+epoch: 3, iter: 1, loss: 0.9490
+epoch: 3, iter: 11, loss: 0.9593
+epoch: 4, iter: 1, loss: 0.9898
+epoch: 4, iter: 11, loss: 0.9354
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0297
+epoch: 0, iter: 11, loss: 0.9831
+epoch: 1, iter: 1, loss: 1.0573
+epoch: 1, iter: 11, loss: 0.9733
+epoch: 2, iter: 1, loss: 0.9551
+epoch: 2, iter: 11, loss: 1.0154
+epoch: 3, iter: 1, loss: 0.8879
+epoch: 3, iter: 11, loss: 1.0121
+epoch: 4, iter: 1, loss: 0.8982
+epoch: 4, iter: 11, loss: 0.9624
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0648
+epoch: 0, iter: 11, loss: 0.9594
+epoch: 1, iter: 1, loss: 0.9933
+epoch: 1, iter: 11, loss: 0.9368
+epoch: 2, iter: 1, loss: 0.9978
+epoch: 2, iter: 11, loss: 0.9615
+epoch: 3, iter: 1, loss: 0.9680
+epoch: 3, iter: 11, loss: 0.9491
+epoch: 4, iter: 1, loss: 1.0217
+epoch: 4, iter: 11, loss: 0.9999
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9904
+epoch: 0, iter: 11, loss: 1.0992
+epoch: 1, iter: 1, loss: 0.9873
+epoch: 1, iter: 11, loss: 1.0443
+epoch: 2, iter: 1, loss: 1.0004
+epoch: 2, iter: 11, loss: 1.0112
+epoch: 3, iter: 1, loss: 0.9419
+epoch: 3, iter: 11, loss: 1.0019
+epoch: 4, iter: 1, loss: 0.9990
+epoch: 4, iter: 11, loss: 1.0240
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0721
+epoch: 0, iter: 11, loss: 0.9958
+epoch: 1, iter: 1, loss: 1.0117
+epoch: 1, iter: 11, loss: 1.0158
+epoch: 2, iter: 1, loss: 0.9471
+epoch: 2, iter: 11, loss: 0.9995
+epoch: 3, iter: 1, loss: 0.9691
+epoch: 3, iter: 11, loss: 0.9947
+epoch: 4, iter: 1, loss: 1.0031
+epoch: 4, iter: 11, loss: 0.9557
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0455
+epoch: 0, iter: 11, loss: 1.0189
+epoch: 1, iter: 1, loss: 1.0514
+epoch: 1, iter: 11, loss: 0.9676
+epoch: 2, iter: 1, loss: 0.8969
+epoch: 2, iter: 11, loss: 0.9611
+epoch: 3, iter: 1, loss: 0.9788
+epoch: 3, iter: 11, loss: 1.0046
+epoch: 4, iter: 1, loss: 0.9765
+epoch: 4, iter: 11, loss: 0.9587
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0369
+epoch: 0, iter: 11, loss: 0.9800
+epoch: 1, iter: 1, loss: 1.0050
+epoch: 1, iter: 11, loss: 0.9989
+epoch: 2, iter: 1, loss: 1.0151
+epoch: 2, iter: 11, loss: 0.9980
+epoch: 3, iter: 1, loss: 0.9807
+epoch: 3, iter: 11, loss: 0.9872
+epoch: 4, iter: 1, loss: 0.9828
+epoch: 4, iter: 11, loss: 1.0258
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9759
+epoch: 0, iter: 11, loss: 0.9813
+epoch: 1, iter: 1, loss: 0.9742
+epoch: 1, iter: 11, loss: 0.9741
+epoch: 2, iter: 1, loss: 0.9987
+epoch: 2, iter: 11, loss: 0.9567
+epoch: 3, iter: 1, loss: 0.9455
+epoch: 3, iter: 11, loss: 0.9690
+epoch: 4, iter: 1, loss: 0.9893
+epoch: 4, iter: 11, loss: 0.9570
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1131
+epoch: 0, iter: 11, loss: 1.0101
+epoch: 1, iter: 1, loss: 1.0099
+epoch: 1, iter: 11, loss: 0.9441
+epoch: 2, iter: 1, loss: 0.9626
+epoch: 2, iter: 11, loss: 0.8928
+epoch: 3, iter: 1, loss: 0.9873
+epoch: 3, iter: 11, loss: 0.9707
+epoch: 4, iter: 1, loss: 0.8935
+epoch: 4, iter: 11, loss: 0.9363
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0335
+epoch: 0, iter: 11, loss: 0.9177
+epoch: 1, iter: 1, loss: 0.9079
+epoch: 1, iter: 11, loss: 0.8243
+epoch: 2, iter: 1, loss: 0.7663
+epoch: 2, iter: 11, loss: 0.8633
+epoch: 3, iter: 1, loss: 0.8341
+epoch: 3, iter: 11, loss: 0.9216
+epoch: 4, iter: 1, loss: 0.9103
+epoch: 4, iter: 11, loss: 0.7986
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0432
+epoch: 0, iter: 11, loss: 0.9847
+epoch: 1, iter: 1, loss: 1.0214
+epoch: 1, iter: 11, loss: 1.0088
+epoch: 2, iter: 1, loss: 1.0087
+epoch: 2, iter: 11, loss: 0.9650
+epoch: 3, iter: 1, loss: 0.9367
+epoch: 3, iter: 11, loss: 1.0377
+epoch: 4, iter: 1, loss: 0.9887
+epoch: 4, iter: 11, loss: 1.0289
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0831
+epoch: 0, iter: 11, loss: 1.0374
+epoch: 1, iter: 1, loss: 1.0047
+epoch: 1, iter: 11, loss: 0.9828
+epoch: 2, iter: 1, loss: 0.9996
+epoch: 2, iter: 11, loss: 0.9584
+epoch: 3, iter: 1, loss: 0.9802
+epoch: 3, iter: 11, loss: 0.9453
+epoch: 4, iter: 1, loss: 0.9547
+epoch: 4, iter: 11, loss: 0.9739
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0580
+epoch: 0, iter: 11, loss: 1.0043
+epoch: 1, iter: 1, loss: 0.9652
+epoch: 1, iter: 11, loss: 1.0407
+epoch: 2, iter: 1, loss: 1.0231
+epoch: 2, iter: 11, loss: 0.9627
+epoch: 3, iter: 1, loss: 0.9816
+epoch: 3, iter: 11, loss: 1.0309
+epoch: 4, iter: 1, loss: 0.9985
+epoch: 4, iter: 11, loss: 0.9215
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0855
+epoch: 0, iter: 11, loss: 0.9510
+epoch: 1, iter: 1, loss: 0.9877
+epoch: 1, iter: 11, loss: 0.9962
+epoch: 2, iter: 1, loss: 0.9833
+epoch: 2, iter: 11, loss: 0.9668
+epoch: 3, iter: 1, loss: 0.9426
+epoch: 3, iter: 11, loss: 0.9089
+epoch: 4, iter: 1, loss: 0.9280
+epoch: 4, iter: 11, loss: 0.9305
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9832
+epoch: 0, iter: 11, loss: 0.9880
+epoch: 1, iter: 1, loss: 0.9347
+epoch: 1, iter: 11, loss: 0.9763
+epoch: 2, iter: 1, loss: 1.0476
+epoch: 2, iter: 11, loss: 0.9694
+epoch: 3, iter: 1, loss: 0.9168
+epoch: 3, iter: 11, loss: 0.9873
+epoch: 4, iter: 1, loss: 0.8948
+epoch: 4, iter: 11, loss: 0.9496
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9919
+epoch: 0, iter: 11, loss: 0.9616
+epoch: 1, iter: 1, loss: 0.9700
+epoch: 1, iter: 11, loss: 1.0181
+epoch: 2, iter: 1, loss: 0.9919
+epoch: 2, iter: 11, loss: 0.9550
+epoch: 3, iter: 1, loss: 1.0029
+epoch: 3, iter: 11, loss: 0.9977
+epoch: 4, iter: 1, loss: 0.9798
+epoch: 4, iter: 11, loss: 0.9493
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0917
+epoch: 0, iter: 11, loss: 0.9620
+epoch: 1, iter: 1, loss: 0.9995
+epoch: 1, iter: 11, loss: 0.9905
+epoch: 2, iter: 1, loss: 1.0502
+epoch: 2, iter: 11, loss: 0.9975
+epoch: 3, iter: 1, loss: 1.0148
+epoch: 3, iter: 11, loss: 1.0023
+epoch: 4, iter: 1, loss: 1.0055
+epoch: 4, iter: 11, loss: 0.9848
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0150
+epoch: 0, iter: 11, loss: 0.9827
+epoch: 1, iter: 1, loss: 1.0014
+epoch: 1, iter: 11, loss: 0.9915
+epoch: 2, iter: 1, loss: 0.9946
+epoch: 2, iter: 11, loss: 0.9598
+epoch: 3, iter: 1, loss: 0.9778
+epoch: 3, iter: 11, loss: 1.0677
+epoch: 4, iter: 1, loss: 0.9857
+epoch: 4, iter: 11, loss: 0.9308
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0616
+epoch: 0, iter: 11, loss: 1.0118
+epoch: 1, iter: 1, loss: 0.9281
+epoch: 1, iter: 11, loss: 0.9957
+epoch: 2, iter: 1, loss: 0.9452
+epoch: 2, iter: 11, loss: 0.9363
+epoch: 3, iter: 1, loss: 1.0121
+epoch: 3, iter: 11, loss: 1.0490
+epoch: 4, iter: 1, loss: 0.9710
+epoch: 4, iter: 11, loss: 1.0193
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0410
+epoch: 0, iter: 11, loss: 1.0305
+epoch: 1, iter: 1, loss: 1.0318
+epoch: 1, iter: 11, loss: 0.9857
+epoch: 2, iter: 1, loss: 1.0152
+epoch: 2, iter: 11, loss: 0.9516
+epoch: 3, iter: 1, loss: 0.9757
+epoch: 3, iter: 11, loss: 1.0262
+epoch: 4, iter: 1, loss: 1.0431
+epoch: 4, iter: 11, loss: 1.0183
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0011
+epoch: 0, iter: 11, loss: 0.9374
+epoch: 1, iter: 1, loss: 1.0357
+epoch: 1, iter: 11, loss: 1.0074
+epoch: 2, iter: 1, loss: 0.9658
+epoch: 2, iter: 11, loss: 0.9628
+epoch: 3, iter: 1, loss: 0.9518
+epoch: 3, iter: 11, loss: 0.9513
+epoch: 4, iter: 1, loss: 0.9858
+epoch: 4, iter: 11, loss: 0.9741
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0662
+epoch: 0, iter: 11, loss: 0.9776
+epoch: 1, iter: 1, loss: 1.0072
+epoch: 1, iter: 11, loss: 1.0170
+epoch: 2, iter: 1, loss: 0.9474
+epoch: 2, iter: 11, loss: 1.0144
+epoch: 3, iter: 1, loss: 0.9714
+epoch: 3, iter: 11, loss: 0.9609
+epoch: 4, iter: 1, loss: 0.9148
+epoch: 4, iter: 11, loss: 1.0182
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0603
+epoch: 0, iter: 11, loss: 1.1005
+epoch: 1, iter: 1, loss: 1.0281
+epoch: 1, iter: 11, loss: 1.0220
+epoch: 2, iter: 1, loss: 0.9785
+epoch: 2, iter: 11, loss: 0.9885
+epoch: 3, iter: 1, loss: 1.0088
+epoch: 3, iter: 11, loss: 0.9588
+epoch: 4, iter: 1, loss: 1.0419
+epoch: 4, iter: 11, loss: 0.9837
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0353
+epoch: 0, iter: 11, loss: 1.0408
+epoch: 1, iter: 1, loss: 1.0376
+epoch: 1, iter: 11, loss: 0.9798
+epoch: 2, iter: 1, loss: 0.9315
+epoch: 2, iter: 11, loss: 0.9686
+epoch: 3, iter: 1, loss: 0.9631
+epoch: 3, iter: 11, loss: 0.9496
+epoch: 4, iter: 1, loss: 1.0188
+epoch: 4, iter: 11, loss: 0.9462
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0362
+epoch: 0, iter: 11, loss: 0.9496
+epoch: 1, iter: 1, loss: 0.9623
+epoch: 1, iter: 11, loss: 0.9516
+epoch: 2, iter: 1, loss: 0.9416
+epoch: 2, iter: 11, loss: 0.9631
+epoch: 3, iter: 1, loss: 0.9217
+epoch: 3, iter: 11, loss: 0.8684
+epoch: 4, iter: 1, loss: 0.8465
+epoch: 4, iter: 11, loss: 0.8207
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0599
+epoch: 0, iter: 11, loss: 1.0317
+epoch: 1, iter: 1, loss: 1.0227
+epoch: 1, iter: 11, loss: 1.0269
+epoch: 2, iter: 1, loss: 0.9818
+epoch: 2, iter: 11, loss: 0.9523
+epoch: 3, iter: 1, loss: 0.9720
+epoch: 3, iter: 11, loss: 0.9873
+epoch: 4, iter: 1, loss: 0.9623
+epoch: 4, iter: 11, loss: 0.9788
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0906
+epoch: 0, iter: 11, loss: 1.0328
+epoch: 1, iter: 1, loss: 1.0135
+epoch: 1, iter: 11, loss: 1.0150
+epoch: 2, iter: 1, loss: 0.9832
+epoch: 2, iter: 11, loss: 1.0262
+epoch: 3, iter: 1, loss: 0.9615
+epoch: 3, iter: 11, loss: 1.0317
+epoch: 4, iter: 1, loss: 0.9927
+epoch: 4, iter: 11, loss: 1.0178
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0421
+epoch: 0, iter: 11, loss: 0.9491
+epoch: 1, iter: 1, loss: 1.0401
+epoch: 1, iter: 11, loss: 0.9258
+epoch: 2, iter: 1, loss: 0.9595
+epoch: 2, iter: 11, loss: 0.9559
+epoch: 3, iter: 1, loss: 0.9669
+epoch: 3, iter: 11, loss: 0.9725
+epoch: 4, iter: 1, loss: 0.9808
+epoch: 4, iter: 11, loss: 0.9219
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9963
+epoch: 0, iter: 11, loss: 0.9993
+epoch: 1, iter: 1, loss: 0.9226
+epoch: 1, iter: 11, loss: 1.0081
+epoch: 2, iter: 1, loss: 0.9766
+epoch: 2, iter: 11, loss: 0.9897
+epoch: 3, iter: 1, loss: 0.9450
+epoch: 3, iter: 11, loss: 1.0239
+epoch: 4, iter: 1, loss: 0.9985
+epoch: 4, iter: 11, loss: 0.9963
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0019
+epoch: 0, iter: 11, loss: 1.0297
+epoch: 1, iter: 1, loss: 1.0021
+epoch: 1, iter: 11, loss: 1.0485
+epoch: 2, iter: 1, loss: 1.0216
+epoch: 2, iter: 11, loss: 1.0200
+epoch: 3, iter: 1, loss: 1.0720
+epoch: 3, iter: 11, loss: 0.9996
+epoch: 4, iter: 1, loss: 0.9911
+epoch: 4, iter: 11, loss: 1.0095
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9994
+epoch: 0, iter: 11, loss: 1.0211
+epoch: 1, iter: 1, loss: 1.0626
+epoch: 1, iter: 11, loss: 0.9618
+epoch: 2, iter: 1, loss: 1.0359
+epoch: 2, iter: 11, loss: 1.0365
+epoch: 3, iter: 1, loss: 0.9693
+epoch: 3, iter: 11, loss: 0.9709
+epoch: 4, iter: 1, loss: 1.0317
+epoch: 4, iter: 11, loss: 0.9849
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0062
+epoch: 0, iter: 11, loss: 0.9223
+epoch: 1, iter: 1, loss: 1.0324
+epoch: 1, iter: 11, loss: 1.0016
+epoch: 2, iter: 1, loss: 0.9821
+epoch: 2, iter: 11, loss: 0.9669
+epoch: 3, iter: 1, loss: 0.9949
+epoch: 3, iter: 11, loss: 0.9472
+epoch: 4, iter: 1, loss: 0.9458
+epoch: 4, iter: 11, loss: 0.9944
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1119
+epoch: 0, iter: 11, loss: 1.0253
+epoch: 1, iter: 1, loss: 0.9664
+epoch: 1, iter: 11, loss: 1.0668
+epoch: 2, iter: 1, loss: 1.0410
+epoch: 2, iter: 11, loss: 0.9677
+epoch: 3, iter: 1, loss: 0.9789
+epoch: 3, iter: 11, loss: 1.0100
+epoch: 4, iter: 1, loss: 1.0377
+epoch: 4, iter: 11, loss: 0.9405
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9515
+epoch: 0, iter: 11, loss: 0.9624
+epoch: 1, iter: 1, loss: 0.9628
+epoch: 1, iter: 11, loss: 0.9698
+epoch: 2, iter: 1, loss: 0.9422
+epoch: 2, iter: 11, loss: 0.9563
+epoch: 3, iter: 1, loss: 1.0042
+epoch: 3, iter: 11, loss: 0.9468
+epoch: 4, iter: 1, loss: 1.0059
+epoch: 4, iter: 11, loss: 0.9676
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0079
+epoch: 0, iter: 11, loss: 0.9784
+epoch: 1, iter: 1, loss: 0.9840
+epoch: 1, iter: 11, loss: 0.9684
+epoch: 2, iter: 1, loss: 0.9830
+epoch: 2, iter: 11, loss: 1.0312
+epoch: 3, iter: 1, loss: 1.0152
+epoch: 3, iter: 11, loss: 0.9968
+epoch: 4, iter: 1, loss: 0.9879
+epoch: 4, iter: 11, loss: 1.0174
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0486
+epoch: 0, iter: 11, loss: 0.9511
+epoch: 1, iter: 1, loss: 1.0552
+epoch: 1, iter: 11, loss: 0.9701
+epoch: 2, iter: 1, loss: 1.0116
+epoch: 2, iter: 11, loss: 0.9903
+epoch: 3, iter: 1, loss: 0.9378
+epoch: 3, iter: 11, loss: 0.9500
+epoch: 4, iter: 1, loss: 1.0233
+epoch: 4, iter: 11, loss: 0.9422
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0075
+epoch: 0, iter: 11, loss: 0.9571
+epoch: 1, iter: 1, loss: 1.0462
+epoch: 1, iter: 11, loss: 1.0370
+epoch: 2, iter: 1, loss: 1.0042
+epoch: 2, iter: 11, loss: 1.0164
+epoch: 3, iter: 1, loss: 1.0038
+epoch: 3, iter: 11, loss: 0.9822
+epoch: 4, iter: 1, loss: 0.9944
+epoch: 4, iter: 11, loss: 1.0209
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0074
+epoch: 0, iter: 11, loss: 1.0168
+epoch: 1, iter: 1, loss: 1.0103
+epoch: 1, iter: 11, loss: 1.0115
+epoch: 2, iter: 1, loss: 1.0653
+epoch: 2, iter: 11, loss: 0.9427
+epoch: 3, iter: 1, loss: 1.0089
+epoch: 3, iter: 11, loss: 0.9918
+epoch: 4, iter: 1, loss: 0.9843
+epoch: 4, iter: 11, loss: 1.0124
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9803
+epoch: 0, iter: 11, loss: 1.0549
+epoch: 1, iter: 1, loss: 0.9308
+epoch: 1, iter: 11, loss: 0.9858
+epoch: 2, iter: 1, loss: 0.9761
+epoch: 2, iter: 11, loss: 1.0414
+epoch: 3, iter: 1, loss: 0.9762
+epoch: 3, iter: 11, loss: 0.9972
+epoch: 4, iter: 1, loss: 0.9739
+epoch: 4, iter: 11, loss: 0.9951
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0018
+epoch: 0, iter: 11, loss: 0.8921
+epoch: 1, iter: 1, loss: 0.9394
+epoch: 1, iter: 11, loss: 0.9856
+epoch: 2, iter: 1, loss: 0.9747
+epoch: 2, iter: 11, loss: 0.9776
+epoch: 3, iter: 1, loss: 0.9565
+epoch: 3, iter: 11, loss: 1.0264
+epoch: 4, iter: 1, loss: 0.9710
+epoch: 4, iter: 11, loss: 1.0062
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0864
+epoch: 0, iter: 11, loss: 0.9327
+epoch: 1, iter: 1, loss: 0.9300
+epoch: 1, iter: 11, loss: 0.9949
+epoch: 2, iter: 1, loss: 1.0120
+epoch: 2, iter: 11, loss: 0.9791
+epoch: 3, iter: 1, loss: 0.9983
+epoch: 3, iter: 11, loss: 1.0613
+epoch: 4, iter: 1, loss: 0.9817
+epoch: 4, iter: 11, loss: 0.9467
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0322
+epoch: 0, iter: 11, loss: 1.0081
+epoch: 1, iter: 1, loss: 1.0392
+epoch: 1, iter: 11, loss: 0.9957
+epoch: 2, iter: 1, loss: 1.0190
+epoch: 2, iter: 11, loss: 0.9789
+epoch: 3, iter: 1, loss: 0.9806
+epoch: 3, iter: 11, loss: 0.9511
+epoch: 4, iter: 1, loss: 0.9935
+epoch: 4, iter: 11, loss: 0.9355
+Session is closed.
+epoch: 0, iter: 1, loss: 1.0523
+epoch: 0, iter: 11, loss: 1.0390
+epoch: 1, iter: 1, loss: 1.0488
+epoch: 1, iter: 11, loss: 1.0085
+epoch: 2, iter: 1, loss: 0.9925
+epoch: 2, iter: 11, loss: 0.9479
+epoch: 3, iter: 1, loss: 1.0155
+epoch: 3, iter: 11, loss: 0.9971
+epoch: 4, iter: 1, loss: 0.9912
+epoch: 4, iter: 11, loss: 0.9694
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9450
+epoch: 0, iter: 11, loss: 1.0315
+epoch: 1, iter: 1, loss: 1.0417
+epoch: 1, iter: 11, loss: 1.0333
+epoch: 2, iter: 1, loss: 1.0563
+epoch: 2, iter: 11, loss: 0.9548
+epoch: 3, iter: 1, loss: 0.9947
+epoch: 3, iter: 11, loss: 0.9781
+epoch: 4, iter: 1, loss: 0.9922
+epoch: 4, iter: 11, loss: 0.9656
+Session is closed.
+epoch: 0, iter: 1, loss: 0.9802
+epoch: 0, iter: 11, loss: 0.9873
+epoch: 1, iter: 1, loss: 1.0103
+epoch: 1, iter: 11, loss: 0.9714
+epoch: 2, iter: 1, loss: 1.0120
+epoch: 2, iter: 11, loss: 0.9782
+epoch: 3, iter: 1, loss: 1.0001
+epoch: 3, iter: 11, loss: 0.9454
+epoch: 4, iter: 1, loss: 1.0317
+epoch: 4, iter: 11, loss: 0.9884
+Session is closed.
+epoch: 0, iter: 1, loss: 1.1151
+epoch: 0, iter: 11, loss: 0.5900
+epoch: 1, iter: 1, loss: 0.6481
+epoch: 1, iter: 11, loss: 0.5321
+epoch: 2, iter: 1, loss: 0.5249
+epoch: 2, iter: 11, loss: 0.5531
+epoch: 3, iter: 1, loss: 0.5095
+epoch: 3, iter: 11, loss: 0.5435
+epoch: 4, iter: 1, loss: 0.5376
+epoch: 4, iter: 11, loss: 0.5412
+Session is closed.
