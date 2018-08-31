@@ -51,5 +51,7 @@ def train_and_test_alloc(dataset,feature,trials):
 if __name__ == '__main__':
     # params = read_params()
     # screen_params_alloc(params)
-    train_and_test_alloc('covtype','ReLU',10)
-    train_and_test_alloc('covtype','Gaussian',10)
+    train_and_test_alloc('adult','ReLU',10)
+    train_and_test_alloc('adult','Gaussian',10)
+    train_and_test_alloc('mnist','ReLU',10)
+    train_and_test_alloc('mnist','Gaussian',10)
