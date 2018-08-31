@@ -1,0 +1,1 @@
+[{'sparsity': 1.0, 'accuracy': 0.8367197875166003, 'testtime': 0.7868452830000017, 'traintime': 6.546942285}, 'adult', {'n_old_features': 105, 'n_new_features': 2000, 'Gamma': 0.0031622776601683794, 'classes': [0, 1], 'feature': 'Gaussian', 'loss_fn': 'hinge'}, {'n_epoch': 5, 'opt_rate': 10.0, 'bd': 100000}]

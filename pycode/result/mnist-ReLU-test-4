@@ -1,0 +1,1 @@
+[{'sparsity': 0.4997310999999997, 'accuracy': 0.9529, 'testtime': 2.4597547629999923, 'traintime': 69.383774117}, 'mnist', {'n_old_features': 784, 'n_new_features': 2000, 'Gamma': 0.31622776601683794, 'classes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'feature': 'ReLU', 'loss_fn': 'log'}, {'n_epoch': 5, 'opt_rate': 316.22776601683796, 'bd': 100000}]
