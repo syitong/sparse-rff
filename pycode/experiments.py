@@ -104,7 +104,7 @@ def train_and_test(params):
     if prefix == '0':
         # only write log file for trial 0
         logfile = log('log/experiments.log','train and test')
-        logfile.record(str(datatime.now()))
+        logfile.record(str(datetime.now()))
         for key,val in params.items():
             logfile.record('{0} = {1}'.format(key,val))
         logfile.save()
