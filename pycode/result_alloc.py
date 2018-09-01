@@ -49,9 +49,23 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(finalop))
 
 if __name__ == '__main__':
-    # params = read_params()
-    # screen_params_alloc(params)
-    train_and_test_alloc('adult','ReLU',10)
-    train_and_test_alloc('adult','Gaussian',10)
-    train_and_test_alloc('mnist','ReLU',10)
-    train_and_test_alloc('mnist','Gaussian',10)
+    params = read_params('sine1-params')
+    screen_params_alloc(params)
+    params['feature'] = 'ReLU'
+    screen_params_alloc(params)
+    params = read_params('sine1-10-params')
+    screen_params_alloc(params)
+    params['feature'] = 'ReLU'
+    screen_params_alloc(params)
+    params = read_params('strips-params')
+    screen_params_alloc(params)
+    params['feature'] = 'ReLU'
+    screen_params_alloc(params)
+    params = read_params('square-params')
+    screen_params_alloc(params)
+    params['feature'] = 'ReLU'
+    screen_params_alloc(params)
+    params = read_params('checkboard-params')
+    screen_params_alloc(params)
+    params['feature'] = 'ReLU'
+    screen_params_alloc(params)
