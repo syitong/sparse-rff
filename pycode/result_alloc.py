@@ -79,7 +79,13 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(finalop))
 
 if __name__ == '__main__':
-    params = read_params('adult-params')
-    screen_params_append(params)
-    params['feature'] = 'ReLU'
-    screen_params_append(params)
+    train_and_test_alloc('sine1','ReLU',10)
+    train_and_test_alloc('sine1','Gaussian',10)
+    train_and_test_alloc('sine1-10','ReLU',10)
+    train_and_test_alloc('sine1-10','Gaussian',10)
+    train_and_test_alloc('strips','ReLU',10)
+    train_and_test_alloc('strips','Gaussian',10)
+    train_and_test_alloc('square','ReLU',10)
+    train_and_test_alloc('square','Gaussian',10)
+    train_and_test_alloc('checkboard','ReLU',10)
+    train_and_test_alloc('checkboard','Gaussian',10)
