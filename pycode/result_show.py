@@ -65,11 +65,11 @@ def plot_params(dataset):
     plt.title("Random Features Methods on "+dataset)
     plt.xlabel('log(Gamma)')
     plt.ylabel('accuracy')
-    plt.xticks(x)
+    # plt.xticks(x)
     plt.ylim((0,1.01))
     plt.plot(x,y1,'x--',label='ReLU')
     plt.plot(x,y2,'o:',label='Fourier')
-    plt.legend(loc=3)
+    plt.legend(loc=2)
     plt.savefig('image/{}-gamma.eps'.format(dataset))
     plt.close(fig)
 
@@ -120,8 +120,4 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    plot_params('sine1')
-    plot_params('sine1-10')
-    plot_params('strips')
-    plot_params('square')
-    plot_params('checkboard')
+    plot_params('mnist')

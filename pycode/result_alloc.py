@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import array
 
 def read_params(filename='params'):
     with open(filename,'r') as f:
@@ -38,17 +39,17 @@ def screen_params_append(params):
     filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
     with open(filename+'alloc','r') as fr:
         result,params = eval(fr.read())
-    result[0].append(logGamma)
+    result[0].extend(logGamma)
     for idx,rate in enumerate(lograte):
         try:
             with open(filename+str(idx),'r') as fr:
-                new_result = eval(f.read())
+                new_result = eval(fr.read())
         except:
             print('lograte list is not run out')
             break
         for item in new_result:
-            result[idx].append(item['score'])
-    sortidx = np.argsort(result[0][1:])
+            result[idx+1].append(item['score'])
+    sortidx = np.argsort(result[0][1:]) + 1
     updated = []
     for row in result:
         newrow = [row[0]]
@@ -58,7 +59,6 @@ def screen_params_append(params):
     finalop = [updated,params]
     with open(filename+'alloc','w') as f:
         f.write(str(finalop))
-
 
 def train_and_test_alloc(dataset,feature,trials):
     filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
@@ -79,23 +79,7 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(finalop))
 
 if __name__ == '__main__':
-    params = read_params('sine1-params')
-    screen_params_alloc(params)
+    params = read_params('adult-params')
+    screen_params_append(params)
     params['feature'] = 'ReLU'
-    screen_params_alloc(params)
-    params = read_params('sine1-10-params')
-    screen_params_alloc(params)
-    params['feature'] = 'ReLU'
-    screen_params_alloc(params)
-    params = read_params('strips-params')
-    screen_params_alloc(params)
-    params['feature'] = 'ReLU'
-    screen_params_alloc(params)
-    params = read_params('square-params')
-    screen_params_alloc(params)
-    params['feature'] = 'ReLU'
-    screen_params_alloc(params)
-    params = read_params('checkboard-params')
-    screen_params_alloc(params)
-    params['feature'] = 'ReLU'
-    screen_params_alloc(params)
+    screen_params_append(params)
