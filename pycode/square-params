@@ -1,5 +1,5 @@
 {
-    'dataset': 'sine1-10',
+    'dataset': 'square',
     'N': 20,
     'bd': 1000,
     'n_epoch': 5,

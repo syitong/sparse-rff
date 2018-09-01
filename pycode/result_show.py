@@ -120,11 +120,4 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    plot_params('covtype')
-    plot_params('mnist')
-    plot_params('adult')
-    plot_params('checkboard')
-    plot_params('square')
-    plot_params('strips')
-    plot_params('sine1')
-    plot_params('sine1-10')
+    print_params('covtype','Gaussian')
