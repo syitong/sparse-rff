@@ -30,6 +30,36 @@ def screen_params_alloc(params):
     with open(filename+'alloc','w') as f:
         f.write(str(finalop))
 
+def screen_params_append(params):
+    dataset = params['dataset']
+    feature = params['feature']
+    lograte = params['lograte']
+    logGamma = params['logGamma']
+    filename = 'result/{0:s}-{1:s}-screen-'.format(dataset,feature)
+    with open(filename+'alloc','r') as fr:
+        result,params = eval(fr.read())
+    result[0].append(logGamma)
+    for idx,rate in enumerate(lograte):
+        try:
+            with open(filename+str(idx),'r') as fr:
+                new_result = eval(f.read())
+        except:
+            print('lograte list is not run out')
+            break
+        for item in new_result:
+            result[idx].append(item['score'])
+    sortidx = np.argsort(result[0][1:])
+    updated = []
+    for row in result:
+        newrow = [row[0]]
+        for idx in sortidx:
+            newrow.append(row[idx])
+        updated.append(newrow)
+    finalop = [updated,params]
+    with open(filename+'alloc','w') as f:
+        f.write(str(finalop))
+
+
 def train_and_test_alloc(dataset,feature,trials):
     filename = 'result/{0:s}-{1:s}-test-'.format(dataset,feature)
     tags = ['accuracy','sparsity','traintime','testtime']
