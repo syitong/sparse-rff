@@ -830,3 +830,193 @@ val_size = 30000
 logGamma = [-7.  -6.5 -6.  -5.5 -5.  -4.5]
 loss_fn = log
 
+screen params
+2018-09-01 14:36:52.388383
+trials = 10
+n_epoch = 5
+feature = Gaussian
+dataset = covtype
+N = 2000
+bd = 100000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [1, 2, 3, 4, 5, 6, 7]
+folds = 5
+val_size = 30000
+logGamma = [-6.  -5.5 -5.  -4.5 -4.  -3.5 -3.  -2.5]
+loss_fn = log
+
+screen params
+2018-09-01 14:40:50.680820
+trials = 10
+n_epoch = 5
+feature = ReLU
+dataset = covtype
+N = 2000
+bd = 100000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [1, 2, 3, 4, 5, 6, 7]
+folds = 5
+val_size = 30000
+logGamma = [-6.  -5.5 -5.  -4.5 -4.  -3.5 -3.  -2.5]
+loss_fn = log
+
+screen params
+2018-09-01 14:44:20.659581
+trials = 10
+n_epoch = 5
+feature = Gaussian
+dataset = adult
+N = 2000
+bd = 100000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [0, 1]
+folds = 5
+val_size = 30000
+logGamma = [-7.  -6.5 -6.  -5.5 -5.  -4.5]
+loss_fn = hinge
+
+screen params
+2018-09-01 14:47:04.111740
+trials = 10
+n_epoch = 5
+feature = ReLU
+dataset = adult
+N = 2000
+bd = 100000
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+classes = [0, 1]
+folds = 5
+val_size = 30000
+logGamma = [-7.  -6.5 -6.  -5.5 -5.  -4.5]
+loss_fn = hinge
+
+train and test
+2018-09-01 17:34:53.654411
+dataset = sine1
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 3.1622776601683795
+classes = [0, 1]
+feature = ReLU
+opt_rate = 100.0
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:05.296731
+dataset = sine1
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 3.1622776601683795
+classes = [0, 1]
+feature = Gaussian
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:07.228654
+dataset = sine1-10
+n_new_features = 20
+n_old_features = 10
+loss_fn = hinge
+Gamma = 31.622776601683793
+classes = [0, 1]
+feature = ReLU
+opt_rate = 3.1622776601683795
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:09.109004
+dataset = sine1-10
+n_new_features = 20
+n_old_features = 10
+loss_fn = hinge
+Gamma = 0.03162277660168379
+classes = [0, 1]
+feature = Gaussian
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:11.228297
+dataset = strips
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 3.1622776601683795
+classes = [0, 1]
+feature = ReLU
+opt_rate = 10.0
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:13.046105
+dataset = strips
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 3.1622776601683795
+classes = [0, 1]
+feature = Gaussian
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:14.912205
+dataset = square
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 1.0
+classes = [0, 1]
+feature = ReLU
+opt_rate = 10.0
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:16.919843
+dataset = square
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 3.1622776601683795
+classes = [0, 1]
+feature = Gaussian
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:19.262880
+dataset = checkboard
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 251.18864315095823
+classes = [0, 1]
+feature = ReLU
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
+train and test
+2018-09-01 17:35:21.070931
+dataset = checkboard
+n_new_features = 20
+n_old_features = 2
+loss_fn = hinge
+Gamma = 10.0
+classes = [0, 1]
+feature = Gaussian
+opt_rate = 31.622776601683793
+n_epoch = 5
+bd = 1000
+
