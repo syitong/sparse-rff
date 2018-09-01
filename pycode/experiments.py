@@ -316,35 +316,35 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
-    params = read_params('sine1-params')
-    screen_params(params)
-    params['feature'] = 'ReLU'
-    screen_params(params)
-    params = read_params('sine1-10-params')
-    screen_params(params)
-    params['feature'] = 'ReLU'
-    screen_params(params)
-    params = read_params('strips-params')
-    screen_params(params)
-    params['feature'] = 'ReLU'
-    screen_params(params)
-    params = read_params('square-params')
-    screen_params(params)
-    params['feature'] = 'ReLU'
-    screen_params(params)
-    params = read_params('checkboard-params')
-    screen_params(params)
-    params['feature'] = 'ReLU'
-    screen_params(params)
-    # params = read_params('mnist-params')
+    # params = read_params('sine1-params')
     # screen_params(params)
     # params['feature'] = 'ReLU'
     # screen_params(params)
-    # params = read_params('covtype-params')
+    # params = read_params('sine1-10-params')
     # screen_params(params)
     # params['feature'] = 'ReLU'
     # screen_params(params)
-    # params = read_params('adult-params')
+    # params = read_params('strips-params')
     # screen_params(params)
     # params['feature'] = 'ReLU'
     # screen_params(params)
+    # params = read_params('square-params')
+    # screen_params(params)
+    # params['feature'] = 'ReLU'
+    # screen_params(params)
+    # params = read_params('checkboard-params')
+    # screen_params(params)
+    # params['feature'] = 'ReLU'
+    # screen_params(params)
+    params = read_params('mnist-params')
+    screen_params(params)
+    params['feature'] = 'ReLU'
+    screen_params(params)
+    params = read_params('covtype-params')
+    screen_params(params)
+    params['feature'] = 'ReLU'
+    screen_params(params)
+    params = read_params('adult-params')
+    screen_params(params)
+    params['feature'] = 'ReLU'
+    screen_params(params)
