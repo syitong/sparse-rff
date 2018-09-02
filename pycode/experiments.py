@@ -316,13 +316,7 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
-    train_and_test('sine1','ReLU')
-    train_and_test('sine1','Gaussian')
     train_and_test('sine1-10','ReLU')
     train_and_test('sine1-10','Gaussian')
-    train_and_test('strips','ReLU')
-    train_and_test('strips','Gaussian')
-    train_and_test('square','ReLU')
-    train_and_test('square','Gaussian')
     train_and_test('checkboard','ReLU')
     train_and_test('checkboard','Gaussian')
