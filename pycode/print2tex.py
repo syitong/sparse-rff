@@ -4,7 +4,7 @@ from numpy import array
 fnames = ['sine1','sine1-10','strips',
         'square','checkboard','adult',
         'mnist','covtype']
-tags = ['traintime']
+tags = ['accuracy','traintime','testtime']
 features = ['Gaussian','ReLU']
 
 if __name__ == '__main__':
@@ -25,7 +25,6 @@ if __name__ == '__main__':
         fw.write(fname)
         for tag in tags:
             fw.write(' & {mean:.3f}({std:.3f})'.format(**result1[tag]))
-        for tag in tags:
             fw.write(' & {mean:.3f}({std:.3f})'.format(**result2[tag]))
         fw.write(' \\\\')
         fw.write('\n')
