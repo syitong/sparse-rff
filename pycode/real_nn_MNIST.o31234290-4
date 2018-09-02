@@ -1,0 +1,1035 @@
+nyx7015
+2018-09-02 09:53:51.377456: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-02 09:53:51.377514: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-02 09:53:51.377541: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-02 09:53:51.377563: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+2018-09-02 09:53:51.377585: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+log(rate)\log(Gamma)  -3.50  -3.00  -2.50  -2.00  -1.50  -1.00  -0.50   0.00   0.50   1.00   1.50   2.00   2.50   3.00
+        -3.0           0.54   0.52   0.51   0.47   0.51   0.49   0.59   0.49   0.54   0.54   0.51   0.51   0.59   0.55
+        -2.5           0.56   0.55   0.51   0.51   0.49   0.52   0.53   0.53   0.46   0.43   0.49   0.45   0.52   0.50
+        -2.0           0.55   0.58   0.45   0.51   0.48   0.50   0.55   0.54   0.52   0.54   0.52   0.51   0.47   0.49
+        -1.5           0.54   0.62   0.45   0.52   0.57   0.55   0.50   0.58   0.57   0.51   0.51   0.56   0.48   0.56
+        -1.0           0.51   0.62   0.62   0.64   0.61   0.58   0.55   0.58   0.57   0.62   0.53   0.57   0.62   0.55
+        -0.5           0.49   0.50   0.72   0.75   0.70   0.76   0.73   0.68   0.77   0.75   0.76   0.71   0.76   0.73
+         0.0           0.50   0.52   0.58   0.82   0.83   0.85   0.85   0.84   0.83   0.83   0.81   0.85   0.83   0.83
+         0.5           0.50   0.49   0.58   0.58   0.82   0.86   0.85   0.86   0.87   0.85   0.89   0.87   0.87   0.84
+         1.0           0.50   0.50   0.61   0.79   0.81   0.86   0.86   0.87   0.86   0.86   0.87   0.87   0.88   0.87
+         1.5           0.49   0.50   0.56   0.72   0.77   0.84   0.86   0.87   0.87   0.86   0.87   0.87   0.87   0.87
+         2.0           0.54   0.51   0.55   0.65   0.85   0.79   0.83   0.88   0.87   0.88   0.86   0.87   0.86   0.87
+         2.5           0.50   0.50   0.51   0.71   0.79   0.85   0.86   0.83   0.84   0.84   0.81   0.83   0.80   0.86
+best log(Gamma):  1.5
+best log(rate):  0.5
+val_size: 5000
+lograte: [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+dataset: sine1-10
+bd: 1000
+logGamma: [-3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3. ]
+feature: ReLU
+folds: 5
+N: 20
+n_epoch: 5
+trials: 10
+classes: [0, 1]
+loss_fn: hinge
+epoch: 0, iter: 1, loss: 0.9161
+epoch: 0, iter: 11, loss: 0.6572
+epoch: 0, iter: 21, loss: 0.5194
+epoch: 0, iter: 31, loss: 0.4261
+epoch: 0, iter: 41, loss: 0.4533
+epoch: 0, iter: 51, loss: 0.4324
+epoch: 0, iter: 61, loss: 0.3935
+epoch: 0, iter: 71, loss: 0.4130
+epoch: 0, iter: 81, loss: 0.3617
+epoch: 0, iter: 91, loss: 0.4856
+epoch: 0, iter: 101, loss: 0.3823
+epoch: 0, iter: 111, loss: 0.3943
+epoch: 0, iter: 121, loss: 0.3180
+epoch: 0, iter: 131, loss: 0.3840
+epoch: 0, iter: 141, loss: 0.3262
+epoch: 0, iter: 151, loss: 0.4348
+epoch: 0, iter: 161, loss: 0.3918
+epoch: 0, iter: 171, loss: 0.3744
+epoch: 0, iter: 181, loss: 0.3792
+epoch: 0, iter: 191, loss: 0.3449
+epoch: 0, iter: 201, loss: 0.3641
+epoch: 0, iter: 211, loss: 0.3104
+epoch: 0, iter: 221, loss: 0.3360
+epoch: 0, iter: 231, loss: 0.3726
+epoch: 0, iter: 241, loss: 0.3621
+epoch: 0, iter: 251, loss: 0.3395
+epoch: 0, iter: 261, loss: 0.3155
+epoch: 0, iter: 271, loss: 0.3071
+epoch: 0, iter: 281, loss: 0.3985
+epoch: 0, iter: 291, loss: 0.3466
+epoch: 0, iter: 301, loss: 0.3099
+epoch: 0, iter: 311, loss: 0.3164
+epoch: 0, iter: 321, loss: 0.3953
+epoch: 0, iter: 331, loss: 0.3022
+epoch: 0, iter: 341, loss: 0.3934
+epoch: 0, iter: 351, loss: 0.3416
+epoch: 0, iter: 361, loss: 0.3344
+epoch: 0, iter: 371, loss: 0.3699
+epoch: 0, iter: 381, loss: 0.2881
+epoch: 0, iter: 391, loss: 0.3367
+epoch: 0, iter: 401, loss: 0.3830
+epoch: 0, iter: 411, loss: 0.3763
+epoch: 0, iter: 421, loss: 0.3257
+epoch: 0, iter: 431, loss: 0.4064
+epoch: 0, iter: 441, loss: 0.3008
+epoch: 1, iter: 1, loss: 0.4099
+epoch: 1, iter: 11, loss: 0.4140
+epoch: 1, iter: 21, loss: 0.2775
+epoch: 1, iter: 31, loss: 0.3280
+epoch: 1, iter: 41, loss: 0.3774
+epoch: 1, iter: 51, loss: 0.3247
+epoch: 1, iter: 61, loss: 0.3077
+epoch: 1, iter: 71, loss: 0.3845
+epoch: 1, iter: 81, loss: 0.4170
+epoch: 1, iter: 91, loss: 0.3032
+epoch: 1, iter: 101, loss: 0.4694
+epoch: 1, iter: 111, loss: 0.3570
+epoch: 1, iter: 121, loss: 0.3902
+epoch: 1, iter: 131, loss: 0.3092
+epoch: 1, iter: 141, loss: 0.2588
+epoch: 1, iter: 151, loss: 0.3224
+epoch: 1, iter: 161, loss: 0.3873
+epoch: 1, iter: 171, loss: 0.3170
+epoch: 1, iter: 181, loss: 0.3255
+epoch: 1, iter: 191, loss: 0.3999
+epoch: 1, iter: 201, loss: 0.3267
+epoch: 1, iter: 211, loss: 0.3661
+epoch: 1, iter: 221, loss: 0.3745
+epoch: 1, iter: 231, loss: 0.3220
+epoch: 1, iter: 241, loss: 0.3114
+epoch: 1, iter: 251, loss: 0.3585
+epoch: 1, iter: 261, loss: 0.4165
+epoch: 1, iter: 271, loss: 0.3305
+epoch: 1, iter: 281, loss: 0.2767
+epoch: 1, iter: 291, loss: 0.3682
+epoch: 1, iter: 301, loss: 0.2967
+epoch: 1, iter: 311, loss: 0.3371
+epoch: 1, iter: 321, loss: 0.3674
+epoch: 1, iter: 331, loss: 0.3032
+epoch: 1, iter: 341, loss: 0.3313
+epoch: 1, iter: 351, loss: 0.3110
+epoch: 1, iter: 361, loss: 0.3830
+epoch: 1, iter: 371, loss: 0.3666
+epoch: 1, iter: 381, loss: 0.3558
+epoch: 1, iter: 391, loss: 0.4042
+epoch: 1, iter: 401, loss: 0.3341
+epoch: 1, iter: 411, loss: 0.3262
+epoch: 1, iter: 421, loss: 0.2449
+epoch: 1, iter: 431, loss: 0.3181
+epoch: 1, iter: 441, loss: 0.2554
+epoch: 2, iter: 1, loss: 0.2801
+epoch: 2, iter: 11, loss: 0.3343
+epoch: 2, iter: 21, loss: 0.3451
+epoch: 2, iter: 31, loss: 0.3310
+epoch: 2, iter: 41, loss: 0.3495
+epoch: 2, iter: 51, loss: 0.3146
+epoch: 2, iter: 61, loss: 0.3021
+epoch: 2, iter: 71, loss: 0.3069
+epoch: 2, iter: 81, loss: 0.3573
+epoch: 2, iter: 91, loss: 0.3147
+epoch: 2, iter: 101, loss: 0.3735
+epoch: 2, iter: 111, loss: 0.4263
+epoch: 2, iter: 121, loss: 0.3189
+epoch: 2, iter: 131, loss: 0.3186
+epoch: 2, iter: 141, loss: 0.3444
+epoch: 2, iter: 151, loss: 0.3008
+epoch: 2, iter: 161, loss: 0.2452
+epoch: 2, iter: 171, loss: 0.3213
+epoch: 2, iter: 181, loss: 0.3274
+epoch: 2, iter: 191, loss: 0.2991
+epoch: 2, iter: 201, loss: 0.2621
+epoch: 2, iter: 211, loss: 0.3768
+epoch: 2, iter: 221, loss: 0.3674
+epoch: 2, iter: 231, loss: 0.2997
+epoch: 2, iter: 241, loss: 0.2913
+epoch: 2, iter: 251, loss: 0.3162
+epoch: 2, iter: 261, loss: 0.2939
+epoch: 2, iter: 271, loss: 0.3463
+epoch: 2, iter: 281, loss: 0.3776
+epoch: 2, iter: 291, loss: 0.2735
+epoch: 2, iter: 301, loss: 0.3342
+epoch: 2, iter: 311, loss: 0.3674
+epoch: 2, iter: 321, loss: 0.3387
+epoch: 2, iter: 331, loss: 0.3839
+epoch: 2, iter: 341, loss: 0.3190
+epoch: 2, iter: 351, loss: 0.3442
+epoch: 2, iter: 361, loss: 0.3885
+epoch: 2, iter: 371, loss: 0.2539
+epoch: 2, iter: 381, loss: 0.3196
+epoch: 2, iter: 391, loss: 0.2996
+epoch: 2, iter: 401, loss: 0.3229
+epoch: 2, iter: 411, loss: 0.4048
+epoch: 2, iter: 421, loss: 0.3750
+epoch: 2, iter: 431, loss: 0.3773
+epoch: 2, iter: 441, loss: 0.3777
+epoch: 3, iter: 1, loss: 0.2958
+epoch: 3, iter: 11, loss: 0.3297
+epoch: 3, iter: 21, loss: 0.3255
+epoch: 3, iter: 31, loss: 0.3980
+epoch: 3, iter: 41, loss: 0.3408
+epoch: 3, iter: 51, loss: 0.3164
+epoch: 3, iter: 61, loss: 0.3431
+epoch: 3, iter: 71, loss: 0.3497
+epoch: 3, iter: 81, loss: 0.4045
+epoch: 3, iter: 91, loss: 0.3461
+epoch: 3, iter: 101, loss: 0.2371
+epoch: 3, iter: 111, loss: 0.2778
+epoch: 3, iter: 121, loss: 0.2890
+epoch: 3, iter: 131, loss: 0.3507
+epoch: 3, iter: 141, loss: 0.2759
+epoch: 3, iter: 151, loss: 0.3301
+epoch: 3, iter: 161, loss: 0.3632
+epoch: 3, iter: 171, loss: 0.3647
+epoch: 3, iter: 181, loss: 0.3032
+epoch: 3, iter: 191, loss: 0.3231
+epoch: 3, iter: 201, loss: 0.3215
+epoch: 3, iter: 211, loss: 0.3005
+epoch: 3, iter: 221, loss: 0.3531
+epoch: 3, iter: 231, loss: 0.3213
+epoch: 3, iter: 241, loss: 0.3148
+epoch: 3, iter: 251, loss: 0.2714
+epoch: 3, iter: 261, loss: 0.3381
+epoch: 3, iter: 271, loss: 0.4459
+epoch: 3, iter: 281, loss: 0.4396
+epoch: 3, iter: 291, loss: 0.3257
+epoch: 3, iter: 301, loss: 0.3662
+epoch: 3, iter: 311, loss: 0.3335
+epoch: 3, iter: 321, loss: 0.3639
+epoch: 3, iter: 331, loss: 0.3640
+epoch: 3, iter: 341, loss: 0.2879
+epoch: 3, iter: 351, loss: 0.2719
+epoch: 3, iter: 361, loss: 0.3087
+epoch: 3, iter: 371, loss: 0.2915
+epoch: 3, iter: 381, loss: 0.3434
+epoch: 3, iter: 391, loss: 0.2541
+epoch: 3, iter: 401, loss: 0.3201
+epoch: 3, iter: 411, loss: 0.2981
+epoch: 3, iter: 421, loss: 0.3332
+epoch: 3, iter: 431, loss: 0.2855
+epoch: 3, iter: 441, loss: 0.4058
+epoch: 4, iter: 1, loss: 0.3045
+epoch: 4, iter: 11, loss: 0.3201
+epoch: 4, iter: 21, loss: 0.3733
+epoch: 4, iter: 31, loss: 0.2989
+epoch: 4, iter: 41, loss: 0.3551
+epoch: 4, iter: 51, loss: 0.2667
+epoch: 4, iter: 61, loss: 0.4667
+epoch: 4, iter: 71, loss: 0.2932
+epoch: 4, iter: 81, loss: 0.4634
+epoch: 4, iter: 91, loss: 0.3574
+epoch: 4, iter: 101, loss: 0.3511
+epoch: 4, iter: 111, loss: 0.2917
+epoch: 4, iter: 121, loss: 0.2636
+epoch: 4, iter: 131, loss: 0.2957
+epoch: 4, iter: 141, loss: 0.3430
+epoch: 4, iter: 151, loss: 0.3381
+epoch: 4, iter: 161, loss: 0.3244
+epoch: 4, iter: 171, loss: 0.3406
+epoch: 4, iter: 181, loss: 0.2965
+epoch: 4, iter: 191, loss: 0.4067
+epoch: 4, iter: 201, loss: 0.3013
+epoch: 4, iter: 211, loss: 0.2423
+epoch: 4, iter: 221, loss: 0.3487
+epoch: 4, iter: 231, loss: 0.2967
+epoch: 4, iter: 241, loss: 0.3177
+epoch: 4, iter: 251, loss: 0.2954
+epoch: 4, iter: 261, loss: 0.3047
+epoch: 4, iter: 271, loss: 0.3227
+epoch: 4, iter: 281, loss: 0.3306
+epoch: 4, iter: 291, loss: 0.4983
+epoch: 4, iter: 301, loss: 0.3805
+epoch: 4, iter: 311, loss: 0.3636
+epoch: 4, iter: 321, loss: 0.3031
+epoch: 4, iter: 331, loss: 0.3477
+epoch: 4, iter: 341, loss: 0.2916
+epoch: 4, iter: 351, loss: 0.3148
+epoch: 4, iter: 361, loss: 0.3443
+epoch: 4, iter: 371, loss: 0.3362
+epoch: 4, iter: 381, loss: 0.4554
+epoch: 4, iter: 391, loss: 0.3760
+epoch: 4, iter: 401, loss: 0.2684
+epoch: 4, iter: 411, loss: 0.3780
+epoch: 4, iter: 421, loss: 0.3053
+epoch: 4, iter: 431, loss: 0.2605
+epoch: 4, iter: 441, loss: 0.2510
+Session is closed.
+log(rate)\log(Gamma)  -3.50  -3.00  -2.50  -2.00  -1.50  -1.00  -0.50   0.00   0.50   1.00   1.50   2.00   2.50   3.00
+        -3.0           0.51   0.49   0.49   0.51   0.45   0.57   0.49   0.48   0.50   0.50   0.49   0.50   0.50   0.51
+        -2.5           0.50   0.51   0.51   0.51   0.51   0.53   0.48   0.50   0.50   0.49   0.50   0.50   0.48   0.50
+        -2.0           0.49   0.49   0.47   0.47   0.46   0.45   0.49   0.49   0.50   0.51   0.50   0.49   0.50   0.49
+        -1.5           0.50   0.50   0.49   0.52   0.50   0.53   0.54   0.50   0.49   0.49   0.50   0.49   0.51   0.50
+        -1.0           0.49   0.51   0.52   0.53   0.57   0.53   0.53   0.49   0.50   0.50   0.50   0.50   0.50   0.50
+        -0.5           0.50   0.50   0.54   0.53   0.68   0.69   0.63   0.52   0.49   0.48   0.51   0.50   0.51   0.50
+         0.0           0.51   0.51   0.52   0.63   0.78   0.78   0.68   0.53   0.51   0.50   0.50   0.50   0.51   0.49
+         0.5           0.52   0.54   0.80   0.82   0.85   0.83   0.75   0.54   0.51   0.50   0.51   0.49   0.51   0.50
+         1.0           0.57   0.69   0.62   0.82   0.85   0.85   0.72   0.55   0.50   0.50   0.50   0.50   0.49   0.50
+         1.5           0.51   0.52   0.62   0.69   0.85   0.84   0.69   0.56   0.52   0.50   0.50   0.50   0.51   0.50
+         2.0           0.50   0.51   0.70   0.73   0.76   0.82   0.70   0.53   0.50   0.51   0.49   0.49   0.50   0.50
+         2.5           0.51   0.55   0.55   0.78   0.82   0.82   0.67   0.53   0.48   0.50   0.50   0.50   0.49   0.52
+best log(Gamma):  -1.5
+best log(rate):  1.5
+val_size: 5000
+lograte: [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+dataset: sine1-10
+bd: 1000
+logGamma: [-3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3. ]
+feature: Gaussian
+folds: 5
+N: 20
+n_epoch: 5
+trials: 10
+classes: [0, 1]
+loss_fn: hinge
+epoch: 0, iter: 1, loss: 0.7849
+epoch: 0, iter: 11, loss: 1.2652
+epoch: 0, iter: 21, loss: 0.9307
+epoch: 0, iter: 31, loss: 0.5627
+epoch: 0, iter: 41, loss: 0.3818
+epoch: 0, iter: 51, loss: 0.2763
+epoch: 0, iter: 61, loss: 0.3069
+epoch: 0, iter: 71, loss: 0.3001
+epoch: 0, iter: 81, loss: 0.3405
+epoch: 0, iter: 91, loss: 0.4441
+epoch: 0, iter: 101, loss: 0.2666
+epoch: 0, iter: 111, loss: 0.5716
+epoch: 0, iter: 121, loss: 0.2511
+epoch: 0, iter: 131, loss: 0.2847
+epoch: 0, iter: 141, loss: 0.2762
+epoch: 0, iter: 151, loss: 0.2600
+epoch: 0, iter: 161, loss: 0.2428
+epoch: 0, iter: 171, loss: 0.1975
+epoch: 0, iter: 181, loss: 0.2402
+epoch: 0, iter: 191, loss: 0.3050
+epoch: 0, iter: 201, loss: 0.1265
+epoch: 0, iter: 211, loss: 0.2745
+epoch: 0, iter: 221, loss: 0.2483
+epoch: 0, iter: 231, loss: 0.2211
+epoch: 0, iter: 241, loss: 0.1610
+epoch: 0, iter: 251, loss: 0.2440
+epoch: 0, iter: 261, loss: 0.2042
+epoch: 0, iter: 271, loss: 0.1835
+epoch: 0, iter: 281, loss: 0.2570
+epoch: 0, iter: 291, loss: 0.2295
+epoch: 0, iter: 301, loss: 0.1748
+epoch: 0, iter: 311, loss: 0.2227
+epoch: 0, iter: 321, loss: 0.2104
+epoch: 0, iter: 331, loss: 0.1670
+epoch: 0, iter: 341, loss: 0.2350
+epoch: 0, iter: 351, loss: 0.1986
+epoch: 0, iter: 361, loss: 0.2826
+epoch: 0, iter: 371, loss: 0.1682
+epoch: 0, iter: 381, loss: 0.1465
+epoch: 0, iter: 391, loss: 0.2470
+epoch: 0, iter: 401, loss: 0.2718
+epoch: 0, iter: 411, loss: 0.2526
+epoch: 0, iter: 421, loss: 0.2350
+epoch: 0, iter: 431, loss: 0.2779
+epoch: 0, iter: 441, loss: 0.1922
+epoch: 1, iter: 1, loss: 0.1871
+epoch: 1, iter: 11, loss: 0.2856
+epoch: 1, iter: 21, loss: 0.1931
+epoch: 1, iter: 31, loss: 0.2124
+epoch: 1, iter: 41, loss: 0.1516
+epoch: 1, iter: 51, loss: 0.2024
+epoch: 1, iter: 61, loss: 0.2244
+epoch: 1, iter: 71, loss: 0.2207
+epoch: 1, iter: 81, loss: 0.2442
+epoch: 1, iter: 91, loss: 0.2318
+epoch: 1, iter: 101, loss: 0.2031
+epoch: 1, iter: 111, loss: 0.2658
+epoch: 1, iter: 121, loss: 0.1877
+epoch: 1, iter: 131, loss: 0.2542
+epoch: 1, iter: 141, loss: 0.1945
+epoch: 1, iter: 151, loss: 0.2777
+epoch: 1, iter: 161, loss: 0.1834
+epoch: 1, iter: 171, loss: 0.1716
+epoch: 1, iter: 181, loss: 0.2186
+epoch: 1, iter: 191, loss: 0.1926
+epoch: 1, iter: 201, loss: 0.2061
+epoch: 1, iter: 211, loss: 0.1934
+epoch: 1, iter: 221, loss: 0.1680
+epoch: 1, iter: 231, loss: 0.1983
+epoch: 1, iter: 241, loss: 0.2955
+epoch: 1, iter: 251, loss: 0.1543
+epoch: 1, iter: 261, loss: 0.2422
+epoch: 1, iter: 271, loss: 0.1812
+epoch: 1, iter: 281, loss: 0.2079
+epoch: 1, iter: 291, loss: 0.1208
+epoch: 1, iter: 301, loss: 0.2113
+epoch: 1, iter: 311, loss: 0.2743
+epoch: 1, iter: 321, loss: 0.2233
+epoch: 1, iter: 331, loss: 0.1950
+epoch: 1, iter: 341, loss: 0.2048
+epoch: 1, iter: 351, loss: 0.2021
+epoch: 1, iter: 361, loss: 0.2097
+epoch: 1, iter: 371, loss: 0.2608
+epoch: 1, iter: 381, loss: 0.2515
+epoch: 1, iter: 391, loss: 0.2313
+epoch: 1, iter: 401, loss: 0.2189
+epoch: 1, iter: 411, loss: 0.1514
+epoch: 1, iter: 421, loss: 0.2330
+epoch: 1, iter: 431, loss: 0.2140
+epoch: 1, iter: 441, loss: 0.2032
+epoch: 2, iter: 1, loss: 0.2651
+epoch: 2, iter: 11, loss: 0.2335
+epoch: 2, iter: 21, loss: 0.1168
+epoch: 2, iter: 31, loss: 0.1973
+epoch: 2, iter: 41, loss: 0.2644
+epoch: 2, iter: 51, loss: 0.2185
+epoch: 2, iter: 61, loss: 0.2013
+epoch: 2, iter: 71, loss: 0.1880
+epoch: 2, iter: 81, loss: 0.2081
+epoch: 2, iter: 91, loss: 0.1851
+epoch: 2, iter: 101, loss: 0.2518
+epoch: 2, iter: 111, loss: 0.1686
+epoch: 2, iter: 121, loss: 0.2614
+epoch: 2, iter: 131, loss: 0.2704
+epoch: 2, iter: 141, loss: 0.2583
+epoch: 2, iter: 151, loss: 0.2073
+epoch: 2, iter: 161, loss: 0.2248
+epoch: 2, iter: 171, loss: 0.2518
+epoch: 2, iter: 181, loss: 0.1600
+epoch: 2, iter: 191, loss: 0.1992
+epoch: 2, iter: 201, loss: 0.2016
+epoch: 2, iter: 211, loss: 0.2575
+epoch: 2, iter: 221, loss: 0.2030
+epoch: 2, iter: 231, loss: 0.1863
+epoch: 2, iter: 241, loss: 0.1965
+epoch: 2, iter: 251, loss: 0.1980
+epoch: 2, iter: 261, loss: 0.1761
+epoch: 2, iter: 271, loss: 0.1716
+epoch: 2, iter: 281, loss: 0.1530
+epoch: 2, iter: 291, loss: 0.2546
+epoch: 2, iter: 301, loss: 0.2905
+epoch: 2, iter: 311, loss: 0.2028
+epoch: 2, iter: 321, loss: 0.2897
+epoch: 2, iter: 331, loss: 0.2450
+epoch: 2, iter: 341, loss: 0.1922
+epoch: 2, iter: 351, loss: 0.2135
+epoch: 2, iter: 361, loss: 0.1746
+epoch: 2, iter: 371, loss: 0.2568
+epoch: 2, iter: 381, loss: 0.2177
+epoch: 2, iter: 391, loss: 0.1852
+epoch: 2, iter: 401, loss: 0.2961
+epoch: 2, iter: 411, loss: 0.2408
+epoch: 2, iter: 421, loss: 0.1580
+epoch: 2, iter: 431, loss: 0.2003
+epoch: 2, iter: 441, loss: 0.2416
+epoch: 3, iter: 1, loss: 0.1527
+epoch: 3, iter: 11, loss: 0.1624
+epoch: 3, iter: 21, loss: 0.2592
+epoch: 3, iter: 31, loss: 0.2557
+epoch: 3, iter: 41, loss: 0.2453
+epoch: 3, iter: 51, loss: 0.2637
+epoch: 3, iter: 61, loss: 0.1686
+epoch: 3, iter: 71, loss: 0.1679
+epoch: 3, iter: 81, loss: 0.2151
+epoch: 3, iter: 91, loss: 0.3200
+epoch: 3, iter: 101, loss: 0.2391
+epoch: 3, iter: 111, loss: 0.1897
+epoch: 3, iter: 121, loss: 0.2044
+epoch: 3, iter: 131, loss: 0.1915
+epoch: 3, iter: 141, loss: 0.1745
+epoch: 3, iter: 151, loss: 0.1694
+epoch: 3, iter: 161, loss: 0.1934
+epoch: 3, iter: 171, loss: 0.1699
+epoch: 3, iter: 181, loss: 0.1905
+epoch: 3, iter: 191, loss: 0.0856
+epoch: 3, iter: 201, loss: 0.1817
+epoch: 3, iter: 211, loss: 0.1405
+epoch: 3, iter: 221, loss: 0.2509
+epoch: 3, iter: 231, loss: 0.2596
+epoch: 3, iter: 241, loss: 0.2303
+epoch: 3, iter: 251, loss: 0.1803
+epoch: 3, iter: 261, loss: 0.1782
+epoch: 3, iter: 271, loss: 0.1977
+epoch: 3, iter: 281, loss: 0.2684
+epoch: 3, iter: 291, loss: 0.2433
+epoch: 3, iter: 301, loss: 0.1336
+epoch: 3, iter: 311, loss: 0.1918
+epoch: 3, iter: 321, loss: 0.2502
+epoch: 3, iter: 331, loss: 0.2124
+epoch: 3, iter: 341, loss: 0.2192
+epoch: 3, iter: 351, loss: 0.1667
+epoch: 3, iter: 361, loss: 0.2799
+epoch: 3, iter: 371, loss: 0.2672
+epoch: 3, iter: 381, loss: 0.3448
+epoch: 3, iter: 391, loss: 0.2105
+epoch: 3, iter: 401, loss: 0.2192
+epoch: 3, iter: 411, loss: 0.2535
+epoch: 3, iter: 421, loss: 0.1678
+epoch: 3, iter: 431, loss: 0.2265
+epoch: 3, iter: 441, loss: 0.1618
+epoch: 4, iter: 1, loss: 0.1487
+epoch: 4, iter: 11, loss: 0.2778
+epoch: 4, iter: 21, loss: 0.1601
+epoch: 4, iter: 31, loss: 0.2919
+epoch: 4, iter: 41, loss: 0.2033
+epoch: 4, iter: 51, loss: 0.2385
+epoch: 4, iter: 61, loss: 0.2294
+epoch: 4, iter: 71, loss: 0.1604
+epoch: 4, iter: 81, loss: 0.1868
+epoch: 4, iter: 91, loss: 0.2414
+epoch: 4, iter: 101, loss: 0.2041
+epoch: 4, iter: 111, loss: 0.2854
+epoch: 4, iter: 121, loss: 0.2163
+epoch: 4, iter: 131, loss: 0.1548
+epoch: 4, iter: 141, loss: 0.1811
+epoch: 4, iter: 151, loss: 0.2243
+epoch: 4, iter: 161, loss: 0.2559
+epoch: 4, iter: 171, loss: 0.2119
+epoch: 4, iter: 181, loss: 0.1603
+epoch: 4, iter: 191, loss: 0.2067
+epoch: 4, iter: 201, loss: 0.2226
+epoch: 4, iter: 211, loss: 0.1743
+epoch: 4, iter: 221, loss: 0.1901
+epoch: 4, iter: 231, loss: 0.2433
+epoch: 4, iter: 241, loss: 0.2366
+epoch: 4, iter: 251, loss: 0.2591
+epoch: 4, iter: 261, loss: 0.2228
+epoch: 4, iter: 271, loss: 0.2249
+epoch: 4, iter: 281, loss: 0.1490
+epoch: 4, iter: 291, loss: 0.2130
+epoch: 4, iter: 301, loss: 0.2181
+epoch: 4, iter: 311, loss: 0.1794
+epoch: 4, iter: 321, loss: 0.1946
+epoch: 4, iter: 331, loss: 0.1709
+epoch: 4, iter: 341, loss: 0.2197
+epoch: 4, iter: 351, loss: 0.1971
+epoch: 4, iter: 361, loss: 0.1870
+epoch: 4, iter: 371, loss: 0.1754
+epoch: 4, iter: 381, loss: 0.1904
+epoch: 4, iter: 391, loss: 0.1843
+epoch: 4, iter: 401, loss: 0.2078
+epoch: 4, iter: 411, loss: 0.1558
+epoch: 4, iter: 421, loss: 0.1744
+epoch: 4, iter: 431, loss: 0.1704
+epoch: 4, iter: 441, loss: 0.1924
+Session is closed.
+log(rate)\log(Gamma)   0.00   0.20   0.40   0.60   0.80   1.00   1.20   1.40   1.60   1.80   2.00   2.20   2.40
+        -3.0           0.50   0.52   0.49   0.50   0.49   0.52   0.51   0.51   0.50   0.50   0.52   0.52   0.50
+        -2.5           0.49   0.51   0.51   0.50   0.49   0.48   0.53   0.52   0.46   0.49   0.51   0.50   0.49
+        -2.0           0.51   0.49   0.49   0.49   0.51   0.50   0.51   0.50   0.51   0.50   0.52   0.52   0.51
+        -1.5           0.50   0.51   0.50   0.51   0.53   0.50   0.51   0.50   0.51   0.49   0.49   0.51   0.50
+        -1.0           0.48   0.49   0.50   0.50   0.49   0.48   0.47   0.51   0.47   0.50   0.50   0.50   0.49
+        -0.5           0.52   0.50   0.46   0.48   0.50   0.55   0.48   0.51   0.54   0.50   0.51   0.53   0.50
+         0.0           0.50   0.52   0.52   0.50   0.52   0.52   0.51   0.54   0.50   0.53   0.54   0.54   0.52
+         0.5           0.52   0.51   0.52   0.51   0.51   0.53   0.53   0.53   0.53   0.54   0.55   0.53   0.53
+         1.0           0.52   0.51   0.50   0.53   0.52   0.53   0.53   0.52   0.52   0.54   0.56   0.55   0.53
+         1.5           0.50   0.52   0.55   0.53   0.53   0.56   0.55   0.55   0.58   0.57   0.58   0.57   0.60
+         2.0           0.50   0.51   0.53   0.54   0.54   0.51   0.50   0.50   0.56   0.52   0.56   0.53   0.52
+         2.5           0.50   0.51   0.52   0.51   0.51   0.53   0.54   0.50   0.55   0.50   0.52   0.56   0.51
+best log(Gamma):  2.4000000000000004
+best log(rate):  1.5
+val_size: 5000
+lograte: [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+dataset: checkboard
+bd: 1000
+logGamma: [0.  0.2 0.4 0.6 0.8 1.  1.2 1.4 1.6 1.8 2.  2.2 2.4]
+feature: ReLU
+folds: 5
+N: 20
+n_epoch: 5
+trials: 10
+classes: [0, 1]
+loss_fn: hinge
+epoch: 0, iter: 1, loss: 0.9806
+epoch: 0, iter: 11, loss: 0.9480
+epoch: 0, iter: 21, loss: 0.9644
+epoch: 0, iter: 31, loss: 0.9646
+epoch: 0, iter: 41, loss: 0.9043
+epoch: 0, iter: 51, loss: 0.8758
+epoch: 0, iter: 61, loss: 0.9169
+epoch: 0, iter: 71, loss: 0.9555
+epoch: 0, iter: 81, loss: 0.9229
+epoch: 0, iter: 91, loss: 0.9230
+epoch: 0, iter: 101, loss: 0.8265
+epoch: 0, iter: 111, loss: 0.9054
+epoch: 0, iter: 121, loss: 0.9688
+epoch: 0, iter: 131, loss: 0.8921
+epoch: 0, iter: 141, loss: 1.0204
+epoch: 0, iter: 151, loss: 0.8716
+epoch: 0, iter: 161, loss: 0.9255
+epoch: 0, iter: 171, loss: 0.8496
+epoch: 0, iter: 181, loss: 1.0828
+epoch: 0, iter: 191, loss: 0.7972
+epoch: 0, iter: 201, loss: 0.8815
+epoch: 0, iter: 211, loss: 0.9417
+epoch: 0, iter: 221, loss: 0.9733
+epoch: 0, iter: 231, loss: 0.7637
+epoch: 0, iter: 241, loss: 0.8943
+epoch: 0, iter: 251, loss: 0.8459
+epoch: 0, iter: 261, loss: 0.8370
+epoch: 0, iter: 271, loss: 0.8420
+epoch: 0, iter: 281, loss: 0.8323
+epoch: 0, iter: 291, loss: 0.8249
+epoch: 0, iter: 301, loss: 0.8255
+epoch: 0, iter: 311, loss: 0.7959
+epoch: 0, iter: 321, loss: 0.9071
+epoch: 0, iter: 331, loss: 0.7962
+epoch: 0, iter: 341, loss: 0.7785
+epoch: 0, iter: 351, loss: 0.8064
+epoch: 0, iter: 361, loss: 0.8300
+epoch: 0, iter: 371, loss: 0.7848
+epoch: 0, iter: 381, loss: 0.8463
+epoch: 0, iter: 391, loss: 0.8704
+epoch: 0, iter: 401, loss: 0.8775
+epoch: 0, iter: 411, loss: 0.7536
+epoch: 0, iter: 421, loss: 0.9531
+epoch: 0, iter: 431, loss: 0.7585
+epoch: 0, iter: 441, loss: 0.7335
+epoch: 1, iter: 1, loss: 1.0823
+epoch: 1, iter: 11, loss: 0.7591
+epoch: 1, iter: 21, loss: 0.9025
+epoch: 1, iter: 31, loss: 0.8618
+epoch: 1, iter: 41, loss: 0.8438
+epoch: 1, iter: 51, loss: 0.7927
+epoch: 1, iter: 61, loss: 0.7629
+epoch: 1, iter: 71, loss: 0.6498
+epoch: 1, iter: 81, loss: 0.7873
+epoch: 1, iter: 91, loss: 0.7918
+epoch: 1, iter: 101, loss: 0.7567
+epoch: 1, iter: 111, loss: 0.8584
+epoch: 1, iter: 121, loss: 0.7758
+epoch: 1, iter: 131, loss: 0.8470
+epoch: 1, iter: 141, loss: 0.7275
+epoch: 1, iter: 151, loss: 0.7031
+epoch: 1, iter: 161, loss: 0.7298
+epoch: 1, iter: 171, loss: 0.7194
+epoch: 1, iter: 181, loss: 0.8839
+epoch: 1, iter: 191, loss: 0.7414
+epoch: 1, iter: 201, loss: 0.8116
+epoch: 1, iter: 211, loss: 0.8192
+epoch: 1, iter: 221, loss: 0.7509
+epoch: 1, iter: 231, loss: 0.8063
+epoch: 1, iter: 241, loss: 0.6329
+epoch: 1, iter: 251, loss: 0.6912
+epoch: 1, iter: 261, loss: 0.9359
+epoch: 1, iter: 271, loss: 0.7243
+epoch: 1, iter: 281, loss: 0.6408
+epoch: 1, iter: 291, loss: 0.7499
+epoch: 1, iter: 301, loss: 0.8992
+epoch: 1, iter: 311, loss: 0.6699
+epoch: 1, iter: 321, loss: 0.8170
+epoch: 1, iter: 331, loss: 0.6644
+epoch: 1, iter: 341, loss: 0.8327
+epoch: 1, iter: 351, loss: 0.8024
+epoch: 1, iter: 361, loss: 0.6435
+epoch: 1, iter: 371, loss: 0.6859
+epoch: 1, iter: 381, loss: 0.6492
+epoch: 1, iter: 391, loss: 0.8659
+epoch: 1, iter: 401, loss: 0.9771
+epoch: 1, iter: 411, loss: 0.6410
+epoch: 1, iter: 421, loss: 0.8797
+epoch: 1, iter: 431, loss: 0.6861
+epoch: 1, iter: 441, loss: 0.8885
+epoch: 2, iter: 1, loss: 0.6951
+epoch: 2, iter: 11, loss: 0.8712
+epoch: 2, iter: 21, loss: 0.6927
+epoch: 2, iter: 31, loss: 0.8465
+epoch: 2, iter: 41, loss: 0.8680
+epoch: 2, iter: 51, loss: 0.6985
+epoch: 2, iter: 61, loss: 0.6794
+epoch: 2, iter: 71, loss: 0.8067
+epoch: 2, iter: 81, loss: 0.6424
+epoch: 2, iter: 91, loss: 0.9387
+epoch: 2, iter: 101, loss: 0.7912
+epoch: 2, iter: 111, loss: 0.6355
+epoch: 2, iter: 121, loss: 0.6295
+epoch: 2, iter: 131, loss: 0.6047
+epoch: 2, iter: 141, loss: 0.8126
+epoch: 2, iter: 151, loss: 0.6962
+epoch: 2, iter: 161, loss: 0.7728
+epoch: 2, iter: 171, loss: 0.7873
+epoch: 2, iter: 181, loss: 0.7045
+epoch: 2, iter: 191, loss: 0.7483
+epoch: 2, iter: 201, loss: 0.5901
+epoch: 2, iter: 211, loss: 0.5920
+epoch: 2, iter: 221, loss: 0.7391
+epoch: 2, iter: 231, loss: 0.5840
+epoch: 2, iter: 241, loss: 0.7029
+epoch: 2, iter: 251, loss: 0.6098
+epoch: 2, iter: 261, loss: 0.8429
+epoch: 2, iter: 271, loss: 0.6319
+epoch: 2, iter: 281, loss: 0.7156
+epoch: 2, iter: 291, loss: 0.7310
+epoch: 2, iter: 301, loss: 0.8594
+epoch: 2, iter: 311, loss: 0.7560
+epoch: 2, iter: 321, loss: 0.6415
+epoch: 2, iter: 331, loss: 0.6350
+epoch: 2, iter: 341, loss: 0.8351
+epoch: 2, iter: 351, loss: 0.8004
+epoch: 2, iter: 361, loss: 0.6981
+epoch: 2, iter: 371, loss: 0.6897
+epoch: 2, iter: 381, loss: 0.5838
+epoch: 2, iter: 391, loss: 0.5696
+epoch: 2, iter: 401, loss: 0.6469
+epoch: 2, iter: 411, loss: 0.7067
+epoch: 2, iter: 421, loss: 0.5902
+epoch: 2, iter: 431, loss: 0.6249
+epoch: 2, iter: 441, loss: 0.6011
+epoch: 3, iter: 1, loss: 0.5500
+epoch: 3, iter: 11, loss: 0.7114
+epoch: 3, iter: 21, loss: 0.7883
+epoch: 3, iter: 31, loss: 0.7553
+epoch: 3, iter: 41, loss: 0.7346
+epoch: 3, iter: 51, loss: 0.6255
+epoch: 3, iter: 61, loss: 0.6797
+epoch: 3, iter: 71, loss: 0.6813
+epoch: 3, iter: 81, loss: 0.7316
+epoch: 3, iter: 91, loss: 0.5798
+epoch: 3, iter: 101, loss: 0.5719
+epoch: 3, iter: 111, loss: 0.7208
+epoch: 3, iter: 121, loss: 0.7993
+epoch: 3, iter: 131, loss: 0.5485
+epoch: 3, iter: 141, loss: 0.8727
+epoch: 3, iter: 151, loss: 0.7861
+epoch: 3, iter: 161, loss: 0.7697
+epoch: 3, iter: 171, loss: 0.7485
+epoch: 3, iter: 181, loss: 0.6291
+epoch: 3, iter: 191, loss: 0.6796
+epoch: 3, iter: 201, loss: 0.5770
+epoch: 3, iter: 211, loss: 0.6401
+epoch: 3, iter: 221, loss: 0.5913
+epoch: 3, iter: 231, loss: 0.6168
+epoch: 3, iter: 241, loss: 0.5420
+epoch: 3, iter: 251, loss: 0.6409
+epoch: 3, iter: 261, loss: 0.6349
+epoch: 3, iter: 271, loss: 0.6083
+epoch: 3, iter: 281, loss: 0.6361
+epoch: 3, iter: 291, loss: 0.5606
+epoch: 3, iter: 301, loss: 0.8210
+epoch: 3, iter: 311, loss: 0.5698
+epoch: 3, iter: 321, loss: 0.6957
+epoch: 3, iter: 331, loss: 0.9001
+epoch: 3, iter: 341, loss: 0.6512
+epoch: 3, iter: 351, loss: 0.6610
+epoch: 3, iter: 361, loss: 0.5050
+epoch: 3, iter: 371, loss: 0.7410
+epoch: 3, iter: 381, loss: 0.5531
+epoch: 3, iter: 391, loss: 0.6914
+epoch: 3, iter: 401, loss: 0.6557
+epoch: 3, iter: 411, loss: 0.6606
+epoch: 3, iter: 421, loss: 0.6989
+epoch: 3, iter: 431, loss: 0.7541
+epoch: 3, iter: 441, loss: 0.7345
+epoch: 4, iter: 1, loss: 0.4681
+epoch: 4, iter: 11, loss: 0.7772
+epoch: 4, iter: 21, loss: 0.7376
+epoch: 4, iter: 31, loss: 0.8655
+epoch: 4, iter: 41, loss: 0.6003
+epoch: 4, iter: 51, loss: 0.5551
+epoch: 4, iter: 61, loss: 0.8536
+epoch: 4, iter: 71, loss: 0.7471
+epoch: 4, iter: 81, loss: 0.6696
+epoch: 4, iter: 91, loss: 0.6761
+epoch: 4, iter: 101, loss: 0.5659
+epoch: 4, iter: 111, loss: 0.5941
+epoch: 4, iter: 121, loss: 0.6436
+epoch: 4, iter: 131, loss: 0.5847
+epoch: 4, iter: 141, loss: 0.6289
+epoch: 4, iter: 151, loss: 0.5176
+epoch: 4, iter: 161, loss: 0.5694
+epoch: 4, iter: 171, loss: 0.5900
+epoch: 4, iter: 181, loss: 0.7485
+epoch: 4, iter: 191, loss: 0.6753
+epoch: 4, iter: 201, loss: 0.5557
+epoch: 4, iter: 211, loss: 0.5627
+epoch: 4, iter: 221, loss: 0.5501
+epoch: 4, iter: 231, loss: 0.8299
+epoch: 4, iter: 241, loss: 0.6654
+epoch: 4, iter: 251, loss: 0.9517
+epoch: 4, iter: 261, loss: 0.7471
+epoch: 4, iter: 271, loss: 0.6854
+epoch: 4, iter: 281, loss: 0.6063
+epoch: 4, iter: 291, loss: 0.5342
+epoch: 4, iter: 301, loss: 0.4301
+epoch: 4, iter: 311, loss: 0.6942
+epoch: 4, iter: 321, loss: 0.8055
+epoch: 4, iter: 331, loss: 0.6636
+epoch: 4, iter: 341, loss: 0.5923
+epoch: 4, iter: 351, loss: 0.6332
+epoch: 4, iter: 361, loss: 0.5909
+epoch: 4, iter: 371, loss: 0.5208
+epoch: 4, iter: 381, loss: 0.5575
+epoch: 4, iter: 391, loss: 0.9239
+epoch: 4, iter: 401, loss: 0.5982
+epoch: 4, iter: 411, loss: 0.6960
+epoch: 4, iter: 421, loss: 0.6564
+epoch: 4, iter: 431, loss: 0.5853
+epoch: 4, iter: 441, loss: 0.7425
+Session is closed.
+log(rate)\log(Gamma)   0.00   0.20   0.40   0.60   0.80   1.00   1.20   1.40   1.60   1.80   2.00   2.20   2.40
+        -3.0           0.53   0.49   0.48   0.50   0.48   0.49   0.49   0.52   0.48   0.51   0.49   0.49   0.52
+        -2.5           0.49   0.49   0.52   0.49   0.51   0.49   0.48   0.49   0.47   0.49   0.52   0.52   0.51
+        -2.0           0.51   0.50   0.49   0.48   0.52   0.53   0.48   0.48   0.51   0.52   0.50   0.49   0.49
+        -1.5           0.48   0.49   0.52   0.50   0.48   0.51   0.52   0.53   0.53   0.51   0.54   0.49   0.52
+        -1.0           0.49   0.53   0.52   0.53   0.56   0.55   0.53   0.50   0.53   0.53   0.51   0.52   0.49
+        -0.5           0.55   0.53   0.51   0.60   0.60   0.59   0.58   0.56   0.53   0.53   0.55   0.56   0.51
+         0.0           0.55   0.58   0.57   0.67   0.64   0.65   0.74   0.67   0.57   0.58   0.56   0.55   0.52
+         0.5           0.58   0.57   0.63   0.70   0.71   0.74   0.69   0.65   0.67   0.64   0.60   0.55   0.53
+         1.0           0.57   0.59   0.66   0.68   0.70   0.68   0.68   0.70   0.67   0.71   0.62   0.57   0.59
+         1.5           0.56   0.61   0.63   0.69   0.70   0.75   0.69   0.68   0.70   0.61   0.64   0.55   0.54
+         2.0           0.56   0.58   0.57   0.60   0.64   0.72   0.68   0.67   0.60   0.60   0.60   0.56   0.52
+         2.5           0.54   0.57   0.59   0.63   0.69   0.63   0.62   0.59   0.58   0.53   0.52   0.54   0.50
+best log(Gamma):  1.0
+best log(rate):  1.5
+val_size: 5000
+lograte: [-3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5  2.   2.5]
+dataset: checkboard
+bd: 1000
+logGamma: [0.  0.2 0.4 0.6 0.8 1.  1.2 1.4 1.6 1.8 2.  2.2 2.4]
+feature: Gaussian
+folds: 5
+N: 20
+n_epoch: 5
+trials: 10
+classes: [0, 1]
+loss_fn: hinge
+epoch: 0, iter: 1, loss: 0.8395
+epoch: 0, iter: 11, loss: 0.7431
+epoch: 0, iter: 21, loss: 0.6793
+epoch: 0, iter: 31, loss: 0.7043
+epoch: 0, iter: 41, loss: 0.7001
+epoch: 0, iter: 51, loss: 0.6059
+epoch: 0, iter: 61, loss: 0.6111
+epoch: 0, iter: 71, loss: 0.7229
+epoch: 0, iter: 81, loss: 0.6986
+epoch: 0, iter: 91, loss: 0.6257
+epoch: 0, iter: 101, loss: 0.6263
+epoch: 0, iter: 111, loss: 0.7100
+epoch: 0, iter: 121, loss: 0.7824
+epoch: 0, iter: 131, loss: 0.6168
+epoch: 0, iter: 141, loss: 0.7313
+epoch: 0, iter: 151, loss: 0.6471
+epoch: 0, iter: 161, loss: 0.7615
+epoch: 0, iter: 171, loss: 0.7739
+epoch: 0, iter: 181, loss: 0.7603
+epoch: 0, iter: 191, loss: 0.7302
+epoch: 0, iter: 201, loss: 0.7193
+epoch: 0, iter: 211, loss: 0.7219
+epoch: 0, iter: 221, loss: 0.8271
+epoch: 0, iter: 231, loss: 0.6317
+epoch: 0, iter: 241, loss: 0.6417
+epoch: 0, iter: 251, loss: 0.7312
+epoch: 0, iter: 261, loss: 0.6714
+epoch: 0, iter: 271, loss: 0.7136
+epoch: 0, iter: 281, loss: 0.7088
+epoch: 0, iter: 291, loss: 0.6380
+epoch: 0, iter: 301, loss: 0.6695
+epoch: 0, iter: 311, loss: 0.5731
+epoch: 0, iter: 321, loss: 0.7282
+epoch: 0, iter: 331, loss: 0.6633
+epoch: 0, iter: 341, loss: 0.6761
+epoch: 0, iter: 351, loss: 0.7771
+epoch: 0, iter: 361, loss: 0.6518
+epoch: 0, iter: 371, loss: 0.6831
+epoch: 0, iter: 381, loss: 0.6835
+epoch: 0, iter: 391, loss: 0.7998
+epoch: 0, iter: 401, loss: 0.6406
+epoch: 0, iter: 411, loss: 0.6362
+epoch: 0, iter: 421, loss: 0.6572
+epoch: 0, iter: 431, loss: 0.6978
+epoch: 0, iter: 441, loss: 0.6604
+epoch: 1, iter: 1, loss: 0.5950
+epoch: 1, iter: 11, loss: 0.8402
+epoch: 1, iter: 21, loss: 0.6373
+epoch: 1, iter: 31, loss: 0.7185
+epoch: 1, iter: 41, loss: 0.6296
+epoch: 1, iter: 51, loss: 0.7064
+epoch: 1, iter: 61, loss: 0.6660
+epoch: 1, iter: 71, loss: 0.7713
+epoch: 1, iter: 81, loss: 0.7699
+epoch: 1, iter: 91, loss: 0.6875
+epoch: 1, iter: 101, loss: 0.6815
+epoch: 1, iter: 111, loss: 0.8439
+epoch: 1, iter: 121, loss: 0.6353
+epoch: 1, iter: 131, loss: 0.7764
+epoch: 1, iter: 141, loss: 0.7167
+epoch: 1, iter: 151, loss: 0.7592
+epoch: 1, iter: 161, loss: 0.6918
+epoch: 1, iter: 171, loss: 0.7336
+epoch: 1, iter: 181, loss: 0.7588
+epoch: 1, iter: 191, loss: 0.6689
+epoch: 1, iter: 201, loss: 0.7231
+epoch: 1, iter: 211, loss: 0.7559
+epoch: 1, iter: 221, loss: 0.6921
+epoch: 1, iter: 231, loss: 0.6933
+epoch: 1, iter: 241, loss: 0.7058
+epoch: 1, iter: 251, loss: 0.6666
+epoch: 1, iter: 261, loss: 0.8268
+epoch: 1, iter: 271, loss: 0.6245
+epoch: 1, iter: 281, loss: 0.7159
+epoch: 1, iter: 291, loss: 0.6215
+epoch: 1, iter: 301, loss: 0.7524
+epoch: 1, iter: 311, loss: 0.6312
+epoch: 1, iter: 321, loss: 0.7489
+epoch: 1, iter: 331, loss: 0.7565
+epoch: 1, iter: 341, loss: 0.7553/home/syitong/sparse-rff/pycode/result_show.py:4: UserWarning: 
+This call to matplotlib.use() has no effect because the backend has already
+been chosen; matplotlib.use() must be called *before* pylab, matplotlib.pyplot,
+or matplotlib.backends is imported for the first time.
+
+The backend was *originally* set to 'Qt5Agg' by the following code:
+  File "experiments.py", line 3, in <module>
+    import libnn
+  File "/home/syitong/sparse-rff/pycode/libnn.py", line 2, in <module>
+    import matplotlib.pyplot as plt
+  File "/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/matplotlib/pyplot.py", line 71, in <module>
+    from matplotlib.backends import pylab_setup
+  File "/sw/lsa/centos7/python-anaconda3/created-20170421/lib/python3.5/site-packages/matplotlib/backends/__init__.py", line 16, in <module>
+    line for line in traceback.format_stack()
+
+
+  mpl.use('Agg')
+
+epoch: 1, iter: 351, loss: 0.7464
+epoch: 1, iter: 361, loss: 0.6690
+epoch: 1, iter: 371, loss: 0.6522
+epoch: 1, iter: 381, loss: 0.7857
+epoch: 1, iter: 391, loss: 0.7590
+epoch: 1, iter: 401, loss: 0.7583
+epoch: 1, iter: 411, loss: 0.6667
+epoch: 1, iter: 421, loss: 0.8149
+epoch: 1, iter: 431, loss: 0.6631
+epoch: 1, iter: 441, loss: 0.8228
+epoch: 2, iter: 1, loss: 0.6064
+epoch: 2, iter: 11, loss: 0.7381
+epoch: 2, iter: 21, loss: 0.7372
+epoch: 2, iter: 31, loss: 0.6902
+epoch: 2, iter: 41, loss: 0.7248
+epoch: 2, iter: 51, loss: 0.7167
+epoch: 2, iter: 61, loss: 0.6705
+epoch: 2, iter: 71, loss: 0.7256
+epoch: 2, iter: 81, loss: 0.7135
+epoch: 2, iter: 91, loss: 0.4995
+epoch: 2, iter: 101, loss: 0.6618
+epoch: 2, iter: 111, loss: 0.7044
+epoch: 2, iter: 121, loss: 0.7626
+epoch: 2, iter: 131, loss: 0.6935
+epoch: 2, iter: 141, loss: 0.7428
+epoch: 2, iter: 151, loss: 0.7441
+epoch: 2, iter: 161, loss: 0.7323
+epoch: 2, iter: 171, loss: 0.6848
+epoch: 2, iter: 181, loss: 0.6597
+epoch: 2, iter: 191, loss: 0.7420
+epoch: 2, iter: 201, loss: 0.6948
+epoch: 2, iter: 211, loss: 0.7865
+epoch: 2, iter: 221, loss: 0.8049
+epoch: 2, iter: 231, loss: 0.6655
+epoch: 2, iter: 241, loss: 0.5655
+epoch: 2, iter: 251, loss: 0.6904
+epoch: 2, iter: 261, loss: 0.6587
+epoch: 2, iter: 271, loss: 0.8743
+epoch: 2, iter: 281, loss: 0.7944
+epoch: 2, iter: 291, loss: 0.6895
+epoch: 2, iter: 301, loss: 0.6592
+epoch: 2, iter: 311, loss: 0.7026
+epoch: 2, iter: 321, loss: 0.7754
+epoch: 2, iter: 331, loss: 0.5455
+epoch: 2, iter: 341, loss: 0.7755
+epoch: 2, iter: 351, loss: 0.7640
+epoch: 2, iter: 361, loss: 0.6774
+epoch: 2, iter: 371, loss: 0.6971
+epoch: 2, iter: 381, loss: 0.7267
+epoch: 2, iter: 391, loss: 0.7005
+epoch: 2, iter: 401, loss: 0.6991
+epoch: 2, iter: 411, loss: 0.7597
+epoch: 2, iter: 421, loss: 0.6205
+epoch: 2, iter: 431, loss: 0.6566
+epoch: 2, iter: 441, loss: 0.7452
+epoch: 3, iter: 1, loss: 0.7380
+epoch: 3, iter: 11, loss: 0.6646
+epoch: 3, iter: 21, loss: 0.8306
+epoch: 3, iter: 31, loss: 0.6643
+epoch: 3, iter: 41, loss: 0.7148
+epoch: 3, iter: 51, loss: 0.6241
+epoch: 3, iter: 61, loss: 0.5868
+epoch: 3, iter: 71, loss: 0.7014
+epoch: 3, iter: 81, loss: 0.6596
+epoch: 3, iter: 91, loss: 0.8195
+epoch: 3, iter: 101, loss: 0.7711
+epoch: 3, iter: 111, loss: 0.6747
+epoch: 3, iter: 121, loss: 0.7184
+epoch: 3, iter: 131, loss: 0.7441
+epoch: 3, iter: 141, loss: 0.7558
+epoch: 3, iter: 151, loss: 0.6667
+epoch: 3, iter: 161, loss: 0.6774
+epoch: 3, iter: 171, loss: 0.6784
+epoch: 3, iter: 181, loss: 0.6548
+epoch: 3, iter: 191, loss: 0.6077
+epoch: 3, iter: 201, loss: 0.6976
+epoch: 3, iter: 211, loss: 0.6281
+epoch: 3, iter: 221, loss: 0.6732
+epoch: 3, iter: 231, loss: 0.7346
+epoch: 3, iter: 241, loss: 0.6944
+epoch: 3, iter: 251, loss: 0.7322
+epoch: 3, iter: 261, loss: 0.8136
+epoch: 3, iter: 271, loss: 0.6844
+epoch: 3, iter: 281, loss: 0.7044
+epoch: 3, iter: 291, loss: 0.6755
+epoch: 3, iter: 301, loss: 0.6475
+epoch: 3, iter: 311, loss: 0.8039
+epoch: 3, iter: 321, loss: 0.7067
+epoch: 3, iter: 331, loss: 0.6642
+epoch: 3, iter: 341, loss: 0.7000
+epoch: 3, iter: 351, loss: 0.7413
+epoch: 3, iter: 361, loss: 0.6957
+epoch: 3, iter: 371, loss: 0.7098
+epoch: 3, iter: 381, loss: 0.7277
+epoch: 3, iter: 391, loss: 0.8025
+epoch: 3, iter: 401, loss: 0.6778
+epoch: 3, iter: 411, loss: 0.6221
+epoch: 3, iter: 421, loss: 0.7713
+epoch: 3, iter: 431, loss: 0.7471
+epoch: 3, iter: 441, loss: 0.6734
+epoch: 4, iter: 1, loss: 0.6611
+epoch: 4, iter: 11, loss: 0.6343
+epoch: 4, iter: 21, loss: 0.7514
+epoch: 4, iter: 31, loss: 0.8533
+epoch: 4, iter: 41, loss: 0.6136
+epoch: 4, iter: 51, loss: 0.6909
+epoch: 4, iter: 61, loss: 0.6701
+epoch: 4, iter: 71, loss: 0.7896
+epoch: 4, iter: 81, loss: 0.6638
+epoch: 4, iter: 91, loss: 0.8561
+epoch: 4, iter: 101, loss: 0.7097
+epoch: 4, iter: 111, loss: 0.6825
+epoch: 4, iter: 121, loss: 0.7383
+epoch: 4, iter: 131, loss: 0.6940
+epoch: 4, iter: 141, loss: 0.8003
+epoch: 4, iter: 151, loss: 0.6849
+epoch: 4, iter: 161, loss: 0.6894
+epoch: 4, iter: 171, loss: 0.7116
+epoch: 4, iter: 181, loss: 0.7816
+epoch: 4, iter: 191, loss: 0.7659
+epoch: 4, iter: 201, loss: 0.7525
+epoch: 4, iter: 211, loss: 0.7501
+epoch: 4, iter: 221, loss: 0.7220
+epoch: 4, iter: 231, loss: 0.6846
+epoch: 4, iter: 241, loss: 0.6684
+epoch: 4, iter: 251, loss: 0.6042
+epoch: 4, iter: 261, loss: 0.7476
+epoch: 4, iter: 271, loss: 0.6268
+epoch: 4, iter: 281, loss: 0.7803
+epoch: 4, iter: 291, loss: 0.6583
+epoch: 4, iter: 301, loss: 0.7783
+epoch: 4, iter: 311, loss: 0.6995
+epoch: 4, iter: 321, loss: 0.7208
+epoch: 4, iter: 331, loss: 0.6546
+epoch: 4, iter: 341, loss: 0.7836
+epoch: 4, iter: 351, loss: 0.6564
+epoch: 4, iter: 361, loss: 0.7305
+epoch: 4, iter: 371, loss: 0.6683
+epoch: 4, iter: 381, loss: 0.8190
+epoch: 4, iter: 391, loss: 0.6566
+epoch: 4, iter: 401, loss: 0.6964
+epoch: 4, iter: 411, loss: 0.7249
+epoch: 4, iter: 421, loss: 0.6736
+epoch: 4, iter: 431, loss: 0.6585
+epoch: 4, iter: 441, loss: 0.6681
+Session is closed.

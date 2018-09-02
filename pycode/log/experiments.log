@@ -1020,3 +1020,55 @@ opt_rate = 31.622776601683793
 n_epoch = 5
 bd = 1000
 
+train and test
+2018-09-02 09:54:05.818033
+dataset = sine1-10
+n_new_features = 20
+classes = [0, 1]
+loss_fn = hinge
+feature = ReLU
+n_old_features = 10
+Gamma = 31.622776601683793
+n_epoch = 5
+bd = 1000
+opt_rate = 3.1622776601683795
+
+train and test
+2018-09-02 09:54:34.891815
+dataset = sine1-10
+n_new_features = 20
+classes = [0, 1]
+loss_fn = hinge
+feature = Gaussian
+n_old_features = 10
+Gamma = 0.03162277660168379
+n_epoch = 5
+bd = 1000
+opt_rate = 31.622776601683793
+
+train and test
+2018-09-02 09:54:36.961219
+dataset = checkboard
+n_new_features = 20
+classes = [0, 1]
+loss_fn = hinge
+feature = ReLU
+n_old_features = 2
+Gamma = 251.18864315095823
+n_epoch = 5
+bd = 1000
+opt_rate = 31.622776601683793
+
+train and test
+2018-09-02 09:54:38.722023
+dataset = checkboard
+n_new_features = 20
+classes = [0, 1]
+loss_fn = hinge
+feature = Gaussian
+n_old_features = 2
+Gamma = 10.0
+n_epoch = 5
+bd = 1000
+opt_rate = 31.622776601683793
+
