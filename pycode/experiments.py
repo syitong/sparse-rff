@@ -31,6 +31,8 @@ def _unpickle(file):
 def read_data(dataset):
     if dataset == 'mnist':
         Xtr,Ytr,Xts,Yts = get_train_test_data()
+    if dataset == 'fmnist':
+        Xtr,Ytr,Xts,Yts = get_train_test_data(prefix='f-')
     elif dataset == 'cifar':
         X = []
         Y = []
@@ -316,7 +318,5 @@ def screen_params(params):
 #     plt.show()
 
 if __name__ == '__main__':
-    train_and_test('sine1-10','ReLU')
-    train_and_test('sine1-10','Gaussian')
-    train_and_test('checkboard','ReLU')
-    train_and_test('checkboard','Gaussian')
+    params = read_params()
+    screen_params(params)

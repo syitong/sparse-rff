@@ -77,12 +77,12 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
-def get_train_test_data(train_size=-1,test_size=-1):
+def get_train_test_data(prefix='',train_size=-1,test_size=-1):
     # read in MNIST data set
-    Xtrain = read_MNIST_data('data/train-images.idx3-ubyte',train_size)
-    Ytrain = read_MNIST_data('data/train-labels.idx1-ubyte',train_size)
-    Xtest = read_MNIST_data('data/t10k-images.idx3-ubyte',test_size)
-    Ytest = read_MNIST_data('data/t10k-labels.idx1-ubyte',test_size)
+    Xtrain = read_MNIST_data('data/'+prefix+'train-images.idx3-ubyte',train_size)
+    Ytrain = read_MNIST_data('data/'+prefix+'train-labels.idx1-ubyte',train_size)
+    Xtest = read_MNIST_data('data/'+prefix+'t10k-images.idx3-ubyte',test_size)
+    Ytest = read_MNIST_data('data/'+prefix+'t10k-labels.idx1-ubyte',test_size)
     scaler = StandardScaler().fit(Xtrain)
     Xtrain = scaler.transform(Xtrain)
     Xtest = scaler.transform(Xtest)
