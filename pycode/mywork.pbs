@@ -7,10 +7,10 @@
 #PBS -m abe
 
 # Change the number of cores (ppn=1), amount of memory, and walltime:
-#PBS -l procs=2,mem=16gb,walltime=06:00:00
+#PBS -l procs=1,mem=16gb,walltime=06:00:00
 #PBS -j oe
 #PBS -V
-#PBS -t 0-11
+#PBS -t 0-9
 
 # Change "example_flux" to the name of your Flux allocation:
 #PBS -A tewaria_fluxm
