@@ -1,0 +1,1 @@
+[{'accuracy': 0.8587, 'testtime': 2.5776718169999953, 'traintime': 70.96324134700001, 'sparsity': 1.0}, 'fmnist', {'loss_fn': 'log', 'Gamma': 0.0031622776601683794, 'n_old_features': 784, 'n_new_features': 2000, 'classes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'feature': 'Gaussian'}, {'n_epoch': 5, 'opt_rate': 100.0, 'bd': 100000}]

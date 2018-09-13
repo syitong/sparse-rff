@@ -1117,3 +1117,29 @@ logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
 loss_fn = log
 N = 2000
 
+train and test
+2018-09-12 23:27:48.562282
+dataset = fmnist
+feature = Gaussian
+loss_fn = log
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+n_new_features = 2000
+Gamma = 0.0031622776601683794
+n_old_features = 784
+opt_rate = 100.0
+bd = 100000
+n_epoch = 5
+
+train and test
+2018-09-12 23:29:35.471194
+dataset = fmnist
+feature = ReLU
+loss_fn = log
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+n_new_features = 2000
+Gamma = 10.0
+n_old_features = 784
+opt_rate = 100.0
+bd = 100000
+n_epoch = 5
+
