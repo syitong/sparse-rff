@@ -76,5 +76,5 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    print_params('fmnist','Gaussian')
-    print_params('fmnist','ReLU')
+    print_test_results('fmnist','Gaussian')
+    print_test_results('fmnist','ReLU')
