@@ -1,6 +1,6 @@
 {
     'dataset': 'cifar',
-    'N': 2000,
+    'N': 5000,
     'bd': 100000,
     'n_epoch': 5,
     'classes': list(range(10)),
