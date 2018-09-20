@@ -79,5 +79,7 @@ def train_and_test_alloc(dataset,feature,trials):
         fw.write(str(finalop))
 
 if __name__ == '__main__':
-    train_and_test_alloc('fmnist','Gaussian',10)
-    train_and_test_alloc('fmnist','ReLU',10)
+    params = read_params()
+    screen_params_alloc(params)
+    # train_and_test_alloc('fmnist','Gaussian',10)
+    # train_and_test_alloc('fmnist','ReLU',10)
