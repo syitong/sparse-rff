@@ -137,6 +137,24 @@ def binary_covtype():
     Ytil = (Ytr == 2)
     np.save(DATA_PATH+'covtype-test-binary-label',Ytil)
 
+def proc_cifar():
+    # generate grayscale images from cifar dataset
+    from experiments import _read_cifar
+    Xtr1 = []
+    Xts1 = []
+    Xtr,Ytr,Xts,Yts = _read_cifar(5)
+    graycoef = np.array([0.299, 0.587, 0.114])
+    for row in Xtr:
+        img = graycoef.dot(row.reshape((3,-1)))
+        Xtr1.append(img)
+    for row in Xts:
+        img = graycoef.dot(row.reshape((3,-1)))
+        Xts1.append(img)
+    np.save(DATA_PATH+'cifar-train-data',np.array(Xtr1))
+    np.save(DATA_PATH+'cifar-test-data',np.array(Xts1))
+    np.save(DATA_PATH+'cifar-train-label',np.array(Ytr))
+    np.save(DATA_PATH+'cifar-test-label',np.array(Yts))
+
 # def proc_kddcup():
 #     data = []
 #     labels = []
@@ -192,5 +210,5 @@ def binary_covtype():
 if __name__ == '__main__':
     # proc_adult()
     # proc_covtype()
-    binary_covtype()
-    # proc_kddcup()
+    # binary_covtype()
+    proc_cifar()

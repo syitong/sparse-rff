@@ -22,6 +22,19 @@ def _read_data(filename):
     data = np.load(DATA_PATH + filename)
     return data
 
+def _read_cifar(n=1):
+    X = []
+    Y = []
+    for idx in range(n): # set to 5 for the complete data set
+        X.append(_unpickle('data/cifar-10/data_batch_'+str(idx+1))[b'data'])
+        Y.append(_unpickle('data/cifar-10/data_batch_'+str(idx+1))[b'labels'])
+    Xtr = np.concatenate(X,axis=0)
+    Ytr = np.concatenate(Y,axis=0)
+    Xts = _unpickle('data/cifar-10/test_batch')[b'data']
+    Yts = _unpickle('data/cifar-10/test_batch')[b'labels']
+    return Xtr,Ytr,Xts,Yts
+
+
 def _unpickle(file):
     import pickle
     with open(file, 'rb') as fo:
@@ -31,18 +44,10 @@ def _unpickle(file):
 def read_data(dataset):
     if dataset == 'mnist':
         Xtr,Ytr,Xts,Yts = get_train_test_data()
-    if dataset == 'fmnist':
+    elif dataset == 'fmnist':
         Xtr,Ytr,Xts,Yts = get_train_test_data(prefix='f-')
-    elif dataset == 'cifar':
-        X = []
-        Y = []
-        for idx in range(1): # set to 5 for the complete data set
-            X.append(unpickle('data/cifar-10/data_batch_'+idx)[b'data'])
-            Y.append(unpickle('data/cifar-10/data_batch_'+idx)[b'labels'])
-        Xtr = np.concatenate(X,axis=0)
-        Ytr = np.concatenate(Y,axis=0)
-        Xts = unpickle('data/cifar-10/test_batch')[b'data']
-        Yts = unpickle('data/cifar-10/test_batch')[b'labels']
+    # elif dataset == 'cifar':
+    #     Xtr,Ytr,Xts,Yts = _read_cifar(5)
     else:
         Xtr = _read_data(dataset+'-train-data.npy')
         Ytr = _read_data(dataset+'-train-label.npy')
