@@ -5,7 +5,7 @@
     'n_epoch': 5,
     'classes': list(range(10)),
     'loss_fn': 'log',
-    'feature': 'ReLU',
+    'feature': 'Gaussian',
     'logGamma': np.arange(-4.,2,0.5),
     'lograte': np.arange(-1.,5,0.5),
     'val_size': 30000,
