@@ -1173,3 +1173,18 @@ trials = 10
 logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
 dataset = cifar
 
+screen params
+2018-09-20 12:00:50.382783
+logGamma = [-4.  -3.5 -3.  -2.5 -2.  -1.5 -1.  -0.5  0.   0.5  1.   1.5]
+loss_fn = log
+val_size = 30000
+bd = 100000
+dataset = cifar
+feature = ReLU
+folds = 5
+n_epoch = 5
+trials = 10
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+lograte = [-1.  -0.5  0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5]
+N = 5000
+
