@@ -1,0 +1,1 @@
+[{'testtime': 8.928837498000007, 'traintime': 195.531658233, 'sparsity': 1.0, 'accuracy': 0.3894}, 'cifar', {'n_new_features': 5000, 'loss_fn': 'log', 'Gamma': 0.0031622776601683794, 'n_old_features': 1024, 'feature': 'Gaussian', 'classes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}, {'n_epoch': 5, 'opt_rate': 100.0, 'bd': 100000}]

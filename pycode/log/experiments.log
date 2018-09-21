@@ -1203,3 +1203,29 @@ N = 5000
 dataset = cifar
 loss_fn = log
 
+train and test
+2018-09-20 19:44:35.221439
+dataset = cifar
+n_new_features = 5000
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+loss_fn = log
+feature = Gaussian
+Gamma = 0.0031622776601683794
+n_old_features = 1024
+n_epoch = 5
+bd = 100000
+opt_rate = 100.0
+
+train and test
+2018-09-20 19:48:06.245394
+dataset = cifar
+n_new_features = 5000
+classes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+loss_fn = log
+feature = ReLU
+Gamma = 0.01
+n_old_features = 1024
+n_epoch = 5
+bd = 100000
+opt_rate = 31.622776601683793
+

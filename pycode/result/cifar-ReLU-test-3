@@ -1,0 +1,1 @@
+[{'accuracy': 0.3831, 'sparsity': 0.4992020599999998, 'traintime': 177.323667973, 'testtime': 7.849585837999996}, 'cifar', {'classes': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 'n_new_features': 5000, 'loss_fn': 'log', 'n_old_features': 1024, 'Gamma': 0.01, 'feature': 'ReLU'}, {'bd': 100000, 'opt_rate': 31.622776601683793, 'n_epoch': 5}]
