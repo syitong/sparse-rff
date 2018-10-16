@@ -54,8 +54,8 @@ def _extract_xy(dataset,feature):
         result,params = eval(f.read())
     result_trim = [row[1:] for row in result[1:]]
     result_trim = np.array(result_trim)
-    y = np.max(result_trim[:,:-1],axis=0)
-    x = result[0][1:-1]
+    y = np.max(result_trim[:,:],axis=0)
+    x = result[0][1:]
     return x,y
 
 def plot_params(dataset):
@@ -120,4 +120,4 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    plot_params('mnist')
+    print_params('mnist','Gaussian')
