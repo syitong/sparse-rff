@@ -143,6 +143,8 @@ def plot_data(dataset,samplesize=500,size=4):
     return 1
 
 if __name__ == '__main__':
-    # check_board(samplesize=100000)
-    sine(100000,1,10)
+    check_board(samplesize=100000)
+    sine(100000,1)
+    square(100000)
+    strips(100000)
     # plot_data('sine1')
