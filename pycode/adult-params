@@ -6,7 +6,7 @@
     'classes': [0,1],
     'loss_fn': 'hinge',
     'feature': 'Gaussian',
-    'logGamma': np.arange(-7.,-4,0.5), # np.arange(1.,3,0.5)
+    'logGamma': np.arange(-7.,-2,0.5), 
     'lograte': np.arange(-1.,5,0.5),
     'val_size': 30000,
     'folds': 5,

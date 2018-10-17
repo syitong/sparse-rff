@@ -120,4 +120,4 @@ def print_test_results(dataset,feature):
     _dict_print(fit_params)
 
 if __name__ == '__main__':
-    print_params('mnist','Gaussian')
+    print_params('strips','Gaussian')
