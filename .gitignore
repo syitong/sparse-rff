@@ -1,5 +1,6 @@
 *.pyc
 *.swp
+*.pbs
 pycode/data/
 pycode/__pycache__/
 pycode/tmp/
